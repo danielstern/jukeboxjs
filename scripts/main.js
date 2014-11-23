@@ -240,26 +240,51 @@ var Jukebox = {
     var drums = this;
 
     var oscillators = [];
-    var osc = new Jukebox._oscillator({wave:"TRIANGLE"});
-    var osc2 = new Jukebox._oscillator({wave:"SQUARE"});
-    oscillators.push(osc);
-    oscillators.push(osc2);
+    var triangle = new Jukebox._oscillator({wave:"TRIANGLE"});
+    var square = new Jukebox._oscillator({wave:"SQUARE"});
+    oscillators.push(triangle);
+    oscillators.push(square);
 
     this.kickdrum = function(){
       console.log("BOOM");
       oscillators.forEach(function(osc){
-        osc.frequency = 70;
+        var freq = 70;
+        osc.frequency = freq;
         osc.start();
         setTimeout(function(){
           osc.stop();
+          clearInterval(adjust);
         },60);
+        var adjust = setInterval(function(){
+          console.log("lower tone");
+          freq -= 10;
+          osc.freq = freq;
+        },10)
       })
     }
+
+    this.snare = function(){
+      console.log("KSH");
+      oscillators[0].frequency = 178;
+      oscillators[1].frequency = 155;
+
+      oscillators[0].start();
+      oscillators[1].start();
+
+      setTimeout(function(){
+        oscillators[0].stop();
+        oscillators[1].stop();
+      },120);
+    }
+
 
     this.tone = function(freq) {
       switch(freq) {
         case 0:
         this.kickdrum();
+        break;
+        case 1:
+        this.snare();
         break;
       }
 
@@ -272,7 +297,7 @@ var synth = new Jukebox.Synth();
 var synth2 = new Jukebox.Synth();
 
 var drums = new Jukebox.Drums();
-drums.tone(0);
+// drums.tone(0);
 
 // synth(440);
 // synth(690);
