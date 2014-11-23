@@ -1,154 +1,170 @@
 console.log('\'Allo \'Allo!');
 
-(function (global, exports, perf) {
-  'use strict';
+// (function (global, exports, perf) {
+//   'use strict';
 
-  function fixSetTarget(param) {
-    if (!param)	// if NYI, just return
-      return;
-    if (!param.setTargetValueAtTime)
-      param.setTargetValueAtTime = param.setTargetAtTime; 
-  }
+//   function fixSetTarget(param) {
+//     if (!param)	// if NYI, just return
+//       return;
+//     if (!param.setTargetValueAtTime)
+//       param.setTargetValueAtTime = param.setTargetAtTime; 
+//   }
 
-  if (window.hasOwnProperty('AudioContext') /*&& !window.hasOwnProperty('webkitAudioContext') */) {
-    window.webkitAudioContext = AudioContext;
+//   if (window.hasOwnProperty('AudioContext') /*&& !window.hasOwnProperty('webkitAudioContext') */) {
+//     window.webkitAudioContext = AudioContext;
 
-    if (!AudioContext.prototype.hasOwnProperty('internal_createGain')){
-      AudioContext.prototype.internal_createGain = AudioContext.prototype.createGain;
-      AudioContext.prototype.createGain = function() { 
-        var node = this.internal_createGain();
-        fixSetTarget(node.gain);
-        return node;
-      };
-    }
+//     if (!AudioContext.prototype.hasOwnProperty('internal_createGain')){
+//       AudioContext.prototype.internal_createGain = AudioContext.prototype.createGain;
+//       AudioContext.prototype.createGain = function() { 
+//         var node = this.internal_createGain();
+//         fixSetTarget(node.gain);
+//         return node;
+//       };
+//     }
 
-    if (!AudioContext.prototype.hasOwnProperty('internal_createDelay')){
-      AudioContext.prototype.internal_createDelay = AudioContext.prototype.createDelay;
-      AudioContext.prototype.createDelay = function() { 
-        var node = this.internal_createDelay();
-        fixSetTarget(node.delayTime);
-        return node;
-      };
-    }
+//     if (!AudioContext.prototype.hasOwnProperty('internal_createDelay')){
+//       AudioContext.prototype.internal_createDelay = AudioContext.prototype.createDelay;
+//       AudioContext.prototype.createDelay = function() { 
+//         var node = this.internal_createDelay();
+//         fixSetTarget(node.delayTime);
+//         return node;
+//       };
+//     }
 
-    if (!AudioContext.prototype.hasOwnProperty('internal_createBufferSource')){
-      AudioContext.prototype.internal_createBufferSource = AudioContext.prototype.createBufferSource;
-      AudioContext.prototype.createBufferSource = function() { 
-        var node = this.internal_createBufferSource();
-        if (!node.noteOn)
-          node.noteOn = node.start; 
-        if (!node.noteGrainOn)
-          node.noteGrainOn = node.start;
-        if (!node.noteOff)
-          node.noteOff = node.stop;
-        fixSetTarget(node.playbackRate);
-        return node;
-      };
-    }
+//     if (!AudioContext.prototype.hasOwnProperty('internal_createBufferSource')){
+//       AudioContext.prototype.internal_createBufferSource = AudioContext.prototype.createBufferSource;
+//       AudioContext.prototype.createBufferSource = function() { 
+//         var node = this.internal_createBufferSource();
+//         if (!node.noteOn)
+//           node.noteOn = node.start; 
+//         if (!node.noteGrainOn)
+//           node.noteGrainOn = node.start;
+//         if (!node.noteOff)
+//           node.noteOff = node.stop;
+//         fixSetTarget(node.playbackRate);
+//         return node;
+//       };
+//     }
 
-    if (!AudioContext.prototype.hasOwnProperty('internal_createDynamicsCompressor')){
-      AudioContext.prototype.internal_createDynamicsCompressor = AudioContext.prototype.createDynamicsCompressor;
-      AudioContext.prototype.createDynamicsCompressor = function() { 
-        var node = this.internal_createDynamicsCompressor();
-        fixSetTarget(node.threshold);
-        fixSetTarget(node.knee);
-        fixSetTarget(node.ratio);
-        fixSetTarget(node.reduction);
-        fixSetTarget(node.attack);
-        fixSetTarget(node.release);
-        return node;
-      };
-    }
+//     if (!AudioContext.prototype.hasOwnProperty('internal_createDynamicsCompressor')){
+//       AudioContext.prototype.internal_createDynamicsCompressor = AudioContext.prototype.createDynamicsCompressor;
+//       AudioContext.prototype.createDynamicsCompressor = function() { 
+//         var node = this.internal_createDynamicsCompressor();
+//         fixSetTarget(node.threshold);
+//         fixSetTarget(node.knee);
+//         fixSetTarget(node.ratio);
+//         fixSetTarget(node.reduction);
+//         fixSetTarget(node.attack);
+//         fixSetTarget(node.release);
+//         return node;
+//       };
+//     }
 
-    if (!AudioContext.prototype.hasOwnProperty('internal_createBiquadFilter')){
-      AudioContext.prototype.internal_createBiquadFilter = AudioContext.prototype.createBiquadFilter;
-      AudioContext.prototype.createBiquadFilter = function() { 
-        var node = this.internal_createBiquadFilter();
-        fixSetTarget(node.frequency);
-        fixSetTarget(node.detune);
-        fixSetTarget(node.Q);
-        fixSetTarget(node.gain);
-        var enumValues = ['LOWPASS', 'HIGHPASS', 'BANDPASS', 'LOWSHELF', 'HIGHSHELF', 'PEAKING', 'NOTCH', 'ALLPASS'];
-        for (var i = 0; i < enumValues.length; ++i) {
-          var enumValue = enumValues[i];
-          var newEnumValue = enumValue.toLowerCase();
-          if (!node.hasOwnProperty(enumValue)) {
-            node[enumValue] = newEnumValue;
-          }
-        }
-        return node;
-      };
-    }
+//     if (!AudioContext.prototype.hasOwnProperty('internal_createBiquadFilter')){
+//       AudioContext.prototype.internal_createBiquadFilter = AudioContext.prototype.createBiquadFilter;
+//       AudioContext.prototype.createBiquadFilter = function() { 
+//         var node = this.internal_createBiquadFilter();
+//         fixSetTarget(node.frequency);
+//         fixSetTarget(node.detune);
+//         fixSetTarget(node.Q);
+//         fixSetTarget(node.gain);
+//         var enumValues = ['LOWPASS', 'HIGHPASS', 'BANDPASS', 'LOWSHELF', 'HIGHSHELF', 'PEAKING', 'NOTCH', 'ALLPASS'];
+//         for (var i = 0; i < enumValues.length; ++i) {
+//           var enumValue = enumValues[i];
+//           var newEnumValue = enumValue.toLowerCase();
+//           if (!node.hasOwnProperty(enumValue)) {
+//             node[enumValue] = newEnumValue;
+//           }
+//         }
+//         return node;
+//       };
+//     }
 
-    if (!AudioContext.prototype.hasOwnProperty('internal_createOscillator') &&
-         AudioContext.prototype.hasOwnProperty('createOscillator')) {
-      AudioContext.prototype.internal_createOscillator = AudioContext.prototype.createOscillator;
-      AudioContext.prototype.createOscillator = function() { 
-        var node = this.internal_createOscillator();
-        if (!node.noteOn)
-          node.noteOn = node.start; 
-        if (!node.noteOff)
-          node.noteOff = node.stop;
-        fixSetTarget(node.frequency);
-        fixSetTarget(node.detune);
-        var enumValues = ['SINE', 'SQUARE', 'SAWTOOTH', 'TRIANGLE', 'CUSTOM'];
-        for (var i = 0; i < enumValues.length; ++i) {
-          var enumValue = enumValues[i];
-          var newEnumValue = enumValue.toLowerCase();
-          if (!node.hasOwnProperty(enumValue)) {
-            node[enumValue] = newEnumValue;
-          }
-        }
-        if (!node.hasOwnProperty('setWaveTable')) {
-          node.setWaveTable = node.setPeriodicTable;
-        }
-        return node;
-      };
-    }
+//     if (!AudioContext.prototype.hasOwnProperty('internal_createOscillator') &&
+//          AudioContext.prototype.hasOwnProperty('createOscillator')) {
+//       AudioContext.prototype.internal_createOscillator = AudioContext.prototype.createOscillator;
+//       AudioContext.prototype.createOscillator = function() { 
+//         var node = this.internal_createOscillator();
+//         if (!node.noteOn)
+//           node.noteOn = node.start; 
+//         if (!node.noteOff)
+//           node.noteOff = node.stop;
+//         fixSetTarget(node.frequency);
+//         fixSetTarget(node.detune);
+//         var enumValues = ['SINE', 'SQUARE', 'SAWTOOTH', 'TRIANGLE', 'CUSTOM'];
+//         for (var i = 0; i < enumValues.length; ++i) {
+//           var enumValue = enumValues[i];
+//           var newEnumValue = enumValue.toLowerCase();
+//           if (!node.hasOwnProperty(enumValue)) {
+//             node[enumValue] = newEnumValue;
+//           }
+//         }
+//         if (!node.hasOwnProperty('setWaveTable')) {
+//           node.setWaveTable = node.setPeriodicTable;
+//         }
+//         return node;
+//       };
+//     }
 
-    if (!AudioContext.prototype.hasOwnProperty('internal_createPanner')) {
-      AudioContext.prototype.internal_createPanner = AudioContext.prototype.createPanner;
-      AudioContext.prototype.createPanner = function() {
-        var node = this.internal_createPanner();
-        var enumValues = {
-          'EQUALPOWER': 'equalpower',
-          'HRTF': 'HRTF',
-          'LINEAR_DISTANCE': 'linear',
-          'INVERSE_DISTANCE': 'inverse',
-          'EXPONENTIAL_DISTANCE': 'exponential',
-        };
-        for (var enumValue in enumValues) {
-          var newEnumValue = enumValues[enumValue];
-          if (!node.hasOwnProperty(enumValue)) {
-            node[enumValue] = newEnumValue;
-          }
-        }
-        return node;
-      };
-    }
+//     if (!AudioContext.prototype.hasOwnProperty('internal_createPanner')) {
+//       AudioContext.prototype.internal_createPanner = AudioContext.prototype.createPanner;
+//       AudioContext.prototype.createPanner = function() {
+//         var node = this.internal_createPanner();
+//         var enumValues = {
+//           'EQUALPOWER': 'equalpower',
+//           'HRTF': 'HRTF',
+//           'LINEAR_DISTANCE': 'linear',
+//           'INVERSE_DISTANCE': 'inverse',
+//           'EXPONENTIAL_DISTANCE': 'exponential',
+//         };
+//         for (var enumValue in enumValues) {
+//           var newEnumValue = enumValues[enumValue];
+//           if (!node.hasOwnProperty(enumValue)) {
+//             node[enumValue] = newEnumValue;
+//           }
+//         }
+//         return node;
+//       };
+//     }
 
-    if (!AudioContext.prototype.hasOwnProperty('createGainNode'))
-      AudioContext.prototype.createGainNode = AudioContext.prototype.createGain;
-    if (!AudioContext.prototype.hasOwnProperty('createDelayNode'))
-      AudioContext.prototype.createDelayNode = AudioContext.prototype.createDelay;
-    if (!AudioContext.prototype.hasOwnProperty('createJavaScriptNode'))
-      AudioContext.prototype.createJavaScriptNode = AudioContext.prototype.createScriptProcessor;
-    if (!AudioContext.prototype.hasOwnProperty('createWaveTable'))
-      AudioContext.prototype.createWaveTable = AudioContext.prototype.createPeriodicWave;
-  }
-}(window));
+//     if (!AudioContext.prototype.hasOwnProperty('createGainNode'))
+//       AudioContext.prototype.createGainNode = AudioContext.prototype.createGain;
+//     if (!AudioContext.prototype.hasOwnProperty('createDelayNode'))
+//       AudioContext.prototype.createDelayNode = AudioContext.prototype.createDelay;
+//     if (!AudioContext.prototype.hasOwnProperty('createJavaScriptNode'))
+//       AudioContext.prototype.createJavaScriptNode = AudioContext.prototype.createScriptProcessor;
+//     if (!AudioContext.prototype.hasOwnProperty('createWaveTable'))
+//       AudioContext.prototype.createWaveTable = AudioContext.prototype.createPeriodicWave;
+//   }
+// }(window));
 
 
 var Jukebox = {
 	audioContext:  new webkitAudioContext(),
 	NativeOscillatorFactory: function() {
         	var audioContext = Jukebox.audioContext;
-            var _oscillator = audioContext.createOscillator(); // Create sound source
-            _oscillator.connect(audioContext.destination); // Connect sound to output
+          var gain = new Jukebox._gainNode();
+          var _oscillator = audioContext.createOscillator(); // Create sound source
+          _oscillator.connect(gain); // Connect sound to output
+          // _oscillator.connect(audioContext.destination); // Connect sound to output
             return _oscillator;
     },
-	_oscillator: function(options) {
+    _gainNode: function(options) {
+      var gain = Jukebox.audioContext.createGain();
+      gain.connect(Jukebox.audioContext.destination);
+      gain.gain.value = 0.1;
+      return gain;
+
+    },
+  _oscillator: function(options) {
         var _oscillator = Jukebox.NativeOscillatorFactory();
+        var context = Jukebox.audioContext;
+
+        var gain = new Jukebox._gainNode();
+
+        // _oscillator.connect(context.destination)
+        // _oscillator.connect(gain)
+        // gain.gain.value = 0.5;
 
         var factory = this;
         var _oscillatorRunning = false;
@@ -163,6 +179,9 @@ var Jukebox = {
             factory.playing = false;
         }
 
+        // this.connect = _oscillator.connect;
+        // this._oscillator = _oscillator;
+
         setInterval(adjustvalues, 10);
 
         function adjustvalues() {
@@ -170,6 +189,12 @@ var Jukebox = {
             if (_oscillator.frequency.value !== factory.frequency && factory.frequency) {
                 _oscillator.frequency.value = factory.frequency;
             }
+
+
+
+            window._oscillator = _oscillator;
+
+            // _oscillator.gain.value = factory.volume;
 
             if (factory.playing) {
                 factory._startTone();
@@ -183,6 +208,7 @@ var Jukebox = {
 
         this._startTone = function() {
             if (_oscillatorRunning) return;
+          console.log("playniig tone");
             _oscillator = Jukebox.NativeOscillatorFactory()
             _oscillator.frequency.value = factory.frequency;
             _oscillator.noteOn(1);
@@ -237,29 +263,49 @@ var Jukebox = {
 		};
 	},
   Drums: function() {
+    
     var drums = this;
+    var context = Jukebox.audioContext;
 
     var oscillators = [];
-    var triangle = new Jukebox._oscillator({wave:"TRIANGLE"});
-    var square = new Jukebox._oscillator({wave:"SQUARE"});
+    var triangle = new Jukebox._oscillator({wave:"SINE"});
+    var square = new Jukebox._oscillator({wave:"SINE"});
     oscillators.push(triangle);
     oscillators.push(square);
 
+
+
+
+
+    // window._gain = gain;
+    oscillators.forEach(function(osc){
+      window._oscillator = osc;
+      // osc.
+    })
+
     this.kickdrum = function(){
-      console.log("BOOM");
+      // console.log("BOOM");
       oscillators.forEach(function(osc){
-        var freq = 70;
+        var freq = 20;
+        var vol = 1;
         osc.frequency = freq;
         osc.start();
+
+        // gain.gain.value = 0;
+        // gain.gain.linearRampToValueAtTime(0.0, context.currentTime); // envelope  
+        // gain.gain.linearRampToValueAtTime(0.0, context.currentTime + 5); // envelope  
+        // gain.gain.linearRampToValueAtTime(0.0, 10); // envelope 
         setTimeout(function(){
           osc.stop();
-          clearInterval(adjust);
+          // clearInterval(adjust);
         },60);
-        var adjust = setInterval(function(){
-          console.log("lower tone");
-          freq -= 10;
-          osc.freq = freq;
-        },10)
+        // var adjust = setInterval(function(){
+        //   console.log("lower tone");
+        //   freq *= 0.9;
+        //   // vol-=0.2;
+        //   osc.freq = freq;
+        //   // osc.volume = vol;
+        // },10)
       })
     }
 
