@@ -1,0 +1,722 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"list-s",
+				"list-style"
+			],
+			[
+				"state",
+				"stateParams"
+			],
+			[
+				"ob",
+				"obj2"
+			],
+			[
+				"are",
+				"areEqual"
+			],
+			[
+				"time",
+				"timeNow"
+			],
+			[
+				"st",
+				"stateParams"
+			],
+			[
+				"get",
+				"getCurrentUser"
+			],
+			[
+				"hex",
+				"hexToRgb"
+			],
+			[
+				"thumb-shad",
+				"thumb-shadow-color"
+			],
+			[
+				"less",
+				"lessVals"
+			],
+			[
+				"track-b",
+				"track-border-width"
+			],
+			[
+				"les",
+				"lessVals"
+			],
+			[
+				"thumb-sh",
+				"thumb-shadow-color"
+			],
+			[
+				"thumb-s",
+				"thumb-shadow-blur"
+			],
+			[
+				"modi",
+				"modifyLess"
+			],
+			[
+				"background",
+				"background-size"
+			],
+			[
+				"thu",
+				"thumb-height"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"thumb",
+				"thumb-height"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/D/Projects/angular-synthesizer/app/scripts/oscillator.js",
+			"settings":
+			{
+				"buffer_size": 3634,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/typescript/main.ts",
+			"settings":
+			{
+				"buffer_size": 185,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 58.0,
+		"selected_items":
+		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"package in",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/Projects/jukeboxjs",
+		"/D/Projects/jukeboxjs/app",
+		"/D/Projects/jukeboxjs/app/typescript"
+	],
+	"file_history":
+	[
+		"/D/Projects/angular-synthesizer/app/scripts/ngSynthesizer.js",
+		"/D/Projects/angular-synthesizer/app/scripts/webaudioshim.js",
+		"/D/Projects/maple-a-month/app/styles/main.css",
+		"/D/Projects/maple-a-month/app/index.html",
+		"/D/Projects/danielstern2014/app/partials/main.html",
+		"/D/Projects/danielstern2014/app/typescript/main.ts",
+		"/D/Projects/danielstern2014/app/partials/project.html",
+		"/D/Projects/danielstern2014/app/partials/portfolio/magic-circles.html",
+		"/D/Projects/danielstern2014/app/index.html",
+		"/D/Projects/danielstern2014/app/partials/portfolio.html",
+		"/D/Projects/danielstern2014/app/less/main.less",
+		"/D/Projects/danielstern2014/app/partials/portfolio/cyo.html",
+		"/D/Projects/danielstern2014/README.md",
+		"/D/Projects/danielstern2014/app/partials/portfolio/angular-audio.html",
+		"/D/Projects/danielstern2014/app/partials/portfolio/lorien-ipsum.html",
+		"/D/Projects/danielstern2014/app/typescript/portfolio.ts",
+		"/D/Projects/danielstern2014/bower.json",
+		"/D/Projects/range.css/bower_components/bootstrap/less/responsive-embed.less",
+		"/D/Projects/danielstern2014/modern-webapp.sublime-project",
+		"/D/Projects/danielstern2014/app/partials/portfolio/range-css.html",
+		"/D/Projects/danielstern2014/Gruntfile.js",
+		"/D/Projects/danielstern2014/.editorconfig",
+		"/D/Projects/danielstern2014/app/partials/portfolio/maple-a-month.html",
+		"/D/Projects/danielstern2014/app/partials/project-image-feature.html",
+		"/D/Projects/danielstern2014/Procfile",
+		"/D/Projects/danielstern2014/package.json",
+		"/D/Projects/flashforum/server/api/post/post.model.js",
+		"/D/Projects/flashforum/server/api/thread/thread.model.js",
+		"/D/Projects/flashforum/client/bower_components/angular-socket-io/socket.spec.js",
+		"/D/Projects/flashforum/client/bower_components/angular-socket-io/socket.js",
+		"/D/Projects/flashforum/server/config/socketio.js",
+		"/D/Projects/flashforum/server/config/seed.js",
+		"/D/Projects/flashforum/client/components/socket/socket.service.js",
+		"/D/Projects/flashforum/server/api/user/user.model.js",
+		"/D/Projects/flashforum/client/bower_components/jquery/src/core/ready.js",
+		"/D/Projects/flashforum/client/robots.txt",
+		"/D/Projects/flashforum/client/bower_components/es5-shim/CHANGES",
+		"/D/Projects/flashforum/client/bower_components/bootstrap/grunt/bs-glyphicons-data-generator.js",
+		"/D/Projects/flashforum/client/bower_components/jquery/src/core/parseHTML.js",
+		"/D/Projects/flashforum/client/bower_components/jquery/src/manipulation/var/rcheckableType.js",
+		"/D/Projects/flashforum/bower.json",
+		"/D/Projects/flashforum/client/app/main/main.jade",
+		"/D/Projects/flashforum/client/app/main/main.controller.js",
+		"/D/Projects/flashforum/client/app/thread/thread.js",
+		"/D/Projects/flashforum/client/app/thread/thread.less",
+		"/D/Projects/flashforum/server/api/thing/thing.model.js",
+		"/D/Projects/flashforum/client/app/main/main.js",
+		"/D/Projects/flashforum/client/bower_components/angular-bootstrap/ui-bootstrap.js",
+		"/D/Projects/flashforum/flashforum.sublime-project",
+		"/D/Projects/flashforum/client/app/account/signup/signup.jade",
+		"/D/Projects/flashforum/client/app/thread/thread.controller.js",
+		"/D/Projects/flashforum/client/app/thread/thread.jade",
+		"/D/Projects/flashforum/server/api/post/post.controller.js",
+		"/D/Projects/flashforum/e2e/main/main.po.js",
+		"/D/Projects/flashforum/server/app.js",
+		"/D/Projects/flashforum/package.json",
+		"/D/Projects/flashforum/server/api/post/index.js",
+		"/D/Projects/flashforum/server/api/thread/index.js",
+		"/D/Projects/flashforum/server/api/thread/thread.controller.js",
+		"/D/Projects/flashforum/server/api/thread/thread.socket.js",
+		"/D/Projects/flashforum/.tmp/app/main/main.html",
+		"/D/Projects/flashforum/client/app/account/account.js",
+		"/D/Projects/flashforum/client/app/app.js",
+		"/D/Projects/flashforum/client/app/account/login/login.controller.js",
+		"/D/Projects/flashforum/server/api/thing/thing.controller.js",
+		"/D/Projects/flashforum/client/bower_components/bootstrap/less/theme.less",
+		"/D/Projects/flashforum/server/config/environment/test.js",
+		"/D/Projects/flashforum/client/components/navbar/navbar.controller.js",
+		"/D/Projects/flashforum/client/components/navbar/navbar.jade",
+		"/D/Projects/flashforum/.tmp/components/navbar/navbar.html",
+		"/D/Projects/flashforum/npm-debug.log",
+		"/D/Projects/flashforum/server/config/environment/production.js",
+		"/D/Projects/flashforum/.gitignore",
+		"/D/Projects/flashforum/x",
+		"/D/Projects/flashforum/Gruntfile.js",
+		"/D/Projects/flashforum/dist/server/config/express.js",
+		"/D/Projects/flashforum/server/config/express.js",
+		"/D/Projects/flashforum/protractor.conf.js",
+		"/D/Projects/flashforum/Procfile",
+		"/D/Projects/flashforum/server/config/environment/index.js",
+		"/D/Projects/flashforum/server/config/environment/development.js",
+		"/D/Projects/flashforum/client/bower_components/jquery/src/css/hiddenVisibleSelectors.js",
+		"/D/Projects/flashforum/server/config/local.env.js",
+		"/D/Projects/flashforum/client/components/mongoose-error/mongoose-error.directive.js",
+		"/D/Projects/flashforum/node_modules/jade/node_modules/monocle/monocle.js",
+		"/D/Projects/flashforum/node_modules/composable-middleware/lib/middleware-common-object.js",
+		"/D/Projects/flashforum/node_modules/express/Makefile",
+		"/D/Projects/range.css/app/scripts/colorPicker.js",
+		"/D/Projects/range.css/styles/main.css.map",
+		"/D/Projects/range.css/app/index.html",
+		"/D/Projects/range.css/app/partials/docs.html",
+		"/D/Projects/range.css/app/less/main.less",
+		"/D/Projects/range.css/app/styles/main.css",
+		"/D/Projects/range.css/app/partials/demo.html",
+		"/D/Projects/range.css/modern-webapp.sublime-project",
+		"/D/Projects/modern-webapp/Gruntfile.js",
+		"/D/Projects/modern-webapp/app/index.html",
+		"/D/Projects/modern-webapp/app/partials/color-picker.html",
+		"/D/Projects/modern-webapp/app/partials/main.html",
+		"/D/Projects/modern-webapp/app/less/range.less",
+		"/D/Projects/modern-webapp/app/less/main.less",
+		"/D/Projects/modern-webapp/app/typescript/main.ts",
+		"/D/Projects/modern-webapp/node_modules/grunt-contrib-clean/docs/clean-options.md",
+		"/D/Projects/modern-webapp/node_modules/grunt-autoprefixer/CHANGELOG",
+		"/D/Projects/modern-webapp/app/typescript/colorPicker.ts",
+		"/D/Projects/modern-webapp/node_modules/grunt-svgmin/node_modules/svgo/plugins/removeEmptyAttrs.js",
+		"/D/Projects/modern-webapp/README.md",
+		"/D/Projects/modern-webapp/app/scripts/colorPicker.js",
+		"/D/Projects/modern-webapp/bower_components/bootstrap/fonts/glyphicons-halflings-regular.svg",
+		"/D/Projects/modern-webapp/.editorconfig",
+		"/D/Projects/modern-webapp/node_modules/grunt-contrib-uglify/node_modules/uglify-js/lib/mozilla-ast.js",
+		"/D/Projects/modern-webapp/modern-webapp.sublime-project",
+		"/D/Projects/modern-webapp/app/test.html",
+		"/D/Projects/modern-webapp/app/less.custom.js",
+		"/D/Projects/modern-webapp/package.json",
+		"/D/Projects/modern-webapp/node_modules/grunt-autoprefixer/node_modules/autoprefixer/node_modules/caniuse-db/features-json/png-alpha.json",
+		"/D/Projects/modern-webapp/npm-debug.log",
+		"/D/Projects/modern-webapp/node_modules/grunt-contrib-less/tasks/less.js",
+		"/D/Projects/modern-webapp/node_modules/grunt-contrib-less/node_modules/.bin/lessc",
+		"/D/Projects/modern-webapp/node_modules/grunt-contrib-less/node_modules/less/test/css/lazy-eval.css",
+		"/D/Projects/modern-webapp/bower_components/angular-ui-router/LICENSE",
+		"/C/Users/Admin/Downloads/colorscheme-#b33d90.less",
+		"/D/Projects/modern-webapp/bower_components/bootstrap/less/input-groups.less",
+		"/D/Projects/modern-webapp/node_modules/grunt-mocha/node_modules/grunt-lib-phantomjs/node_modules/phantomjs/install.js",
+		"/D/Projects/modern-webapp/node_modules/grunt-wiredep/node_modules/wiredep/node_modules/bower-config/node_modules/mout/lang/isNull.js",
+		"/D/Projects/modern-webapp/node_modules/grunt-contrib-imagemin/node_modules/.bin/imagemin",
+		"/D/Projects/modern-webapp/node_modules/grunt-contrib-less/node_modules/less/test/less/errors/import-malformed.less",
+		"/D/Projects/modern-webapp/.gitignore"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"HEAD",
+			">>>",
+			"how to use maple",
+			"substitutin",
+			" f",
+			" f ",
+			". f",
+			"sociak",
+			"sm",
+			"maple a mon",
+			"get a bottle",
+			"fb-l",
+			"fb",
+			"social",
+			".png",
+			"portfolioSearch",
+			".move-animation",
+			".animate-repeat",
+			"ng-ap",
+			".5s",
+			"cop",
+			".ts",
+			"schema",
+			"crypto",
+			"'socket'",
+			"\"socket\"",
+			"socket",
+			"syncUpdates",
+			"socket",
+			"thread",
+			"      console.log(\"Got posts...\",posts);\nthread",
+			"$where",
+			"addThread",
+			"new thread",
+			"stateProvi",
+			"state",
+			"ui.rou",
+			"ui-rou",
+			"awesomethin",
+			"favicon",
+			"favico",
+			"app.us",
+			"9000",
+			".port",
+			"config.port",
+			".listen(",
+			".listen",
+			"server/app.",
+			"mongodb://",
+			"mongodb:",
+			"firefox an",
+			"invisi",
+			"thum",
+			"no thum",
+			"thumb-only",
+			"col-",
+			"\n    ",
+			"col-",
+			"thumb-onl",
+			"track-o",
+			">\n",
+			"animate",
+			"	\n",
+			"tricks",
+			"copy",
+			"thumb r",
+			"thumb-ro",
+			"\n		",
+			"thumb-rou",
+			"typesc",
+			"consol",
+			";\n",
+			"\n			",
+			"thumb",
+			"lessVals",
+			"thumb-color",
+			"`",
+			"color2",
+			"color1",
+			"names",
+			"less",
+			"genn",
+			"track-radius",
+			"track",
+			"range-roundness",
+			"margin",
+			"border",
+			"1px",
+			"col",
+			"px",
+			"300",
+			"color4",
+			"width: 16px;",
+			"height: 16px;",
+			"50%",
+			"goldenrod",
+			"#ddd",
+			"goldenrod",
+			"#ccc",
+			"#ddd",
+			"input[type=range]"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			".move-animation",
+			"@speed",
+			"track",
+			"thumb-border-color",
+			"thumb-color",
+			"track-color",
+			"track-radius",
+			"color2",
+			"width: @thumb-width;",
+			"height: @thumb-height;",
+			"height: @thumb-height",
+			"@thumb-roundness",
+			"@color4",
+			"@color1",
+			"@color3",
+			"@color2",
+			"@color1",
+			"&"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/D/Projects/angular-synthesizer/app/scripts/oscillator.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3634,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								477,
+								477
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 54.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/typescript/main.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 185,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								39,
+								39
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better TypeScript/TypeScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "modern-webapp.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"inde",
+				"app\\index.html"
+			],
+			[
+				"main.le",
+				"app\\less\\main.less"
+			],
+			[
+				"main.",
+				"app\\partials\\main.html"
+			],
+			[
+				"rang",
+				"app\\partials\\portfolio\\range-css.html"
+			],
+			[
+				"angular-a",
+				"app\\partials\\portfolio\\angular-audio.html"
+			],
+			[
+				"main.l",
+				"app\\less\\main.less"
+			],
+			[
+				"main.t",
+				"app\\typescript\\main.ts"
+			],
+			[
+				"portfol",
+				"app\\typescript\\portfolio.ts"
+			],
+			[
+				"main",
+				"app\\typescript\\main.ts"
+			],
+			[
+				"main.h",
+				"app\\partials\\main.html"
+			],
+			[
+				"portf",
+				"app\\partials\\portfolio.html"
+			],
+			[
+				"port",
+				"app\\partials\\portfolio.html"
+			],
+			[
+				"grunt",
+				"Gruntfile.js"
+			],
+			[
+				"mai",
+				"app\\partials\\main.html"
+			],
+			[
+				"por",
+				"app\\partials\\portfolio.html"
+			],
+			[
+				"mapl",
+				"app\\partials\\portfolio\\maple-a-month.html"
+			],
+			[
+				"proj",
+				"app\\partials\\project-image-feature.html"
+			],
+			[
+				"ind",
+				"app\\index.html"
+			],
+			[
+				"packa",
+				"package.json"
+			],
+			[
+				"socket.ser",
+				"client\\components\\socket\\socket.service.js"
+			],
+			[
+				"bower",
+				"bower.json"
+			],
+			[
+				"thread",
+				"client\\app\\thread\\thread.jade"
+			],
+			[
+				"threadc",
+				"client\\app\\thread\\thread.controller.js"
+			],
+			[
+				"mc",
+				"client\\app\\main\\main.controller.js"
+			],
+			[
+				"main.c",
+				"client\\app\\main\\main.controller.js"
+			],
+			[
+				"thread.j",
+				"client\\app\\thread\\thread.jade"
+			],
+			[
+				"maincon",
+				"client\\app\\main\\main.controller.js"
+			],
+			[
+				"f",
+				"flashforum.sublime-project"
+			],
+			[
+				"thing",
+				"server\\api\\thing\\thing.model.js"
+			],
+			[
+				"nav",
+				"client\\components\\navbar\\navbar.jade"
+			],
+			[
+				"navn",
+				"client\\components\\navbar\\navbar.controller.js"
+			],
+			[
+				"environm",
+				"server\\config\\environment\\production.js"
+			],
+			[
+				"grun",
+				"Gruntfile.js"
+			],
+			[
+				"colo",
+				"app\\partials\\color-picker.html"
+			],
+			[
+				"range.",
+				"app\\less\\range.less"
+			],
+			[
+				".less",
+				"app\\less\\range.less"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 228.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
