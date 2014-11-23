@@ -1,6 +1,59 @@
+var jukeboxTimer = function(){
+  var targetFramerate = 1;
+  var lasttime = new Date().getTime();
+  var framebuffer = 0;
+  var framespassed = 0;
+
+  setInterval(function(){
+    var frametime = new Date().getTime();
+    var timeElapsed = frametime - lasttime;
+    framebuffer += timeElapsed;
+    lasttime = frametime;
+
+    if (framebuffer > targetFramerate) {
+      framebuffer-=targetFramerate;
+      trigger();
+    }
+  },1);
+
+  this.setInterval = function(callback,timeout,arguments) {
+    var startframe = framespassed;
+    var interval = setInterval(function(){
+      var totaltimepassed = framespassed - startframe;
+      if (totaltimepassed >= timeout) {
+        callback(arguments);
+      }
+      startframe = framespassed;
+    },1);
+
+    return interval;
+  }
+
+  this.setTimeout = function(callback,timeout,arguments) {
+    var startframe = framespassed;
+    var interval = setInterval(function(){
+      var totaltimepassed = framespassed - startframe;
+      // console.log("Total time passed?",totaltimepassed);
+      if (totaltimepassed >= timeout) {
+        console.log("Interval cleared");
+        callback(arguments);
+        clearInterval(interval);
+      }
+      // startframe = framespassed;
+    },1);
+    
+    return interval;
+  }
+
+  function trigger() {
+    // console.log("A frame has passed");
+    framespassed+=5;
+  }
+}
 
 var Jukebox = {
 	audioContext:  new webkitAudioContext(),
+  timer: new jukeboxTimer(),
   // filter: {
   //   fade: function(node,volume,time) {
   //     node.linearRampToValueAtTime(volume, Jukebox.audioContext.currentTime + time / 100); // envelope
@@ -13,6 +66,7 @@ var Jukebox = {
       return gain;
 
     },
+
   oscillator: function(options) {
         var context = Jukebox.audioContext;
         var oscillator = this;
@@ -39,7 +93,6 @@ var Jukebox = {
         }
 
         this.connect = function(node) {
-          // _oscillator.connect(node);
           target = node;
         }
 
@@ -102,7 +155,7 @@ var Jukebox = {
 
 			var durationSoFar = 0;
 			notes.forEach(function(element){
-				sequenceQueuedActions.push(setTimeout(function(){
+				sequenceQueuedActions.push(Jukebox.timer.setTimeout(function(){
 					synth.tone(element.frequency,element.duration-10);
 				},durationSoFar));
 				durationSoFar += element.duration;
@@ -116,7 +169,7 @@ var Jukebox = {
 					return;
 				}
 				osc.start();
-				setTimeout(function(){
+				Jukebox.timer.setTimeout(function(){
 					osc.stop();
 				},duration);
 			})
@@ -169,7 +222,7 @@ var Jukebox = {
         osc.gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.01); // envelope  
         osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.05); // envelope  
 
-        setTimeout(function(){
+        Jukebox.timer.setTimeout(function(){
           osc.stop();
         },60);
       })
@@ -185,7 +238,7 @@ var Jukebox = {
       oscillators[0].start();
       oscillators[1].start();
 
-      setTimeout(function(){
+      Jukebox.timer.setTimeout(function(){
         oscillators[0].stop();
         oscillators[1].stop();
       },120);
