@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Modern Webapp
 =================
 LESS + Typescript + Angular = Awesome
@@ -42,3 +43,9 @@ Typescript provides desperately needed support for typing and classes in Javascr
 
 ### LESS
 LESS is a powerful alternative to just writing normal CSS. 
+=======
+jukeboxjs
+=========
+
+An audio synthesis API for Javascript
+>>>>>>> eb964cc7c0d50f3d1b76dd329e987d1835ccae5f
