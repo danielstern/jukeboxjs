@@ -16,6 +16,7 @@ var Jukebox = {
   oscillator: function(options) {
         var context = Jukebox.audioContext;
         var oscillator = this;
+        var target = undefined;
         var _oscillator = context.createOscillator();
 
         this.gain = new Jukebox.gainNode();
@@ -35,6 +36,11 @@ var Jukebox = {
 
         this.stop = function() {
             this.playing = false;
+        }
+
+        this.connect = function(node) {
+          // _oscillator.connect(node);
+          target = node;
         }
 
         setInterval(adjustvalues, 10);
@@ -58,6 +64,12 @@ var Jukebox = {
         this._startTone = function() {
            if (_oscillatorRunning) return;
            _oscillator = context.createOscillator(); // Create sound source
+           if (target) {
+            _oscillator.connect(target); // Connect sound to output
+            target.connect(oscillator.gain); // Connect sound to output
+           } else {
+            _oscillator.connect(oscillator.gain); // Connect sound to output 
+           }
            _oscillator.connect(oscillator.gain); // Connect sound to output
            _oscillator.frequency.value = oscillator.frequency;
            _oscillator.noteOn(1);
@@ -142,6 +154,9 @@ var Jukebox = {
         }
         return node;
     })();
+
+    oscillators[0].connect(effect);
+    oscillators[1].connect(effect);
 
     this.kickdrum = function(){
       oscillators.forEach(function(osc){
