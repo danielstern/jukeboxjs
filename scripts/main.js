@@ -147,13 +147,13 @@ var Jukebox = {
             _oscillator.connect(audioContext.destination); // Connect sound to output
             return _oscillator;
     },
-	_oscillator: function() {
+	_oscillator: function(options) {
         var _oscillator = Jukebox.NativeOscillatorFactory();
 
         var factory = this;
         var _oscillatorRunning = false;
 
-        factory.wave = "SINE";
+        factory.wave = options.wave || "SINE";
 
         this.start = function() {
             factory.playing = true;
@@ -201,11 +201,10 @@ var Jukebox = {
 		var synth = this;		
 
 		var oscillators = [];
-		var osc = new Jukebox._oscillator();
-		osc.wave = "TRIANGLE";
-		var osc2 = new Jukebox._oscillator();
-		osc.wave = "SQUARE";
-		oscillators.push(osc,osc2);
+		var osc = new Jukebox._oscillator({wave:"SINE"});
+		var osc2 = new Jukebox._oscillator({wave:"TRIANGLE"});
+    oscillators.push(osc);
+		oscillators.push(osc2);
 
 		this.sequence = function(notes) {
 			var durationSoFar = 0;

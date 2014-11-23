@@ -48,7 +48,27 @@ body {
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
 }
+.btn-special {
+  border: 8px solid brown;
+  background-color: #f2cb01;
+  color: white;
+  border-top: 8px solid #f2de01 ;
+  border-right: 8px solid #9d8300;
+  border-left: 8px solid #be9c00;
+  border-bottom: 8px solid #3c2a00;
+  text-shadow: 2px 2px 2px #333;
+  font-size: 115px !important;
+  line-height:85px;
+  width: 120px;
+  height: 120px;
+  transition: 0.2s all;
+}
 
+.btn-special:hover, .btn-special:focus {
+  color: white !important;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
 .jumbotron .btn {
   font-size: 21px;
   padding: 14px 24px;
