@@ -236,11 +236,7 @@ var synth2 = new Jukebox.Synth();
 // synth(440);
 // synth(690);
 var _dur = 500;
-var beep = function(){
-	// cpmsp;e/
-	console.log("Beep");
-	// synth.tone(550);
-	// synth2(550 * 1.5);
+var theme = function() {
 	synth.sequence([{
 		frequency:294,
 		duration:_dur,
@@ -259,4 +255,12 @@ var beep = function(){
 	}]);
 
 	_dur *= 0.9;
+	
+}
+var beep = function(){
+	// cpmsp;e/
+	
+	// console.log("Beep");
+	// synth.tone(550);
+	// synth2(550 * 1.5);
 }
