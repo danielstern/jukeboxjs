@@ -162,6 +162,12 @@ var Jukebox = {
         var _oscillator = context.createOscillator();
 
         this.gain = gain;
+
+        window.addEventListener("click",function twiddle(){
+          _oscillator.noteOn(1);
+          // _oscillator.stop();
+          window.removeEventListener("click",twiddle);
+        })
       
 
         // var gain = new Jukebox._gainNode();
@@ -355,6 +361,10 @@ var synth = new Jukebox.Synth();
 var synth2 = new Jukebox.Synth();
 
 var drums = new Jukebox.Drums();
+
+// window.on('click',function(){
+
+// })
 // drums.tone(0);
 
 // synth(440);
