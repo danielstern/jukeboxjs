@@ -235,11 +235,45 @@ var Jukebox = {
 				},dur);
 			})
 		};
-	}
+	},
+  Drums: function() {
+    var drums = this;
+
+    var oscillators = [];
+    var osc = new Jukebox._oscillator({wave:"TRIANGLE"});
+    var osc2 = new Jukebox._oscillator({wave:"SQUARE"});
+    oscillators.push(osc);
+    oscillators.push(osc2);
+
+    this.kickdrum = function(){
+      console.log("BOOM");
+      oscillators.forEach(function(osc){
+        osc.frequency = 70;
+        osc.start();
+        setTimeout(function(){
+          osc.stop();
+        },60);
+      })
+    }
+
+    this.tone = function(freq) {
+      switch(freq) {
+        case 0:
+        this.kickdrum();
+        break;
+      }
+
+    };
+
+  }
 }
 
 var synth = new Jukebox.Synth();
 var synth2 = new Jukebox.Synth();
+
+var drums = new Jukebox.Drums();
+drums.tone(0);
+
 // synth(440);
 // synth(690);
 var _dur = 500;
