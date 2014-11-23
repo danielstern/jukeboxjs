@@ -202,18 +202,25 @@ var Jukebox = {
 
 		var oscillators = [];
 		var osc = new Jukebox._oscillator({wave:"SINE"});
-		var osc2 = new Jukebox._oscillator({wave:"TRIANGLE"});
+		var osc2 = new Jukebox._oscillator({wave:"SQUARE"});
     oscillators.push(osc);
 		oscillators.push(osc2);
 
+    var sequenceQueuedActions = [];
+
 		this.sequence = function(notes) {
+      sequenceQueuedActions.forEach(function(action,index){
+        console.log("Clearing note...",action);
+        clearTimeout(action);
+        // sequenceQueuedActions.splice(index,action);
+      });
 			var durationSoFar = 0;
 			notes.forEach(function(element){
-				setTimeout(function(){
+				sequenceQueuedActions.push(setTimeout(function(){
 					synth.tone(element.frequency,element.duration-10);
-				},durationSoFar);
+				},durationSoFar));
 				durationSoFar += element.duration;
-			})
+			});
 		}
 
 		this.tone = function(freq,dur) {
