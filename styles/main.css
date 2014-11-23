@@ -64,6 +64,10 @@ body {
   transition: 0.2s all;
 }
 
+/*.btn-special-focus {
+  transform: rotate(100)
+}*/
+
 .btn-special:hover, .btn-special:focus {
   color: white !important;
   margin-top: -10px;
