@@ -42,18 +42,34 @@
       <div class="row marketing">
         <!-- <div class="col-lg-12"> -->
           <h2>API</h2>
-          <p>Linking to the script creates a global <code>jukebox object</code></p>
+          <p>Linking to the script creates a global <code>Jukebox class</code></p>
           <h3>
             Jukebox
           </h3>
           <table class='table table-striped'>
+          <tr>
+            <td>
+            <code>
+              Jukebox():Jukebox
+            </code>
+            </td>
+            <td>Returns a new Jukebox instance. Each jukebox has its own audio context. Create a new jukebox instance to begin.</td>
+          </tr>
             <tr>
               <td>
               <code>
-                Jukebox.Synth():Synthesizer
+                jukebox.Synth():Synthesizer
               </code>
               </td>
               <td>Returns a new synthesizer object.</td>
+            </tr>
+            <tr>
+              <td>
+              <code>
+                jukebox.Drums():Drums
+              </code>
+              </td>
+              <td>Returns a new drum object.</td>
             </tr>
           </table>
 
@@ -64,7 +80,7 @@
             <tr>
               <td>
               <code>
-                synthesizer.tone( frequency:Number , duration:Number ):null
+                synthesizer.tone(frequency:Number,duration:Number):null
               </code>
               </td>
               <td><p>
@@ -92,7 +108,8 @@
           <h5>
             Create a synthesizer
           </h5>
-<pre><code>var moog = new Jukebox.Synth();</pre></code>
+<pre><code>var jukebox = new Jukebox();
+var moog = new jukebox.Synth();</pre></code>
 
           <h5>
             Play a tone
@@ -108,8 +125,8 @@
               Try it!
             </button>
           </h5>
-<pre><code>var moog = new Jukebox.Synth();
-var korg = new Jukebox.Synth();
+<pre><code>var moog = new jukebox.Synth();
+var korg = new jukebox.Synth();
 moog.tone(392,300);
 korg.tone(262,300);
 </pre></code>
@@ -141,6 +158,26 @@ korg.tone(262,300);
       <h3>
         Drums
       </h3>
+      <p>
+        Creates an instrument that creates percussive noises.
+      </p>
+      <table class='table table-striped'>
+        <tr>
+          <td>
+          <code>
+            drum.tone(tone:int):null
+          </code>
+          </td>
+          <td><p>
+            Plays a tone corresponding to the specified integer as configured by the individual drum set.
+            </p>
+            <p>
+              Recommended values are as follows - 0: kick drum, 1: snare, 2: hi-hat, 3: cymbal
+            </p>
+            </td> 
+        </tr>
+      </table>
+
       <button class="btn btn-default" onclick=drums.tone(0)>Kickdrum</button>
       <button class="btn btn-default" onclick=drums.tone(1)>Snare</button>
       <button class="btn btn-default" onclick=drums.cymbal()>cymbal</button>

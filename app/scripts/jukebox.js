@@ -231,6 +231,12 @@ var Jukebox = function() {
         case 1:
         this.snare();
         break;
+        case 2:
+        this.hihat();
+        break;
+        case 3:
+        this.cymbal();
+        break;
       }
 
     };
