@@ -1,96 +1,23 @@
-var jukeboxTimer = function(){
-  var targetFramerate = 1;
-  var lasttime = new Date().getTime();
-  var framebuffer = 0;
-  var framespassed = 0;
-  var timer = this;
+var Jukebox = function() {
+  var jukebox = this;
+	this.audioContext =  new webkitAudioContext();
+  this.timer = new jukeboxTimer();
+  this.filter = new webAudioFilterPack(this.audioContext);
 
-  setInterval(function(){
-    var frametime = new Date().getTime();
-    var timeElapsed = frametime - lasttime;
-    framebuffer += timeElapsed;
-    lasttime = frametime;
-
-    if (framebuffer > targetFramerate) {
-      framebuffer-=targetFramerate;
-      trigger();
-    }
-  },1);
-
-  this.setInterval = function(callback,timeout,arguments) {
-    var startframe = framespassed;
-    var interval = setInterval(function(){
-      var totaltimepassed = framespassed - startframe;
-      if (totaltimepassed >= timeout) {
-        callback(arguments);
-      }
-      startframe = framespassed;
-    },1);
-
-    return interval;
-  }
-
-  this.setSequence = function(actions) {
-    
-    var sequenceQueuedActions = [];
-    var timeSoFar = 0;
-    actions.forEach(function(action){
-      sequenceQueuedActions.push(timer.setTimeout(function(){
-        action.callback()
-      },timeSoFar));
-      timeSoFar += action.timeout;
-    });
-
-    return sequenceQueuedActions;
-  }
-
-  this.clearSequence = function(sequenceQueuedActions) {
-    sequenceQueuedActions.forEach(function(action,index){
-      clearTimeout(action);
-    });
-  }
-
-  this.setTimeout = function(callback,timeout,arguments) {
-    var startframe = framespassed;
-    var interval = setInterval(function(){
-      var totaltimepassed = framespassed - startframe;
-      if (totaltimepassed >= timeout) {
-        callback(arguments);
-        clearInterval(interval);
-      }
-    },1);
-    
-    return interval;
-  }
-
-  function trigger() {
-    framespassed+=5;
-  }
-}
-
-var Jukebox = {
-	audioContext:  new webkitAudioContext(),
-  timer: new jukeboxTimer(),
-  // filter: {
-  //   fade: function(node,volume,time) {
-  //     node.linearRampToValueAtTime(volume, Jukebox.audioContext.currentTime + time / 100); // envelope
-  //   }
-  // },
-  gainNode: function(options) {
-      var gain = Jukebox.audioContext.createGain();
-      gain.connect(Jukebox.audioContext.destination);
+  this.gainNode = function(options) {
+      var gain = jukebox.audioContext.createGain();
+      gain.connect(jukebox.audioContext.destination);
       gain.gain.value = 0.5;
       return gain;
+  };
 
-    },
-
-  oscillator: function(options) {
-        var context = Jukebox.audioContext;
+  this.oscillator = function(options) {
+        var context = jukebox.audioContext;
         var oscillator = this;
         var target = undefined;
         var _oscillator = context.createOscillator();
 
-        this.gain = new Jukebox.gainNode();
+        this.gain = new jukebox.gainNode();
 
         window.addEventListener("click",function twiddle(){
           _oscillator.noteOn(0.1);
@@ -154,19 +81,22 @@ var Jukebox = {
 
         adjustvalues();
     },
-	Synth : function() {
+	this.Synth = function() {
 		var synth = this;		
 
 		var oscillators = [];
-		var osc = new Jukebox.oscillator({wave:"SINE"});
-		var osc2 = new Jukebox.oscillator({wave:"SQUARE"});
+		var osc = new jukebox.oscillator({wave:"SINE"});
+		var osc2 = new jukebox.oscillator({wave:"SQUARE"});
     oscillators.push(osc);
 		oscillators.push(osc2);
 
-   
+    var currentSequence = undefined;
 
 		this.sequence = function(notes) {
-      var sequence = Jukebox.timer.setSequence(notes.map(function(note){
+      if (currentSequence) {
+        jukebox.timer.clearSequence(currentSequence);
+      }
+      currentSequence = jukebox.timer.setSequence(notes.map(function(note){
         return {
           timeout: note.duration,
           callback: function() {
@@ -174,11 +104,6 @@ var Jukebox = {
           }
         }
       }))
-
-      // Jukebox.timer.clearSequence(sequence);
-
-
-			
 		}
 
 		this.tone = function(freq,duration) {
@@ -188,44 +113,24 @@ var Jukebox = {
 					return;
 				}
 				osc.start();
-				Jukebox.timer.setTimeout(function(){
+				jukebox.timer.setTimeout(function(){
 					osc.stop();
 				},duration);
 			})
 		};
 	},
-  Drums: function() {
+  this.Drums = function() {
     
     var drums = this;
-    var context = Jukebox.audioContext;
+    var context = jukebox.audioContext;
 
     var oscillators = [];
 
-    oscillators.push(new Jukebox.oscillator({wave:"SINE"}));
-    oscillators.push(new Jukebox.oscillator({wave:"SINE"}));
+    oscillators.push(new jukebox.oscillator({wave:"SINE"}));
+    oscillators.push(new jukebox.oscillator({wave:"SINE"}));
 
-    var bufferSize = 4096;
-    var effect = (function() {
-        var b0, b1, b2, b3, b4, b5, b6;
-        b0 = b1 = b2 = b3 = b4 = b5 = b6 = 0.0;
-        var node = Jukebox.audioContext.createScriptProcessor(bufferSize, 1, 1);
-        node.onaudioprocess = function(e) {
-            var input = e.inputBuffer.getChannelData(0);
-            var output = e.outputBuffer.getChannelData(0);
-            for (var i = 0; i < bufferSize; i++) {
-                b0 = 0.99886 * b0 + input[i] * 0.0555179;
-                b1 = 0.99332 * b1 + input[i] * 0.0750759;
-                b2 = 0.96900 * b2 + input[i] * 0.1538520;
-                b3 = 0.86650 * b3 + input[i] * 0.3104856;
-                b4 = 0.55000 * b4 + input[i] * 0.5329522;
-                b5 = -0.7616 * b5 - input[i] * 0.0168980;
-                output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + input[i] * 0.5362;
-                output[i] *= 0.11; // (roughly) compensate for gain
-                b6 = input[i] * 0.115926;
-            }
-        }
-        return node;
-    })();
+
+    var effect = jukebox.filter.bitcrusher();
 
     oscillators[0].connect(effect);
     oscillators[1].connect(effect);
@@ -237,30 +142,32 @@ var Jukebox = {
         osc.frequency = freq;
         osc.start();
         osc.gain.gain.value = 0;
-        // Jukebox.filter  
+
         osc.gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.01); // envelope  
         osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.05); // envelope  
 
-        Jukebox.timer.setTimeout(function(){
+        jukebox.timer.setTimeout(function(){
           osc.stop();
         },60);
       })
     }
 
     this.snare = function(){
-      oscillators[0].gain.gain.linearRampToValueAtTime(1,context.currentTime);
-      oscillators[1].gain.gain.linearRampToValueAtTime(1,context.currentTime);
-
       oscillators[0].frequency = 220;
       oscillators[1].frequency = 270;
 
-      oscillators[0].start();
-      oscillators[1].start();
+      oscillators.forEach(function(osc){
+        osc.start();
+        osc.gain.gain.value = 0;
 
-      Jukebox.timer.setTimeout(function(){
-        oscillators[0].stop();
-        oscillators[1].stop();
-      },120);
+        osc.gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.01); // envelope  
+        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.10); // envelope  
+   
+        jukebox.timer.setTimeout(function(){
+          osc.stop();
+        },60);
+      })
+
     }
 
 
