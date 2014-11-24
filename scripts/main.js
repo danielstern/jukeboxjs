@@ -45,25 +45,42 @@ var beep = function(){
 var bpm = 80;
 var bps = bpm / 60;
 
-jukebox.timer.setInterval(function(){
-  drums.kickdrum();
-}, 1000 / bps);
+var drumsPlaying = false;
+var drumsInterval;
+var playDrums = function(){
+  if (drumsPlaying) {
+    drumsInterval.forEach(function(drum){
+      clearInterval(drum)
+    });
+    drumsPlaying = false;
+    return;
+  }
 
-jukebox.timer.setInterval(function(){
-  drums.snare();
-}, 2000 / bps);
+  drumsPlaying = true;
+  drumsInterval=[jukebox.timer.setInterval(function(){
+    drums.kickdrum();
+  }, 1000 / bps),
+  jukebox.timer.setInterval(function(){
+    drums.snare();
+  }, 2000 / bps),
+  jukebox.timer.setInterval(function(){
+    drums.cymbal();
+  }, 8000 / bps),
+  jukebox.timer.setInterval(function(){
+    drums.hihat();
+  }, 250 / bps)]
+  
+}
 
-
-jukebox.timer.setInterval(function(){
-  drums.cymbal();
-}, 8000 / bps);
-
-jukebox.timer.setInterval(function(){
-  drums.hihat();
-}, 250 / bps);
-
+var marioPlaying = false;
 var playMario = function(){
-  synth.sequence(mario);
+  if (marioPlaying) {
+    synth.endSequence();
+    marioPlaying = false;
+    return;
+  }
+  var seq = synth.sequence(mario);
+  marioPlaying = true;
 }
 
 var mario = [{frequency:660 , duration:100},

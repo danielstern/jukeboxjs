@@ -107,9 +107,7 @@ var Jukebox = function() {
     var currentSequence = undefined;
 
 		this.sequence = function(notes) {
-      if (currentSequence) {
-        jukebox.timer.clearSequence(currentSequence);
-      }
+      this.endSequence();
       currentSequence = jukebox.timer.setSequence(notes.map(function(note){
         return {
           timeout: note.duration,
@@ -119,6 +117,12 @@ var Jukebox = function() {
         }
       }))
 		}
+
+    this.endSequence = function() {
+      if (currentSequence) {
+        jukebox.timer.clearSequence(currentSequence);
+      }
+    }
 
 		this.tone = function(freq,duration) {
 			oscillators.forEach(function(osc){
