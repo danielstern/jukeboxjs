@@ -42,6 +42,26 @@ var beep = function(){
 	// synth2(550 * 1.5);
 }
 
+var bpm = 80;
+var bps = bpm / 60;
+
+jukebox.timer.setInterval(function(){
+  drums.kickdrum();
+}, 1000 / bps);
+
+jukebox.timer.setInterval(function(){
+  drums.snare();
+}, 2000 / bps);
+
+
+jukebox.timer.setInterval(function(){
+  drums.cymbal();
+}, 8000 / bps);
+
+jukebox.timer.setInterval(function(){
+  drums.hihat();
+}, 250 / bps);
+
 var playMario = function(){
   synth.sequence(mario);
 }

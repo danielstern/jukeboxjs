@@ -4,6 +4,13 @@ var Jukebox = function() {
   this.timer = new jukeboxTimer();
   this.filter = new webAudioFilterPack(this.audioContext);
 
+  window.addEventListener("click",function twiddle(){
+    var _oscillator = jukebox.audioContext.createOscillator();
+    console.log("Twiddle");
+    _oscillator.noteOn(0.1);
+    window.removeEventListener("click",twiddle);
+  })
+
   this.gainNode = function(options) {
       var gain = jukebox.audioContext.createGain();
       gain.connect(jukebox.audioContext.destination);
@@ -20,11 +27,6 @@ var Jukebox = function() {
         this.gain = new jukebox.gainNode();
         this.frequency = options.frequency;
 
-        window.addEventListener("click",function twiddle(){
-          _oscillator.noteOn(0.1);
-          window.removeEventListener("click",twiddle);
-        })
-      
         var _oscillatorRunning = false;
 
         this.wave = options.wave || "SINE";
@@ -72,6 +74,17 @@ var Jukebox = function() {
            _oscillator.frequency.value = oscillator.frequency;
            _oscillator.noteOn(1);
            _oscillatorRunning = true;
+
+
+           setTimeout(function(){
+            if (_oscillatorRunning) {
+              _oscillator.noteOff(1);
+              _oscillator.stop();
+              _oscillatorRunning = false;
+            }
+
+            window.oscillator = _oscillator;
+          },2000)
         };
 
         this._stopTone = function() {
@@ -129,13 +142,11 @@ var Jukebox = function() {
     // oscillators[0].connect(effect);
     // oscillators[1].connect(effect);
 
+    var kickoscillators = [];
+    kickoscillators.push(new jukebox.oscillator({wave:"SINE"}));
+    kickoscillators.push(new jukebox.oscillator({wave:"SINE"}));
     this.kickdrum = function(){
-
-      var oscillators = [];
-      oscillators.push(new jukebox.oscillator({wave:"SINE"}));
-      oscillators.push(new jukebox.oscillator({wave:"SINE"}));
-
-      oscillators.forEach(function(osc){
+      kickoscillators.forEach(function(osc){
         var freq = 30;
         osc.frequency = freq;
         osc.start();
@@ -163,17 +174,17 @@ var Jukebox = function() {
       })
     }
 
+    var hihatoscillators = [];
+    hihatoscillators.push(new jukebox.oscillator({wave:"SINE",frequency:700}));
+    hihatoscillators.push(new jukebox.oscillator({wave:"SINE",frequency:720}));
+    hihatoscillators.push(new jukebox.oscillator({wave:"SQUARE",frequency:740}));
+    hihatoscillators.push(new jukebox.oscillator({wave:"SQUARE",frequency:780}));
+    hihatoscillators.push(new jukebox.oscillator({wave:"TRIANGLE",frequency:800}));
+    hihatoscillators.push(new jukebox.oscillator({wave:"SINE",frequency:850}));
     this.hihat = function () {
-      var oscillators = [];
-      oscillators.push(new jukebox.oscillator({wave:"SINE",frequency:700}));
-      oscillators.push(new jukebox.oscillator({wave:"SINE",frequency:720}));
-      oscillators.push(new jukebox.oscillator({wave:"SQUARE",frequency:740}));
-      oscillators.push(new jukebox.oscillator({wave:"SQUARE",frequency:780}));
-      oscillators.push(new jukebox.oscillator({wave:"TRIANGLE",frequency:800}));
-      oscillators.push(new jukebox.oscillator({wave:"SINE",frequency:850}));
       // oscillators.push(new jukebox.oscillator({wave:"SINE",frequency:720}));
 
-      oscillators.forEach(function(osc){
+      hihatoscillators.forEach(function(osc){
 
         osc.start();
         osc.gain.gain.linearRampToValueAtTime(0, context.currentTime); // envelope  
@@ -186,6 +197,8 @@ var Jukebox = function() {
 
 
     this.snare = function(){
+
+      console.log("KSHH");
 
       var oscillators = [];
 
