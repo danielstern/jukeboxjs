@@ -68,7 +68,7 @@ var playDrums = function(){
   }, 8000 / bps),
   jukebox.timer.setInterval(function(){
     drums.hihat();
-  }, 250 / bps)]
+  }, 500 / bps)]
   
 }
 
