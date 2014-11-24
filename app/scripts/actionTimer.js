@@ -23,8 +23,8 @@ var jukeboxTimer = function(){
       var totaltimepassed = framespassed - startframe;
       if (totaltimepassed >= timeout) {
         callback(arguments);
+        startframe = framespassed;
       }
-      startframe = framespassed;
     },1);
 
     return interval;
