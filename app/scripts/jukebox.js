@@ -18,6 +18,7 @@ var Jukebox = function() {
         var _oscillator = context.createOscillator();
 
         this.gain = new jukebox.gainNode();
+        this.frequency = options.frequency;
 
         window.addEventListener("click",function twiddle(){
           _oscillator.noteOn(0.1);
@@ -134,22 +135,55 @@ var Jukebox = function() {
       oscillators.push(new jukebox.oscillator({wave:"SINE"}));
       oscillators.push(new jukebox.oscillator({wave:"SINE"}));
 
-      var effect = jukebox.filter.bitcrusher();
-
       oscillators.forEach(function(osc){
         var freq = 30;
         osc.frequency = freq;
         osc.start();
-        // osc.gain.gain.value = 0;
-        // osc.volume = 0;
 
         osc.gain.gain.linearRampToValueAtTime(0, context.currentTime); // envelope  
-        osc.gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.03); // envelope  
-        osc.gain.gain.linearRampToValueAtTime(0.5, context.currentTime + 0.10); // envelope  
+        osc.gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.01); // envelope  
         osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5); // envelope  
 
       })
     }
+
+    this.cymbal = function () {
+      var oscillators = [];
+      oscillators.push(new jukebox.oscillator({wave:"SINE",frequency:550}));
+      oscillators.push(new jukebox.oscillator({wave:"SINE",frequency:630}));
+      oscillators.push(new jukebox.oscillator({wave:"SINE",frequency:720}));
+
+
+      oscillators.forEach(function(osc){
+
+        osc.start();
+        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime); // envelope  
+        osc.gain.gain.linearRampToValueAtTime(0.3, context.currentTime + 0.03); // envelope  
+        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5); // envelope  
+      })
+    }
+
+    this.hihat = function () {
+      var oscillators = [];
+      oscillators.push(new jukebox.oscillator({wave:"SINE",frequency:700}));
+      oscillators.push(new jukebox.oscillator({wave:"SINE",frequency:720}));
+      oscillators.push(new jukebox.oscillator({wave:"SQUARE",frequency:740}));
+      oscillators.push(new jukebox.oscillator({wave:"SQUARE",frequency:780}));
+      oscillators.push(new jukebox.oscillator({wave:"TRIANGLE",frequency:800}));
+      oscillators.push(new jukebox.oscillator({wave:"SINE",frequency:850}));
+      // oscillators.push(new jukebox.oscillator({wave:"SINE",frequency:720}));
+
+      oscillators.forEach(function(osc){
+
+        osc.start();
+        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime); // envelope  
+        osc.gain.gain.linearRampToValueAtTime(0.1, context.currentTime + 0.01); // envelope  
+        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.03); // envelope  
+      })
+    }
+
+
+
 
     this.snare = function(){
 
@@ -167,10 +201,6 @@ var Jukebox = function() {
         osc.gain.gain.linearRampToValueAtTime(0, context.currentTime); // envelope  
         osc.gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.01); // envelope  
         osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.10); // envelope  
-   
-        // jukebox.timer.setTimeout(function(){
-        //   osc.stop();
-        // },60);
       })
 
     }
