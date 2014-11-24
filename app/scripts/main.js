@@ -1,8 +1,9 @@
+var jukebox = new Jukebox();
 
-var synth = new Jukebox.Synth();
-var synth2 = new Jukebox.Synth();
+var synth = new jukebox.Synth();
+var synth2 = new jukebox.Synth();
 
-var drums = new Jukebox.Drums();
+var drums = new jukebox.Drums();
 
 // window.on('click',function(){
 
