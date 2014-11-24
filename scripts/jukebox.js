@@ -124,48 +124,53 @@ var Jukebox = function() {
     var drums = this;
     var context = jukebox.audioContext;
 
-    var oscillators = [];
 
-    oscillators.push(new jukebox.oscillator({wave:"SINE"}));
-    oscillators.push(new jukebox.oscillator({wave:"SINE"}));
-
-
-    var effect = jukebox.filter.bitcrusher();
-
-    oscillators[0].connect(effect);
-    oscillators[1].connect(effect);
+    // oscillators[0].connect(effect);
+    // oscillators[1].connect(effect);
 
     this.kickdrum = function(){
+
+      var oscillators = [];
+      oscillators.push(new jukebox.oscillator({wave:"SINE"}));
+      oscillators.push(new jukebox.oscillator({wave:"SINE"}));
+
+      var effect = jukebox.filter.bitcrusher();
+
       oscillators.forEach(function(osc){
         var freq = 30;
-        var vol = 1;
         osc.frequency = freq;
         osc.start();
-        osc.gain.gain.value = 0;
+        // osc.gain.gain.value = 0;
+        // osc.volume = 0;
 
-        osc.gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.01); // envelope  
-        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.05); // envelope  
+        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime); // envelope  
+        osc.gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.03); // envelope  
+        osc.gain.gain.linearRampToValueAtTime(0.5, context.currentTime + 0.10); // envelope  
+        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5); // envelope  
 
-        jukebox.timer.setTimeout(function(){
-          osc.stop();
-        },60);
       })
     }
 
     this.snare = function(){
+
+      var oscillators = [];
+
+      oscillators.push(new jukebox.oscillator({wave:"SINE"}));
+      oscillators.push(new jukebox.oscillator({wave:"SINE"}));
+
       oscillators[0].frequency = 220;
       oscillators[1].frequency = 270;
 
       oscillators.forEach(function(osc){
         osc.start();
-        osc.gain.gain.value = 0;
 
+        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime); // envelope  
         osc.gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.01); // envelope  
         osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.10); // envelope  
    
-        jukebox.timer.setTimeout(function(){
-          osc.stop();
-        },60);
+        // jukebox.timer.setTimeout(function(){
+        //   osc.stop();
+        // },60);
       })
 
     }
