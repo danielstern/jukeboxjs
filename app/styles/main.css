@@ -181,3 +181,32 @@ only screen and (max-width: 760px),
 .measure.active .beat.active {
   border: 5px solid green;
 }
+
+.tone {
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: 2px solid white;
+}
+
+.tone.active {
+  background-color: blue;
+}
+
+.tone input:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  /*pointer-events: non;*/
+  cursor: pointer;
+}
+
+
+.tone.active input:before {
+  background-color: #bada55;
+}

@@ -7,25 +7,32 @@ angular.module("sequencer",[])
 		currentMeasure:0,
 		currentBeat:0,
 		measures:[],
+		tempo: 120
 	};
 
-	for (var i = 0; i < state.numMeasures; i++) {
-		var measure = [];
-		state.measures.push(measure);
-		for (var j = 0; j < state.numMeasures; j++) { 
-			var beat = [];
-			var numTones = 4;
-			for (var k = 0; k < numTones; k++) { 
-				beat.push({
-					value:k
-				})
+	function rollMeasures() {
+
+		state.measures = [];
+
+		for (var i = 0; i < state.numMeasures; i++) {
+
+			var measure = [];
+			state.measures.push(measure);
+			for (var j = 0; j < state.beatsPerMeasure; j++) { 
+				var beat = [];
+				var numTones = 4;
+				for (var k = 0; k < numTones; k++) { 
+					beat.push({
+						value:k
+					})
+				}
+				
+				measure.push(beat);
 			}
-			
-			measure.push(beat);
 		}
 	}
 
-	console.log("Initial State:",state);
+	rollMeasures();
 
 	$rootScope.state = state;
 
@@ -33,12 +40,11 @@ angular.module("sequencer",[])
 
 	var drums = new jukebox.Drums();
 
-
 	$rootScope.start = function() {
-		// console.log("Starting timer");
-		var timer = jukebox.timer.setInterval(function(){
+		// console.log("Starting timer. BPM:",state.tempo);
+		$rootScope.stop();
+		interval = jukebox.timer.setInterval(function(){
 			state.currentBeat++;
-
 
 			if (state.currentBeat >= state.beatsPerMeasure) {
 				state.currentBeat = 0;
@@ -49,8 +55,6 @@ angular.module("sequencer",[])
 				state.currentMeasure = 0;
 			}
 
-			// console.log(state.currentBeat,state.currentMeasure)
-
 			var tones = state.measures[state.currentMeasure][state.currentBeat];
 			tones.forEach(function(tone){
 				if (tone.active) {
@@ -59,8 +63,19 @@ angular.module("sequencer",[])
 			})
 			$rootScope.$apply();
 
-		},100);
+
+
+		},60 * 1000 / state.tempo );
 	}
+
+	$rootScope.stop = function() {
+		clearInterval(interval);
+	}
+
+
+	$rootScope.$watch("state.numMeasures",rollMeasures);
+	$rootScope.$watch("state.beatsPerMeasure",rollMeasures);
+	$rootScope.$watch("state.tempo",$rootScope.start);
 
 })
 .service("jukebox",function(){

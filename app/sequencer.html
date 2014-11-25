@@ -34,16 +34,39 @@
       </div> -->
 
       <div class="jumbotron">
-        <h1>jukebox.js sequencer</h1>
+        <h1>html audio sequencer</h1>
         <button class="btn btn-default" ng-click=start()>
           Start
         </button>
-        <button class="btn btn-default">
+        <button class="btn btn-default" ng-click=stop()>
           Stop
         </button>
       </div>
 
       <div class="sequencer">
+        <label>
+          Measures 
+          <button ng-click='state.numMeasures = state.numMeasures + 1'>+</button>
+          <button ng-click='state.numMeasures = state.numMeasures - 1'>-</button>
+          <!-- <button ng-click='state.numMeasures -= 1'>-</button> -->
+        </label>
+
+        <label>
+          Beats Per Measure
+          <button ng-click='state.beatsPerMeasure = state.beatsPerMeasure + 1'>+</button>
+          <button ng-click='state.beatsPerMeasure = state.beatsPerMeasure - 1'>-</button>
+        </label>
+
+        <label class=pull-right>
+          {{state.tempo}}
+          <button ng-click='state.tempo = state.tempo + 1'>+</button>
+          <button ng-click='state.tempo = state.tempo - 1'>-</button>
+          <div width=75px class=pull-right>
+            <input type=range ng-model=state.tempo min=50 max=280 class='form-control'>
+          </div>
+        </label>
+
+        <hr>
 
         <div ng-repeat="measure in state.measures" class="measure measure-{{$index}}" ng-class="{'active':$index === state.currentMeasure}">
           <div ng-repeat="beat in measure" class="beat beat-{{$index}}" ng-class="{'active':$index === state.currentBeat}">
