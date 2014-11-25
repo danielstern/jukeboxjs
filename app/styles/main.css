@@ -163,3 +163,21 @@ only screen and (max-width: 760px),
   td:nth-of-type(9):before { content: "GPA"; }
   td:nth-of-type(10):before { content: "Arbitrary Data"; }*/
 }
+
+.measure {
+  border: 5px solid white;
+  float: left;
+}
+.measure.active {
+  border: 5px solid blue;
+}
+
+.beat {
+  float: left;
+  background-color: orange;
+  border: 5px solid white;
+}
+
+.measure.active .beat.active {
+  border: 5px solid green;
+}
