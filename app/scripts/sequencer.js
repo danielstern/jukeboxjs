@@ -13,9 +13,14 @@ angular.module("sequencer",[])
 		var measure = [];
 		state.measures.push(measure);
 		for (var j = 0; j < state.numMeasures; j++) { 
-			var beat = {
-
-			};
+			var beat = [];
+			var numTones = 4;
+			for (var k = 0; k < numTones; k++) { 
+				beat.push({
+					value:k
+				})
+			}
+			
 			measure.push(beat);
 		}
 	}
@@ -26,9 +31,11 @@ angular.module("sequencer",[])
 
 	var interval;
 
+	var drums = new jukebox.Drums();
+
 
 	$rootScope.start = function() {
-		console.log("Starting timer");
+		// console.log("Starting timer");
 		var timer = jukebox.timer.setInterval(function(){
 			state.currentBeat++;
 
@@ -42,8 +49,14 @@ angular.module("sequencer",[])
 				state.currentMeasure = 0;
 			}
 
-			console.log(state.currentBeat,state.currentMeasure)
+			// console.log(state.currentBeat,state.currentMeasure)
 
+			var tones = state.measures[state.currentMeasure][state.currentBeat];
+			tones.forEach(function(tone){
+				if (tone.active) {
+					drums.tone(tone.value);
+				}
+			})
 			$rootScope.$apply();
 
 		},100);

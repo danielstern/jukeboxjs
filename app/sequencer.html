@@ -46,9 +46,12 @@
       <div class="sequencer">
 
         <div ng-repeat="measure in state.measures" class="measure measure-{{$index}}" ng-class="{'active':$index === state.currentMeasure}">
-        <!-- measure -->
           <div ng-repeat="beat in measure" class="beat beat-{{$index}}" ng-class="{'active':$index === state.currentBeat}">
-          BEAT
+             <div ng-repeat="tone in beat" class="tone tone-{{$index}}" ng-class="{'active':tone.active}">
+                <input type=checkbox ng-model=tone.active>
+              <div>
+            </div>
+          </div>
           </div>
         </div>
         <div class=clearfix></div>
