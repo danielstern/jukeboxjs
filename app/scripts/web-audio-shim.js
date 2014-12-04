@@ -20,6 +20,12 @@
       };
     }
 
+    if (!window.webkitAudioContext) {
+      window.webkitAudioContext = {
+
+      }
+    }
+
     if (!AudioContext.prototype.hasOwnProperty('internal_createDelay')){
       AudioContext.prototype.internal_createDelay = AudioContext.prototype.createDelay;
       AudioContext.prototype.createDelay = function() { 
@@ -135,3 +141,12 @@
       AudioContext.prototype.createWaveTable = AudioContext.prototype.createPeriodicWave;
   }
 }(window));
+
+window.addEventListener("click",function twiddle(){
+  var audioContext = webkitAudioContext ? new webkitAudioContext() : null;
+  var _oscillator = audioContext.createOscillator();
+  _oscillator.noteOn(0.1);
+  window.removeEventListener("click",twiddle);
+});
+
+

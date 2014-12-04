@@ -1,15 +1,7 @@
 var Jukebox = function() {
-  var jukebox = this;
 	var audioContext = webkitAudioContext ? new webkitAudioContext() : null;
   var timer = new jukeboxTimer();
   var filter = new webAudioFilterPack(this.audioContext);
-
-  window.addEventListener("click",function twiddle(){
-    var _oscillator = audioContext.createOscillator();
-    _oscillator.noteOn(0.1);
-    window.removeEventListener("click",twiddle);
-  });
-
 
   var Oscillator = function(options) {
         var context = audioContext,
@@ -69,21 +61,22 @@ var Jukebox = function() {
           gain:gain
         }
     };
-	this.Synth = function(options) {
+
+	var Synthesizer = function(options) {
     options = options || {};
-		var synth = this;
-    var oscillators;
+    var oscillators,
+    currentSequence;
+
     if (options.oscillators) {
       oscillators = options.oscillators.map(function(schema){
         return new Oscillator(schema);
       });
     } else {
-		  oscillators = [new Oscillator({wave:"SINE"}),new Oscillator({wave:"SQUARE"})];
+      oscillators = [new Oscillator({wave:"SINE"}),new Oscillator({wave:"SQUARE"})];
     }
 
-    var currentSequence = undefined;
-		this.sequence = function(notes) {
-      this.endSequence();
+		var sequence = function(notes) {
+      endSequence();
       currentSequence = timer.setSequence(notes.map(function(note){
         return {
           timeout: note.duration,
@@ -92,21 +85,21 @@ var Jukebox = function() {
           }
         }
       }))
-		}
+		};
 
-    this.setVolume = function(volume) {
+    var setVolume = function(volume) {
       oscillators.forEach(function(oscillator){
         oscillator.gain.value = volume;
       })
     }
 
-    this.endSequence = function() {
+    var endSequence = function() {
       if (currentSequence) {
         timer.clearSequence(currentSequence);
       }
     }
 
-		this.tone = function(freq,duration) {
+		var tone = function(freq,duration) {
 			oscillators.forEach(function(osc){
 				osc.setFrequency(freq);
 				if (freq < 0) {
@@ -118,8 +111,19 @@ var Jukebox = function() {
 				},duration);
 			})
 		};
-	},
-  this.Drums = function() {
+
+    return {
+      setVolume:setVolume,
+      tone:tone,
+      sequence:sequence,
+    }
+	};
+
+  var Patterns = {
+    
+  }
+
+  var Drums = function() {
     
     var drums = this;
     var context = audioContext;
@@ -206,5 +210,14 @@ var Jukebox = function() {
 
     };
 
+  }
+
+  return {
+    getSynth:function(){
+      return new Synthesizer();
+    },
+    getDrums:function(){
+      return new Drums();
+    }
   }
 }
