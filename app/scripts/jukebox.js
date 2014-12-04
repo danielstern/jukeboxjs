@@ -26,29 +26,20 @@ var Jukebox = function() {
         gain = audioContext.createGain();
         gain.connect(audioContext.destination);
 
-        oscillators = options.oscillators.map(function(oscillatorDefinition) {
-            var oscillator = context.createOscillator();
-            oscillator.type = oscillatorDefinition;
-            oscillator.connect(gain);
-            oscillator.noteOn(1);
-            oscillator.frequency.value = 0;
-            return oscillator;
-        })
+
 
         var play = function() {
+            if (playing) {
+              stop();
+            }
             playing = true;
-            updateOscillators();
-        }
 
-        var stop = function() {
-            playing = false;
-            updateOscillators();
-        }
+            oscillators = options.oscillators.map(function(oscillatorDefinition) {
+                var oscillator = context.createOscillator();
+                return oscillator;
+            });
 
-        var updateOscillators = function() {
             oscillators.forEach(function(oscillator) {
-                // var oscillator = context.createOscillator();
-                // oscillator.type = oscillatorDefinition;
 
                 if (targetAudioNode) {
                     oscillator.connect(targetAudioNode); // Connect sound to output
@@ -63,18 +54,27 @@ var Jukebox = function() {
                 } else {
                     oscillator.frequency.value = 0;
                 }
+
+                oscillator.noteOn(1)
+            });
+        }
+
+        var stop = function() {
+            if (!playing) {
+              return;
+            }
+            playing = false;
+            oscillators.forEach(function(oscillator) {
+              oscillator.noteOff(0);
             });
         }
 
         var setFrequency = function(_frequency) {
             frequency = _frequency;
-            updateOscillators();
+             oscillators.forEach(function(oscillator) {
+              oscillator.frequency.value = frequency;
+            });
         }
-
-        // var setType = function(type) {
-        //   type = wave;
-        //   _oscillator.type = _oscillator[wave];
-        // }
 
         this.connect = function(node) {
             targetAudioNode = node;
@@ -146,6 +146,7 @@ var Jukebox = function() {
             setVolume: setVolume,
             tone: tone,
             sequence: sequence,
+            endSequence: endSequence,
         }
     };
 
