@@ -58,40 +58,39 @@
             <tr>
               <td>
               <code>
-                jukebox.Synth():Synthesizer
+                jukebox.getSynth(synthesizerSchema):Synthesizer
               </code>
               </td>
-              <td>Returns a new synthesizer object.</td>
+              <td>Returns a new synthesizer object suitable for keyboard or drums.</td>
             </tr>
             <tr>
               <td>
               <code>
-                jukebox.Drums():Drums
+                jukebox.getModulator(modulatorSchema):Modulator
               </code>
               </td>
-              <td>Returns a new drum object.</td>
+              <td>Returns a new modulator object suitable for generating tones based on frequencies.</td>
             </tr>
           </table>
 
+
           <h3>
-            Synthesizer
+            Modulator
           </h3>
           <table class='table table-striped'>
             <tr>
               <td>
               <code>
-                synthesizer.tone(frequency:Number,duration:Number):null
+                synthesizer.play(frequency:Number):null
               </code>
               </td>
-              <td><p>
-                Plays a tone of the specified frequency for the specified duration of time.
-                </p>
+              <td>
                 <p>
-                  A synthesizer can play only one tone at a time. To play multiple tones at once, create more than one synthesizer.
+                  Plays the specified frequency
                 </p>
                 </td> 
             </tr>
-            <tr>
+            <!-- <tr>
               <td>
               <code>
                 synthesizer.sequence([{ frequency:Number , duration:Number }...])
@@ -101,15 +100,44 @@
                   Plays a sequence of tones one after the other. 
                 </p>
                 </td> 
-            </tr>
+            </tr> -->
           </table>
 
+          <h3>
+            Synthesizer
+          </h3>
+          <table class='table table-striped'>
+            <tr>
+              <td>
+              <code>
+                synthesizer.play(tone:Number):null
+              </code>
+              </td>
+              <td>
+                <p>
+                  Plays the specified key on the synthesizer.
+                </p>
+                </td> 
+            </tr>
+            <!-- <tr>
+              <td>
+              <code>
+                synthesizer.sequence([{ frequency:Number , duration:Number }...])
+              </code>
+              </td>
+              <td><p>
+                  Plays a sequence of tones one after the other. 
+                </p>
+                </td> 
+            </tr> -->
+          </table>
+<!-- 
           <h4>Example</h4>
           <h5>
             Create a synthesizer
           </h5>
 <pre><code>var jukebox = new Jukebox();
-var moog = new jukebox.Synth();</pre></code>
+var moog = new jukebox.getSynth();</pre></code>
 
           <h5>
             Play a tone
@@ -154,11 +182,11 @@ korg.tone(262,300);
   duration:500,
 }]);
 </pre></code>
-
+ -->
       <h3>
         Drums
       </h3>
-      <p>
+      <!-- <p>
         Creates an instrument that creates percussive noises.
       </p>
       <table class='table table-striped'>
@@ -176,11 +204,12 @@ korg.tone(262,300);
             </p>
             </td> 
         </tr>
-      </table>
+      </table> -->
 
       <button class="btn btn-default" onclick=drums.play(0)>Kickdrum</button>
       <button class="btn btn-default" onclick=drums.play(1)>Snare</button>
       <button class="btn btn-default" onclick=drums.play(2)>cymbal</button>
+      <button class="btn btn-default" onclick=drums.play(3)>crash</button>
       <!-- <button class="btn btn-default" onclick=drums.hihat()>hihat</button> -->
       <!-- <button class="btn btn-default" onclick=playDrums()>Drum Machine</button> -->
 

@@ -8,37 +8,88 @@ var JBSCHEMA = {
 }
 
 var tones = {
-    "kickdrum1": {
-        name: "kickdrum1",
-        processor: function(Modulator, tone, timer) {
+    "Thomson Ninja DK1500": {
+        "kickdrum": {
+            name: "kickdrum1",
+            processor: function(Modulator, tone, timer) {
 
-            var kickdrum = new Modulator({
-                oscillators: [SQUARE, TRIANGLE],
-                frequency: 40
-            });
-            // var freq = 40;
-            // modulator.setFrequency(freq);
-            kickdrum.play();
-            timer.setTimeout(kickdrum.stop, 100);
-        }
+                var kickdrum = new Modulator({
+                    oscillators: [SQUARE, TRIANGLE],
+                    frequency: 40,
+                    envelope: {
+                        timeIn: 5,
+                        timeOut: 5,
+                    },
+                });
+
+                // var freq = 40;
+                // modulator.setFrequency(freq);
+                kickdrum.play();
+                timer.setTimeout(kickdrum.stop, 30);
+            }
+        },
+        "snare": {
+            name: "snare1",
+            processor: function(Modulator, tone, timer) {
+                var snare = new Modulator({
+                    oscillators: [SAW,TRIANGLE],
+                    envelope: {
+                        timeIn: 10,
+                        timeOut: 35,
+                    },
+                    frequency: 170
+                });
+                snare.play();
+                timer.setTimeout(snare.stop, 30);
+            }
+        },
+        "hihat": {
+            name: "hihat",
+            processor: function(Modulator, tone, timer) {
+                var snare = new Modulator({
+                    oscillators: [SINE, SINE,SINE],
+                    envelope: {
+                        timeIn: 10,
+                        timeOut: 70,
+                    },
+                    frequency: 700
+                });
+                snare.play();
+                timer.setTimeout(snare.stop, 25);
+            }
+        },
+        "hihat": {
+            name: "hihat",
+            processor: function(Modulator, tone, timer) {
+                var hihat = new Modulator({
+                    oscillators: [SINE, SINE,SINE],
+                    envelope: {
+                        timeIn: 10,
+                        timeOut: 70,
+                    },
+                    frequency: 700
+                });
+                hihat.play();
+                timer.setTimeout(hihat.stop, 25);
+            }
+        },
+        "crash": {
+            name: "crash",
+            processor: function(Modulator, tone, timer) {
+                var crash = new Modulator({
+                    oscillators: [SINE, SINE,TRIANGLE],
+                    envelope: {
+                        timeIn: 10,
+                        timeOut: 70,
+                    },
+                    frequency: 620
+                });
+                crash.play();
+                timer.setTimeout(crash.stop, 75);
+            }
+        },
     },
-    "snare1": {
-        name: "snare1",
-        processor: function(Modulator, tone, timer) {
-            var snare = new Modulator({
-                oscillators: [SQUARE, SAW],
-                envelope: {
-                    timeIn: 10,
-                    timeOut: 300,
-                },
-                frequency: 70
-            });
-            // var freq = 40;
-            // modulator.setFrequency(freq);
-            snare.play();
-            timer.setTimeout(snare.stop, 100);
-        }
-    },
+
     "keyboard1": {
         name: 'keyboard1',
         processor: function(modulator, tone, timer) {
@@ -60,8 +111,10 @@ var toneMaps = {
         name: "Drums",
         type: "custom",
         tones: [
-            tones['kickdrum1'],
-            tones['snare1'],
+            tones["Thomson Ninja DK1500"]['kickdrum'],
+            tones["Thomson Ninja DK1500"]['snare'],
+            tones["Thomson Ninja DK1500"]['hihat'],
+            tones["Thomson Ninja DK1500"]['crash'],
         ]
     },
     "Keyboard": {
