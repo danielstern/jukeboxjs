@@ -6,24 +6,27 @@ var Jukebox = function() {
         window.jukeboxAudioContext = audioContext;
     }
     var timer = new jukeboxTimer();
-    var filter = new webAudioFilterPack(this.audioContext);
 
 
     var Modulator = function(options) {
         options = options || {};
+        var filters = new FilterPack(audioContext);
+        console.log("Modulator.. filters?",filters);
+
 
         options.oscillators = options.oscillators || ["square", 'triangle', 'sawtooth', 'sine'];
         options.effects = options.effects || [];
         options.frequency = options.frequency || 440;
         options.noteLength = options.noteLength || 300;
+        options.filters = options.filters || [new filters.bitcrusher()]
         options.envelope = {
             timeIn: 300,
             timeOut: 300,
         };
 
-        var envelope = options.envelope;
-
-        var context = audioContext,
+        var envelope = options.envelope,
+            filters = options.filters,
+            context = audioContext,
             targetAudioNode,
             oscillators = [],
             playing = false,
@@ -61,7 +64,12 @@ var Jukebox = function() {
                 oscillator.type = oscillatorDefinition;
 
                 var gain = audioContext.createGain();
-                gain.connect(audioContext.destination);
+                if (filters[0]) {
+                    gain.connect(filters[0]);
+                    filters[0].connect(audioContext.destination);
+                } else {
+                    gain.connect(audioContext.destination);
+                }
 
                 if (playing) {
                     oscillator.frequency.value = frequency;
@@ -112,7 +120,7 @@ var Jukebox = function() {
         }
 
         var setEnvelope = function(_envelope) {
-          envelope = _envelope;
+            envelope = _envelope;
         }
 
         var setFrequency = function(_frequency) {
@@ -158,19 +166,19 @@ var Jukebox = function() {
         }
 
         var play = function(tone) {
-          console.log("playing tone...",tone);
-          var map = options.schema.toneMap;
-          var toneSchema;
-          var processor; 
-          if (map.type == "custom") {
-             toneSchema = map.tones[tone];
-             toneSchema.processor(Modulator,tone,timer);
-          } else {
-            toneSchema = map.tones[0];
-            modulators.forEach(function(modulator){
-              toneSchema.processor(modulator,tone,timer);
-            })
-          }          
+            console.log("playing tone...", tone);
+            var map = options.schema.toneMap;
+            var toneSchema;
+            var processor;
+            if (map.type == "custom") {
+                toneSchema = map.tones[tone];
+                toneSchema.processor(Modulator, tone, timer);
+            } else {
+                toneSchema = map.tones[0];
+                modulators.forEach(function(modulator) {
+                    toneSchema.processor(modulator, tone, timer);
+                })
+            }
         }
 
         // var tone = function(freq, duration) {
@@ -189,7 +197,7 @@ var Jukebox = function() {
         return {
             setVolume: setVolume,
             // tone: tone,
-            play:play,
+            play: play,
             // sequence: sequence,
             endSequence: endSequence,
         }
@@ -205,6 +213,6 @@ var Jukebox = function() {
         getContext: function() {
             return audioContext;
         },
-        timer:timer,
+        timer: timer,
     }
 }

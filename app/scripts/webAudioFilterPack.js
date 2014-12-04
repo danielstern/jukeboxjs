@@ -1,5 +1,5 @@
-var webAudioFilterPack = function(audioContext) {
-	this.pink =  function(node,volume,time) {
+var FilterPack = function(audioContext) {
+	var pink =  function(node,volume,time) {
 	  var bufferSize = 4096;
 	  var effect = (function() {
 
@@ -27,7 +27,7 @@ var webAudioFilterPack = function(audioContext) {
 	  return effect;
 	}
 
-	this.noise = function() {
+	var noise = function() {
 		var effect = (function() {
 		    var convolver = audioContext.createConvolver(),
 		        noiseBuffer = audioContext.createBuffer(2, 0.5 * audioContext.sampleRate, audioContext.sampleRate),
@@ -78,7 +78,7 @@ var webAudioFilterPack = function(audioContext) {
 
 	}
 
-	this.bitcrusher = function() {
+	var bitcrusher = function() {
 		var bufferSize = 4096;
 		var effect = (function() {
 		    var node = audioContext.createScriptProcessor(bufferSize, 1, 1);
@@ -103,5 +103,9 @@ var webAudioFilterPack = function(audioContext) {
 		})();
 
 		return effect;
+	};
+
+	return {
+		bitcrusher:bitcrusher
 	}
 }
