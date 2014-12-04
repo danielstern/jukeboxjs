@@ -10,7 +10,11 @@ var JBSCHEMA = {
 var modulators = {
     "Grigsby 2260":{
       name:"Grigsby 2260",
-      oscillators:[SINE]
+      oscillators:[SINE,SAW],
+      envelope: {
+        timeIn: 200,
+        timeOut: 500,
+      }
       // oscillators:[SQUARE,SAW,SINE]
     }
   };

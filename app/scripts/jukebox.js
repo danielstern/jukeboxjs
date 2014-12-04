@@ -12,10 +12,14 @@ var Jukebox = function() {
     var Modulator = function(options) {
         options = options || {};
 
-        options.oscillators = options.oscillators || ["square",'triangle','sawtooth','sine'];
+        options.oscillators = options.oscillators || ["square", 'triangle', 'sawtooth', 'sine'];
         options.effects = options.effects || [];
         options.frequency = options.frequency || 440;
         options.noteLength = options.noteLength || 300;
+        options.envelope = {
+            timeIn: 300,
+            timeOut: 300,
+        }
 
         var context = audioContext,
             targetAudioNode,
@@ -26,36 +30,27 @@ var Jukebox = function() {
             frequency = options.frequency;
 
         function easeGainNodeLinear(options) {
-          var node = options.node;
-          var duration = options.duration;
-          var start = options.start;
-          var end = options.end;
+            var node = options.node;
+            var duration = options.duration;
+            var start = options.start;
+            var end = options.end;
 
-          // console.log("Node?",node,node.gain,node.value);
-          // console.log("Node?",node);
+            var startGain = node.gain.value;
+            var endGain = end;
+            var steps = 50;
+            var timePerStep = duration / steps;
+            var difference = startGain - endGain;
 
-          var startGain = start || start === 0 ? start : node.gain.value;
-          var endGain = end;
-          var steps = 50;
-          var timePerStep = duration / steps;
-          var difference = startGain - endGain;
-
-          // if (difference === 0) {
-          //   return;
-          // }
-
-          for (var currentStep = 1; currentStep <= steps; currentStep++) {
-            var volumeAtStep = startGain - difference / steps * currentStep;
-            var timeAtStep = context.currentTime + timePerStep * currentStep / 10000;
-            console.log("setting ramp step",timeAtStep,volumeAtStep,difference);
-            // node.gain.setValueAtTime(1 - currentStep / 100,context.currentTime + timePerStep * currentStep / 1000);
-            node.gain.setValueAtTime(volumeAtStep,timeAtStep);
-          }
-        }     
+            for (var currentStep = 1; currentStep <= steps; currentStep++) {
+                var volumeAtStep = startGain - difference / steps * currentStep;
+                var timeAtStep = context.currentTime + timePerStep * currentStep / 10000;
+                node.gain.setValueAtTime(volumeAtStep, timeAtStep);
+            }
+        }
 
         var play = function() {
             if (playing) {
-              stop();
+                stop();
             }
             playing = true;
 
@@ -72,42 +67,52 @@ var Jukebox = function() {
                     oscillator.frequency.value = 0;
                 }
 
-                easeGainNodeLinear({node:gain,end:1,start:0, duration:100});
+                easeGainNodeLinear({
+                    node: gain,
+                    end: 1,
+                    start: 0,
+                    duration: options.envelope.timeIn
+                });
 
                 oscillator.noteOn(0);
                 oscillator.gain = gain;
                 oscillator.connect(gain);
                 playingOscillators.push(oscillator);
-                
+
                 return oscillator;
             });
         }
 
         var stop = function() {
             if (!playing) {
-              return;
+                return;
             }
             playing = false;
             var fadingOscillators = [];
-            playingOscillators.forEach(function(oscillator){
-              easeGainNodeLinear({node:oscillator.gain,end:0, start:1, duration:100});
+            playingOscillators.forEach(function(oscillator) {
+                easeGainNodeLinear({
+                    node: oscillator.gain,
+                    end: 0,
+                    start: 1,
+                    duration: options.envelope.timeIn
+                });
             });
             while (playingOscillators[0]) {
-              fadingOscillators.push(playingOscillators.pop());
+                fadingOscillators.push(playingOscillators.pop());
             };
 
-            timer.setTimeout(function(){
-              fadingOscillators.forEach(function(oscillator){
-                oscillator.noteOff(0);
-                fadingOscillators.splice(fadingOscillators.indexOf(oscillator),1);
-             });
-            },1000)
+            timer.setTimeout(function() {
+                fadingOscillators.forEach(function(oscillator) {
+                    oscillator.noteOff(0);
+                    fadingOscillators.splice(fadingOscillators.indexOf(oscillator), 1);
+                });
+            }, 1000)
         }
 
         var setFrequency = function(_frequency) {
             frequency = _frequency;
-             oscillators.forEach(function(oscillator) {
-              oscillator.frequency.value = frequency;
+            oscillators.forEach(function(oscillator) {
+                oscillator.frequency.value = frequency;
             });
         }
 
