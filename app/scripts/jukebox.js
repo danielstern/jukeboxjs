@@ -8,13 +8,18 @@ var Jukebox = function() {
     var timer = new jukeboxTimer();
     var filter = new webAudioFilterPack(this.audioContext);
 
+    var SINE = 'sine';
+    var SAW = 'sawtooth';
+    var TRIANGLE = 'triangle';
+    var SQUARE = 'square';
+
     var Modulator = function(options) {
         options = options || {};
 
-        options.oscillators = ["SINE", "SQUARE"];
-        options.effects = [];
-        options.frequency = 440;
-        options.noteLength = 300;
+        options.oscillators = options.oscillators || ["square",'triangle','sawtooth','sine'];
+        options.effects = options.effects || [];
+        options.frequency = options.frequency || 440;
+        options.noteLength = options.noteLength || 300;
 
         var context = audioContext,
             targetAudioNode,
@@ -22,11 +27,8 @@ var Jukebox = function() {
             playing = false,
             gain,
             frequency = options.frequency,
-            type = options.type || "SINE";
         gain = audioContext.createGain();
         gain.connect(audioContext.destination);
-
-
 
         var play = function() {
             if (playing) {
@@ -36,19 +38,16 @@ var Jukebox = function() {
 
             oscillators = options.oscillators.map(function(oscillatorDefinition) {
                 var oscillator = context.createOscillator();
-                return oscillator;
-            });
-
-            oscillators.forEach(function(oscillator) {
-
+                console.log("Type?",oscillatorDefinition);
+                oscillator.type = oscillatorDefinition;
+                // oscillator.type = oscillatorDefinition;
                 if (targetAudioNode) {
-                    oscillator.connect(targetAudioNode); // Connect sound to output
-                    targetAudioNode.connect(gain); // Connect sound to output
+                    oscillator.connect(targetAudioNode);
+                    targetAudioNode.connect(gain);
                 } else {
-                    oscillator.connect(gain); // Connect sound to output 
+                    oscillator.connect(gain); 
                 }
 
-                oscillator.type = type;
                 if (playing) {
                     oscillator.frequency.value = frequency;
                 } else {
@@ -56,6 +55,12 @@ var Jukebox = function() {
                 }
 
                 oscillator.noteOn(1)
+                return oscillator;
+            });
+
+            oscillators.forEach(function(oscillator) {
+
+         
             });
         }
 
@@ -90,20 +95,22 @@ var Jukebox = function() {
 
     var Synthesizer = function(options) {
         options = options || {};
-        var oscillators,
+        options.schema = options.schema || {
+          name: "Omaha DS6ix Specifications",
+          modulators: [{
+            name:"Grigsby 2260",
+            oscillators:[SQUARE,SAW,SINE]
+          }],
+        }
+
+        var modulators = [],
             currentSequence;
 
-        if (options.oscillators) {
-            oscillators = options.oscillators.map(function(schema) {
-                return new Modulator({
-                    oscillators: ["SINE", "SQUARE"]
-                });
+        modulators = options.schema.modulators.map(function(schema) {
+            return new Modulator({
+                oscillators: schema.oscillators
             });
-        } else {
-            oscillators = [new Modulator({
-                oscillators: ["SINE", "SQUARE"]
-            })];
-        }
+        });
 
         var sequence = function(notes) {
             endSequence();
@@ -130,14 +137,14 @@ var Jukebox = function() {
         }
 
         var tone = function(freq, duration) {
-            oscillators.forEach(function(osc) {
-                osc.setFrequency(freq);
+            modulators.forEach(function(modulator) {
+                modulator.setFrequency(freq);
                 if (freq < 0) {
                     return;
                 }
-                osc.play();
+                modulator.play();
                 timer.setTimeout(function() {
-                    osc.stop();
+                    modulator.stop();
                 }, duration);
             })
         };
