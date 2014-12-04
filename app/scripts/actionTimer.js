@@ -1,8 +1,8 @@
-var jukeboxTimer = function(){
-  var targetFramerate = 1;
+var jukeboxTimer = function(framerate){
+  var targetFramesPerSecond = framerate || 60;
   var lasttime = new Date().getTime();
   var framebuffer = 0;
-  var framespassed = 0;
+  var framesSinceInitialized = 0;
   var timer = this;
 
   setInterval(function(){
@@ -11,19 +11,19 @@ var jukeboxTimer = function(){
     framebuffer += timeElapsed;
     lasttime = frametime;
 
-    if (framebuffer > targetFramerate) {
-      framebuffer-=targetFramerate;
-      trigger();
+    if (framebuffer > targetFramesPerSecond) {
+      framebuffer-=targetFramesPerSecond;
+      framesSinceInitialized += 50;
     }
   },1);
 
   this.setInterval = function(callback,timeout,arguments) {
-    var startframe = framespassed;
+    var frameOnTimeoutSet = framesSinceInitialized;
     var interval = setInterval(function(){
-      var totaltimepassed = framespassed - startframe;
+      var totaltimepassed = framesSinceInitialized - frameOnTimeoutSet;
       if (totaltimepassed >= timeout) {
         callback(arguments);
-        startframe = framespassed;
+        frameOnTimeoutSet = framesSinceInitialized;
       }
     },1);
 
@@ -51,9 +51,9 @@ var jukeboxTimer = function(){
   }
 
   this.setTimeout = function(callback,timeout,arguments) {
-    var startframe = framespassed;
+    var startframe = framesSinceInitialized;
     var interval = setInterval(function(){
-      var totaltimepassed = framespassed - startframe;
+      var totaltimepassed = framesSinceInitialized - startframe;
       if (totaltimepassed >= timeout) {
         callback(arguments);
         clearInterval(interval);
@@ -61,9 +61,5 @@ var jukeboxTimer = function(){
     },1);
     
     return interval;
-  }
-
-  function trigger() {
-    framespassed+=5;
   }
 }
