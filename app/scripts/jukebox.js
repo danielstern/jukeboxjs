@@ -1,5 +1,10 @@
 var Jukebox = function() {
-	var audioContext = webkitAudioContext ? new webkitAudioContext() : null;
+  if (window.jukeboxAudioContext) {
+    audioContext = jukeboxAudioContext;
+  } else {
+	 var audioContext = webkitAudioContext ? new webkitAudioContext() : null; 
+   window.jukeboxAudioContext = audioContext;
+  }
   var timer = new jukeboxTimer();
   var filter = new webAudioFilterPack(this.audioContext);
 
@@ -120,104 +125,20 @@ var Jukebox = function() {
 	};
 
   var Patterns = {
-    
-  }
-
-  var Drums = function() {
-    
-    var drums = this;
-    var context = audioContext;
-
-    var kickoscillators = [
-      new Oscillator({wave:"SINE"}),
-      new Oscillator({wave:"SINE"}),
-      new Oscillator({wave:"SINE"})
-    ];
-
-    this.kickdrum = function(){
-      kickoscillators.forEach(function(osc){
-        var freq = 40;
-        osc.setFrequency(freq);
-        osc.play();
-
-        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime); // envelope  
-        osc.gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.01); // envelope  
-        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5); // envelope  
-
-      })
-    }
-
-    var cymbalOscillators = [new Oscillator({wave:"SINE",frequency:550}),new Oscillator({wave:"SINE",frequency:630}),new Oscillator({wave:"SINE",frequency:720})];
-    this.cymbal = function () {
-
-      cymbalOscillators.forEach(function(osc){
-        osc.play();
-        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime); // envelope  
-        osc.gain.gain.linearRampToValueAtTime(0.3, context.currentTime + 0.03); // envelope  
-        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5); // envelope  
-      })
-    }
-
-    var hihatoscillators = [
-      new Oscillator({wave:"SINE",frequency:700}),
-      new Oscillator({wave:"SINE",frequency:720}),
-      new Oscillator({wave:"SQUARE",frequency:740})
-    ];
-    this.hihat = function () {
-
-      hihatoscillators.forEach(function(osc){
-
-        osc.play();
-        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime); // envelope  
-        osc.gain.gain.linearRampToValueAtTime(0.1, context.currentTime + 0.01); // envelope  
-        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.03); // envelope  
-      })
-    }
-
-    var snareOscillators = [
-      new Oscillator({wave:"SINE",frequency:220}),
-      new Oscillator({wave:"SINE",frequency:270}),
-      new Oscillator({wave:"TRIANGLE",frequency:300})
-    ];
-    this.snare = function(){
-
-      snareOscillators.forEach(function(osc){
-        osc.play();
-
-        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime); // envelope  
-        osc.gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.01); // envelope  
-        osc.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.10); // envelope  
-      })
-
-    }
-
-
-    this.tone = function(freq) {
-      switch(freq) {
-        case 0:
-        this.kickdrum();
-        break;
-        case 1:
-        this.snare();
-        break;
-        case 2:
-        this.hihat();
-        break;
-        case 3:
-        this.cymbal();
-        break;
-      }
-
-    };
 
   }
+
+  
 
   return {
-    getSynth:function(){
-      return new Synthesizer();
+    getSynth:function(options){
+      return new Synthesizer(options);
     },
-    getDrums:function(){
-      return new Drums();
+    getModulator:function(options){
+      return new Oscillator(options);
+    },
+    getContext:function(){
+      return audioContext;
     }
   }
 }

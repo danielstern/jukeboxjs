@@ -3,7 +3,7 @@ var jukebox = new Jukebox();
 var synth = jukebox.getSynth();
 var synth2 = jukebox.getSynth();
 
-var drums = jukebox.getDrums();
+var drums = new Drums();
 
 // window.on('click',function(){
 
