@@ -130,23 +130,13 @@ var Jukebox = function() {
         var modulators = [],
             currentSequence;
 
+
+
         modulators = options.schema.modulators.map(function(schema) {
             return new Modulator({
                 oscillators: schema.oscillators
             });
         });
-
-        var sequence = function(notes) {
-            endSequence();
-            currentSequence = timer.setSequence(notes.map(function(note) {
-                return {
-                    timeout: note.duration,
-                    callback: function() {
-                        synth.tone(note.frequency, note.duration - 10);
-                    }
-                }
-            }))
-        };
 
         var setVolume = function(volume) {
             oscillators.forEach(function(oscillator) {
@@ -160,32 +150,43 @@ var Jukebox = function() {
             }
         }
 
-        var tone = function(freq, duration) {
-            modulators.forEach(function(modulator) {
-                modulator.setFrequency(freq);
-                if (freq < 0) {
-                    return;
-                }
-                modulator.play();
-                timer.setTimeout(function() {
-                    modulator.stop();
-                }, duration);
-            })
-        };
+        var play = function(tone) {
+          console.log("playing tone...",tone);
+          var map = options.schema.toneMap;
+          var toneSchema;
+          var processor; 
+          if (map.type == "custom") {
+             toneSchema = map.tones[tone];
+          } else {
+            toneSchema = map.tones[0];
+          }
+
+          modulators.forEach(function(modulator){
+            toneSchema.processor(modulator,tone,timer);
+          })
+        }
+
+        // var tone = function(freq, duration) {
+        //     modulators.forEach(function(modulator) {
+        //         modulator.setFrequency(freq);
+        //         if (freq < 0) {
+        //             return;
+        //         }
+        //         modulator.play();
+        //         timer.setTimeout(function() {
+        //             modulator.stop();
+        //         }, duration);
+        //     })
+        // };
 
         return {
             setVolume: setVolume,
-            tone: tone,
-            sequence: sequence,
+            // tone: tone,
+            play:play,
+            // sequence: sequence,
             endSequence: endSequence,
         }
     };
-
-    var Patterns = {
-
-    }
-
-
 
     return {
         getSynth: function(options) {
@@ -196,6 +197,7 @@ var Jukebox = function() {
         },
         getContext: function() {
             return audioContext;
-        }
+        },
+        timer:timer,
     }
 }

@@ -113,7 +113,7 @@ var moog = new jukebox.Synth();</pre></code>
 
           <h5>
             Play a tone
-            <button class="btn btn-primary" onclick=synth.tone(440,300)>
+            <button class="btn btn-primary" onclick=playNote(440,300)>
               Try it!
             </button>
           </h5>
@@ -121,7 +121,7 @@ var moog = new jukebox.Synth();</pre></code>
 
           <h5>
             Play a harmony
-            <button class="btn btn-primary" onclick=synth.tone(392,300);synth2.tone(262,300);>
+            <button class="btn btn-primary" onclick=playNote(392,300);playNote(262,300);>
               Try it!
             </button>
           </h5>
@@ -186,6 +186,12 @@ korg.tone(262,300);
 
         <!-- </div> -->
       </div>
+
+      <h3>Keys</h3>
+      <p>
+        Play some sweet keys dude.
+      </p>
+      <button onclick=keys.play(0)>Key</button>
 
       <div class="footer">
         <p><span class="glyphicon glyphicon-heart"></span> danielstern</p>
