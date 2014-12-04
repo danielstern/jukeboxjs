@@ -8,10 +8,6 @@ var Jukebox = function() {
     var timer = new jukeboxTimer();
     var filter = new webAudioFilterPack(this.audioContext);
 
-    var SINE = 'sine';
-    var SAW = 'sawtooth';
-    var TRIANGLE = 'triangle';
-    var SQUARE = 'square';
 
     var Modulator = function(options) {
         options = options || {};
@@ -26,9 +22,9 @@ var Jukebox = function() {
             oscillators = [],
             playing = false,
             gain,
-            frequency = options.frequency,
-        gain = audioContext.createGain();
-        gain.connect(audioContext.destination);
+            playingOscillators = [],
+            frequency = options.frequency;
+     
 
         var play = function() {
             if (playing) {
@@ -36,17 +32,12 @@ var Jukebox = function() {
             }
             playing = true;
 
-            oscillators = options.oscillators.map(function(oscillatorDefinition) {
+            options.oscillators.forEach(function(oscillatorDefinition) {
                 var oscillator = context.createOscillator();
-                console.log("Type?",oscillatorDefinition);
                 oscillator.type = oscillatorDefinition;
-                // oscillator.type = oscillatorDefinition;
-                if (targetAudioNode) {
-                    oscillator.connect(targetAudioNode);
-                    targetAudioNode.connect(gain);
-                } else {
-                    oscillator.connect(gain); 
-                }
+
+                var gain = audioContext.createGain();
+                gain.connect(audioContext.destination);
 
                 if (playing) {
                     oscillator.frequency.value = frequency;
@@ -54,13 +45,15 @@ var Jukebox = function() {
                     oscillator.frequency.value = 0;
                 }
 
-                oscillator.noteOn(1)
+                gain.gain.linearRampToValueAtTime(0, context.currentTime); 
+                gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.01);   
+
+                oscillator.noteOn(0);
+                oscillator.gain = gain;
+                oscillator.connect(gain);
+                playingOscillators.push(oscillator);
+                
                 return oscillator;
-            });
-
-            oscillators.forEach(function(oscillator) {
-
-         
             });
         }
 
@@ -69,9 +62,21 @@ var Jukebox = function() {
               return;
             }
             playing = false;
-            oscillators.forEach(function(oscillator) {
-              oscillator.noteOff(0);
+            var fadingOscillators = [];
+            playingOscillators.forEach(function(oscillator){
+              oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5); 
             });
+            while (playingOscillators[0]) {
+              fadingOscillators.push(playingOscillators.pop());
+            };
+
+            timer.setTimeout(function(){
+              fadingOscillators.forEach(function(oscillator){
+                // console.log("Fading oscillators..",oscillator);
+                oscillator.noteOff(0);
+                fadingOscillators.splice(fadingOscillators.indexOf(oscillator),1);
+             });
+            },1000)
         }
 
         var setFrequency = function(_frequency) {
@@ -81,27 +86,16 @@ var Jukebox = function() {
             });
         }
 
-        this.connect = function(node) {
-            targetAudioNode = node;
-        }
-
         return {
             play: play,
             stop: stop,
             setFrequency: setFrequency,
-            gain: gain
         }
     };
 
     var Synthesizer = function(options) {
         options = options || {};
-        options.schema = options.schema || {
-          name: "Omaha DS6ix Specifications",
-          modulators: [{
-            name:"Grigsby 2260",
-            oscillators:[SQUARE,SAW,SINE]
-          }],
-        }
+        options.schema = options.schema || JBSCHEMA.synthesizers['Omaha DS6'];
 
         var modulators = [],
             currentSequence;

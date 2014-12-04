@@ -12,12 +12,12 @@ var jukeboxTimer = function(){
     timeAtLastInterval = frametime;
   },1);
 
-  this.setInterval = function(callback,timeout,arguments) {
+  this.setInterval = function(callback,timeout,args) {
     var timeStarted = msSinceInitialized;
     var interval = setInterval(function(){
       var totaltimepassed = msSinceInitialized - timeStarted;
       if (totaltimepassed >= timeout) {
-        callback(arguments);
+        callback(args);
         timeStarted = msSinceInitialized;
       }
     },1);
@@ -45,9 +45,9 @@ var jukeboxTimer = function(){
     });
   }
 
-  this.setTimeout = function(callback,timeout,arguments) {
+  this.setTimeout = function(callback,timeout,args) {
     var interval = this.setInterval(function(){
-        callback(arguments);
+        callback(args);
         clearInterval(interval);
     },timeout);
     
