@@ -38,7 +38,7 @@ angular.module("sequencer",[])
 
 	var interval;
 
-	var drums = new jukebox.Drums();
+	var drums = new jukebox.getSynth({schema:JBSCHEMA.synthesizers['Phoster P52 Drum Unit']});
 
 	$rootScope.start = function() {
 		// console.log("Starting timer. BPM:",state.tempo);

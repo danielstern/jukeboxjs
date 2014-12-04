@@ -51,6 +51,9 @@ var Jukebox = function() {
         var play = function() {
             if (playing) {
                 stop();
+            };
+            if (frequency < 0) {
+              return;
             }
             playing = true;
 
