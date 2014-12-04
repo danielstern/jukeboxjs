@@ -58,7 +58,7 @@ angular.module("sequencer",[])
 			var tones = state.measures[state.currentMeasure][state.currentBeat];
 			tones.forEach(function(tone){
 				if (tone.active) {
-					drums.tone(tone.value);
+					drums.play(tone.value);
 				}
 			})
 			$rootScope.$apply();

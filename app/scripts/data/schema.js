@@ -22,8 +22,6 @@ var tones = {
                     },
                 });
 
-                // var freq = 40;
-                // modulator.setFrequency(freq);
                 kickdrum.play();
                 timer.setTimeout(kickdrum.stop, 30);
             }

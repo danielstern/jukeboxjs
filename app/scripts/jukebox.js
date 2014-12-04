@@ -1,4 +1,5 @@
 var Jukebox = function() {
+
     if (window.jukeboxAudioContext) {
         audioContext = jukeboxAudioContext;
     } else {
@@ -6,7 +7,6 @@ var Jukebox = function() {
         window.jukeboxAudioContext = audioContext;
     }
     var timer = new jukeboxTimer();
-
 
     var Modulator = function(options) {
         options = options || {};
@@ -173,19 +173,6 @@ var Jukebox = function() {
                 })
             }
         }
-
-        // var tone = function(freq, duration) {
-        //     modulators.forEach(function(modulator) {
-        //         modulator.setFrequency(freq);
-        //         if (freq < 0) {
-        //             return;
-        //         }
-        //         modulator.play();
-        //         timer.setTimeout(function() {
-        //             modulator.stop();
-        //         }, duration);
-        //     })
-        // };
 
         return {
             setVolume: setVolume,
