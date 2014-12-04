@@ -28,7 +28,7 @@ var tones = {
         var duration = 300;
         var baseFrequency = 220; // Low A
 
-        var freq = baseFrequency * 1 + 1 / 12 * tone
+        var freq = baseFrequency + (baseFrequency * tone / 12)
         console.log("Processor...",freq);
         modulator.setFrequency(freq);
         modulator.play();
