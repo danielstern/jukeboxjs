@@ -51,14 +51,10 @@ var jukeboxTimer = function(framerate){
   }
 
   this.setTimeout = function(callback,timeout,arguments) {
-    var startframe = framesSinceInitialized;
-    var interval = setInterval(function(){
-      var totaltimepassed = framesSinceInitialized - startframe;
-      if (totaltimepassed >= timeout) {
+    var interval = this.setInterval(function(){
         callback(arguments);
         clearInterval(interval);
-      }
-    },1);
+    },timeout);
     
     return interval;
   }
