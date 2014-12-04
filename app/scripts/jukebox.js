@@ -24,7 +24,36 @@ var Jukebox = function() {
             gain,
             playingOscillators = [],
             frequency = options.frequency;
-     
+
+        function easeGainNodeOutLinear(node,timeout) {
+          var startGain = node.gain.value;
+          var endGain = 0;
+          var steps = 50;
+          var timePerStep = timeout / steps;
+          var difference = startGain - endGain;
+
+          for (var currentStep = 1; currentStep <= steps; currentStep++) {
+            var volumeAtStep = startGain - difference / steps * currentStep;
+            console.log("setting ramp step",currentStep,volumeAtStep);
+            var timeAtStep = context.currentTime + timePerStep * currentStep / 10000;
+            // node.gain.setValueAtTime(1 - currentStep / 100,context.currentTime + timePerStep * currentStep / 1000);
+            node.gain.setValueAtTime(volumeAtStep,timeAtStep);
+          }
+          // var interval = timer.setInterval(function(){
+          //   if (timeout < 0) {
+          //     clearInterval(interval);
+          //     return;
+          //   }
+          //   console.log("easing cain...",node.gain.value);
+          //   timeout--;
+          //   steps++;
+          //   node.gain.setValueAtTime(startGain * (1 / (1 + steps * steps / 100)),context.currentTime)
+          //   // node.gain.value = 0;
+          //   // node.gain.value = 
+          // },1)
+
+
+        }     
 
         var play = function() {
             if (playing) {
@@ -64,7 +93,9 @@ var Jukebox = function() {
             playing = false;
             var fadingOscillators = [];
             playingOscillators.forEach(function(oscillator){
-              oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5); 
+              // oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5); 
+              easeGainNodeOutLinear(oscillator.gain, 100);
+              // oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5); 
             });
             while (playingOscillators[0]) {
               fadingOscillators.push(playingOscillators.pop());
@@ -120,7 +151,7 @@ var Jukebox = function() {
 
         var setVolume = function(volume) {
             oscillators.forEach(function(oscillator) {
-                oscillator.gain.value = volume;
+                // oscillator.gain.value = volume;
             })
         }
 
