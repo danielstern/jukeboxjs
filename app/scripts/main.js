@@ -8,7 +8,8 @@ var drums = new Drums();
 var timer = jukebox.timer;
 // window.on('click',function(){
 
-var keys = new jukebox.getSynth();
+var keys = new jukebox.getSynth({schema:JBSCHEMA.synthesizers['Omaha DS6']});
+var drums = new jukebox.getSynth({schema:JBSCHEMA.synthesizers['Phoster P52 Drum Unit']});
 
 // })
 // drums.tone(0);

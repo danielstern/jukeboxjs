@@ -19,7 +19,9 @@ var Jukebox = function() {
         options.envelope = {
             timeIn: 300,
             timeOut: 300,
-        }
+        };
+
+        var envelope = options.envelope;
 
         var context = audioContext,
             targetAudioNode,
@@ -71,7 +73,7 @@ var Jukebox = function() {
                     node: gain,
                     end: 1,
                     start: 0,
-                    duration: options.envelope.timeIn
+                    duration: envelope.timeIn
                 });
 
                 oscillator.noteOn(0);
@@ -94,7 +96,7 @@ var Jukebox = function() {
                     node: oscillator.gain,
                     end: 0,
                     start: 1,
-                    duration: options.envelope.timeIn
+                    duration: envelope.timeIn
                 });
             });
             while (playingOscillators[0]) {
@@ -109,6 +111,10 @@ var Jukebox = function() {
             }, 1000)
         }
 
+        var setEnvelope = function(_envelope) {
+          envelope = _envelope;
+        }
+
         var setFrequency = function(_frequency) {
             frequency = _frequency;
             oscillators.forEach(function(oscillator) {
@@ -120,6 +126,7 @@ var Jukebox = function() {
             play: play,
             stop: stop,
             setFrequency: setFrequency,
+            setEnvelope: setEnvelope,
         }
     };
 
@@ -157,13 +164,13 @@ var Jukebox = function() {
           var processor; 
           if (map.type == "custom") {
              toneSchema = map.tones[tone];
+             toneSchema.processor(Modulator,tone,timer);
           } else {
             toneSchema = map.tones[0];
-          }
-
-          modulators.forEach(function(modulator){
-            toneSchema.processor(modulator,tone,timer);
-          })
+            modulators.forEach(function(modulator){
+              toneSchema.processor(modulator,tone,timer);
+            })
+          }          
         }
 
         // var tone = function(freq, duration) {
