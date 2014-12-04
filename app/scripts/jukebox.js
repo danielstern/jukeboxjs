@@ -25,34 +25,32 @@ var Jukebox = function() {
             playingOscillators = [],
             frequency = options.frequency;
 
-        function easeGainNodeOutLinear(node,timeout) {
-          var startGain = node.gain.value;
-          var endGain = 0;
+        function easeGainNodeLinear(options) {
+          var node = options.node;
+          var duration = options.duration;
+          var start = options.start;
+          var end = options.end;
+
+          // console.log("Node?",node,node.gain,node.value);
+          // console.log("Node?",node);
+
+          var startGain = start || start === 0 ? start : node.gain.value;
+          var endGain = end;
           var steps = 50;
-          var timePerStep = timeout / steps;
+          var timePerStep = duration / steps;
           var difference = startGain - endGain;
+
+          // if (difference === 0) {
+          //   return;
+          // }
 
           for (var currentStep = 1; currentStep <= steps; currentStep++) {
             var volumeAtStep = startGain - difference / steps * currentStep;
-            console.log("setting ramp step",currentStep,volumeAtStep);
             var timeAtStep = context.currentTime + timePerStep * currentStep / 10000;
+            console.log("setting ramp step",timeAtStep,volumeAtStep,difference);
             // node.gain.setValueAtTime(1 - currentStep / 100,context.currentTime + timePerStep * currentStep / 1000);
             node.gain.setValueAtTime(volumeAtStep,timeAtStep);
           }
-          // var interval = timer.setInterval(function(){
-          //   if (timeout < 0) {
-          //     clearInterval(interval);
-          //     return;
-          //   }
-          //   console.log("easing cain...",node.gain.value);
-          //   timeout--;
-          //   steps++;
-          //   node.gain.setValueAtTime(startGain * (1 / (1 + steps * steps / 100)),context.currentTime)
-          //   // node.gain.value = 0;
-          //   // node.gain.value = 
-          // },1)
-
-
         }     
 
         var play = function() {
@@ -74,8 +72,7 @@ var Jukebox = function() {
                     oscillator.frequency.value = 0;
                 }
 
-                gain.gain.linearRampToValueAtTime(0, context.currentTime); 
-                gain.gain.linearRampToValueAtTime(1, context.currentTime + 0.01);   
+                easeGainNodeLinear({node:gain,end:1,start:0, duration:100});
 
                 oscillator.noteOn(0);
                 oscillator.gain = gain;
@@ -93,9 +90,7 @@ var Jukebox = function() {
             playing = false;
             var fadingOscillators = [];
             playingOscillators.forEach(function(oscillator){
-              // oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5); 
-              easeGainNodeOutLinear(oscillator.gain, 100);
-              // oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + 0.5); 
+              easeGainNodeLinear({node:oscillator.gain,end:0, start:1, duration:100});
             });
             while (playingOscillators[0]) {
               fadingOscillators.push(playingOscillators.pop());
@@ -103,7 +98,6 @@ var Jukebox = function() {
 
             timer.setTimeout(function(){
               fadingOscillators.forEach(function(oscillator){
-                // console.log("Fading oscillators..",oscillator);
                 oscillator.noteOff(0);
                 fadingOscillators.splice(fadingOscillators.indexOf(oscillator),1);
              });
