@@ -10,22 +10,17 @@ var Jukebox = function() {
 
     var Modulator = function(options) {
         options = options || {};
-        var filters = new FilterPack(audioContext);
-        console.log("Modulator.. filters?",filters);
-
 
         options.oscillators = options.oscillators || ["square", 'triangle', 'sawtooth', 'sine'];
         options.effects = options.effects || [];
         options.frequency = options.frequency || 440;
         options.noteLength = options.noteLength || 300;
-        options.filters = options.filters || [new filters.bitcrusher()]
         options.envelope = {
             timeIn: 300,
             timeOut: 300,
         };
 
         var envelope = options.envelope,
-            filters = options.filters,
             context = audioContext,
             targetAudioNode,
             oscillators = [],
@@ -64,12 +59,7 @@ var Jukebox = function() {
                 oscillator.type = oscillatorDefinition;
 
                 var gain = audioContext.createGain();
-                if (filters[0]) {
-                    gain.connect(filters[0]);
-                    filters[0].connect(audioContext.destination);
-                } else {
                     gain.connect(audioContext.destination);
-                }
 
                 if (playing) {
                     oscillator.frequency.value = frequency;
@@ -79,7 +69,7 @@ var Jukebox = function() {
 
                 easeGainNodeLinear({
                     node: gain,
-                    end: 1,
+                    end: 0.5,
                     start: 0,
                     duration: envelope.timeIn
                 });
@@ -103,7 +93,7 @@ var Jukebox = function() {
                 easeGainNodeLinear({
                     node: oscillator.gain,
                     end: 0,
-                    start: 1,
+                    start: 0.5,
                     duration: envelope.timeIn
                 });
             });
