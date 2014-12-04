@@ -1,5 +1,6 @@
 var jukeboxTimer = function(framerate){
-  var targetFramesPerSecond = framerate || 60;
+  var targetFramesPerSecond = framerate || 30;
+  console.log("Timer:: ",framerate);
   var lasttime = new Date().getTime();
   var framebuffer = 0;
   var framesSinceInitialized = 0;
@@ -12,8 +13,8 @@ var jukeboxTimer = function(framerate){
     lasttime = frametime;
 
     if (framebuffer > targetFramesPerSecond) {
-      framebuffer-=targetFramesPerSecond;
-      framesSinceInitialized += 50;
+      framebuffer-= targetFramesPerSecond;
+      framesSinceInitialized += 1;
     }
   },1);
 
@@ -21,7 +22,7 @@ var jukeboxTimer = function(framerate){
     var frameOnTimeoutSet = framesSinceInitialized;
     var interval = setInterval(function(){
       var totaltimepassed = framesSinceInitialized - frameOnTimeoutSet;
-      if (totaltimepassed >= timeout) {
+      if (totaltimepassed >= timeout / targetFramesPerSecond) {
         callback(arguments);
         frameOnTimeoutSet = framesSinceInitialized;
       }
