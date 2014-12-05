@@ -194,19 +194,37 @@ jukebox.timer.setTimeout(modulator.stop,256)
           <h3>
             Synthesizer
           </h3>
+          <p>
+            A synthesizer is a collection of modulators. The synthesizer class abstracts playing frequencies into a series of integers starting at <code>0</code>, relating to keys.
+          </p>
           <table class='table table-striped'>
-            <tr>
+           <tr>
               <td>
               <code>
-                synthesizer.play(tone:Number):null
+                Synthesizer(synthesizerSchema):constructor
               </code>
               </td>
               <td>
                 <p>
-                  Plays the specified key on the synthesizer.
+                  Creates a new sythesizer based on the schema. <code>SynthesizerSchema</code> defines one or more modulators for the synthesizer to use, and a function for processing integer input.  See SynthesizerSchema section for more information.
                 </p>
                 </td> 
             </tr>
+            <tr>
+               <td>
+               <code>
+                 Synthesizer.play(note:Integer):null
+               </code>
+               </td>
+               <td>
+                 <p>
+                   Synthesizer processes this input in a fashion custom to an individual synthesizer configuration. 
+                 </p>
+                 <p>
+                   Typically, calling this with any positive integer will produce a sound.
+                 </p>
+                 </td> 
+             </tr>
             <!-- <tr>
               <td>
               <code>
@@ -219,6 +237,11 @@ jukebox.timer.setTimeout(modulator.stop,256)
                 </td> 
             </tr> -->
           </table>
+
+          <h4>Synthesizer Schema</h4>
+          <p>
+            A synthesizer schema configures a synthesizer object, and defines things like number of modulators and a function for processing input.
+          </p>
 <!-- 
           <h4>Example</h4>
           <h5>

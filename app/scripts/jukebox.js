@@ -150,12 +150,6 @@ var Jukebox = function() {
             })
         }
 
-        var endSequence = function() {
-            if (currentSequence) {
-                timer.clearSequence(currentSequence);
-            }
-        }
-
         var play = function(tone) {
             console.log("playing tone...", tone);
             var map = options.schema.toneMap;
@@ -174,10 +168,7 @@ var Jukebox = function() {
 
         return {
             setVolume: setVolume,
-            // tone: tone,
             play: play,
-            // sequence: sequence,
-            endSequence: endSequence,
         }
     };
 
