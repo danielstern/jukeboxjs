@@ -46,6 +46,9 @@
           <h3>
             Jukebox
           </h3>
+          <p>
+            A jukebox instance creates one web audio context instance. Used mainly for getting modulators and synthesizers.
+          </p>
           <table class='table table-striped'>
           <tr>
             <td>
@@ -77,31 +80,116 @@
           <h3>
             Modulator
           </h3>
+          <p>
+            A modulator is a collection of one or more oscillators. Modulators are used to play single tones, for example for a video game.
+          </p>
           <table class='table table-striped'>
             <tr>
               <td>
               <code>
-                synthesizer.play(frequency:Number):null
+                Modulator(modulatorSchema):constructor
               </code>
               </td>
               <td>
                 <p>
-                  Plays the specified frequency
+                  Creates a new modulator based on the schema. See schema section for more information.
                 </p>
                 </td> 
             </tr>
-            <!-- <tr>
+            <tr>
               <td>
               <code>
-                synthesizer.sequence([{ frequency:Number , duration:Number }...])
+                modulator.play():null
               </code>
               </td>
-              <td><p>
-                  Plays a sequence of tones one after the other. 
+              <td>
+                <p>
+                  Plays a tone of the frequency specified
                 </p>
                 </td> 
-            </tr> -->
+            </tr>
+            <tr>
+              <td>
+              <code>
+                modulator.stop():null
+              </code>
+              </td>
+              <td>
+                <p>
+                  Stops the modulator.
+                </p>
+                </td> 
+            </tr>
           </table>
+
+          <h4>
+            ModulatorSchema
+          </h4>
+          <p>
+            A modulatorSchema is passed to the constructor of a modulator and configures its behavior.
+          </p>
+          <table class='table table-striped'>
+            <tr>
+              <td>
+              <code>
+                modulatorSchema.frequency:Number
+              </code>
+              </td>
+              <td>
+                <p>
+                  Configures the default frequency of a modulator.
+                </p>
+              </td> 
+            </tr>
+            <tr>
+              <td>
+              <code>
+                modulatorSchema.envelope:{ timeIn:Number,timeOut:Number }
+              </code>
+              </td>
+              <td>
+                <p>
+                  Sets the time over which the sound fades in or out in milliseconds.
+                </p>
+                </td> 
+            </tr>
+            <tr>
+              <td>
+              <code>
+                modulatorSchema.oscillators:[]OscillatorSchema
+              </code>
+              </td>
+              <td>
+                <p>
+                  An array of one or more oscillator schemas that the modulator will use.
+                </p>
+                <p>
+                  A valid <code>OscillatorSchema</code> is any of the following strings: <code>"sawtooth","sine","square","triangle"</code>.
+                </p>
+                </td> 
+            </tr>
+          </table>
+
+          <h4>
+            Modulator Example Usage
+          </h4>
+          <p>
+            In this example you will create a modulator and have it play a note.
+          </p>
+<code><pre>var jukebox = new Jukebox();
+var modulator = new Jukebox.modulator({
+  name: "Grigsby 2260", // optional name for no reason
+  oscillators: [SINE, SAW], 
+  envelope: {
+      timeIn: 48,
+      timeOut: 96
+  }
+});
+
+modulator.play();
+jukebox.timer.setTimeout(modulator.stop,256)
+</pre>
+          </code>
 
           <h3>
             Synthesizer

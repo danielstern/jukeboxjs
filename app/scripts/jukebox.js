@@ -12,9 +12,7 @@ var Jukebox = function() {
         options = options || {};
 
         options.oscillators = options.oscillators || ["square", 'triangle', 'sawtooth', 'sine'];
-        options.effects = options.effects || [];
         options.frequency = options.frequency || 440;
-        options.noteLength = options.noteLength || 300;
         options.envelope = {
             timeIn: 300,
             timeOut: 300,
