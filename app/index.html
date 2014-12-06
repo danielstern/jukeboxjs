@@ -257,6 +257,59 @@ jukebox.timer.setTimeout(modulator.stop,256)
           <p>
             A synthesizer schema configures a synthesizer object, and defines things like number of modulators and a function for processing input.
           </p>
+          <table class='table table-striped'>
+            <tr>
+              <td>
+              <code>
+                synthesizerSchema.modulators:[]ModulatorSchema
+              </code>
+              </td>
+              <td>
+                <p>
+                  An array of modulator schemas that define what modulators the synthesizer will implement.
+                </p>
+              </td> 
+            </tr>
+            <tr>
+              <td>
+              <code>
+                modulatorSchema.envelope:{ timeIn:Number,timeOut:Number }
+              </code>
+              </td>
+              <td>
+                <p>
+                  Sets the time over which the sound fades in or out in milliseconds.
+                </p>
+                </td> 
+            </tr>
+            <tr>
+              <td>
+              <code>
+                modulatorSchema.oscillators:[]OscillatorSchema
+              </code>
+              </td>
+              <td>
+                <p>
+                  An array of one or more oscillator schemas that the modulator will use.
+                </p>
+                <p>
+                  A valid <code>OscillatorSchema</code> is any of the following strings: <code>"sawtooth","sine","square","triangle"</code>.
+                </p>
+                </td> 
+            </tr>
+          </table>
+          <h4>Synthesizer Example</h4>
+          <div keyboard class="keyboard">
+                <!-- <button key ng-repeat="tone in tones" ng-class="{'mouseover':mouseover,'playing':playing}" tone=tone class='key'>  -->
+                <!-- notes? {{synthNotes}} -->
+                <button ng-repeat='note in synthNotes' key class=key ng-click=keys.play(note)></button>
+                <!-- <button key ng-click=keys.play(1)></button> -->
+                <!-- <button key ng-click=keys.play(2)></button> -->
+                <!-- <button key ng-click=keys.play(3)></button> -->
+                <!-- <button key ng-repeat="tone in tones" ng-class="{'mouseover':mouseover,'playing':playing}" tone=tone class='key'>  -->
+            </button>
+
+        </div>
 <!-- 
           <h4>Example</h4>
           <h5>
@@ -284,6 +337,8 @@ var korg = new jukebox.Synth();
 moog.tone(392,300);
 korg.tone(262,300);
 </pre></code>
+
+
 
           <h5>
             Play a sequence

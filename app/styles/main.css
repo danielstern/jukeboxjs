@@ -210,3 +210,35 @@ only screen and (max-width: 760px),
 .tone.active input:before {
   background-color: #bada55;
 }
+
+.keyboard .key {
+    height: 100px;
+    width: 32px;
+    background-color: white;
+}
+.keyboard .key:nth-child(12n-3),
+.keyboard .key:nth-child(12n-5),
+.keyboard .key:nth-child(12n-7),
+.keyboard .key:nth-child(12n-10),
+.keyboard .key:nth-child(12n-12)
+{
+    height: 70px;
+    background-color: black;
+    margin-left: -10px;
+    z-index: 10;
+    position: absolute;
+    text-align: center;
+    color: white;
+    width: 20px;
+}
+
+.key.activated {
+    /*background-color: sandybrown !important;*/
+}
+.key.mouseover {
+    background-color: lemonchiffon !important;
+}
+
+.key.playing {
+    background-color: sandybrown !important;
+}

@@ -9,16 +9,10 @@ var Jukebox = function() {
     var timer = new jukeboxTimer();
 
     var Modulator = function(options) {
-        // options = options || {};
 
-        // options.oscillators = options.oscillators || ["square", 'triangle', 'sawtooth', 'sine'];
-        // options.frequency = options.frequency || 440;
-        // options.envelope = {
-            // timeIn: 300,
-            // timeOut: 300,
-        // };
+      console.log("Modulator init:",options);
 
-        var volume = 1;
+        var volume = options.volume || 1;
 
         var setVolume = function(_volume) {
           console.log("Setting vlume...",_volume);
@@ -172,13 +166,11 @@ var Jukebox = function() {
 
 
         modulators = options.schema.modulators.map(function(schema) {
-            return new Modulator({
-                oscillators: schema.oscillators
-            });
+            return new Modulator(schema);
         });
 
         var setVolume = function(volume) {
-            oscillators.forEach(function(oscillator) {
+            modulators.forEach(function(oscillator) {
                 // oscillator.gain.value = volume;
             })
         }
