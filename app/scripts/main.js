@@ -9,12 +9,12 @@ modulator1.frequency = 440;
 var keys = new jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
 var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
 
-// document.body.addEventListener("touchstart",function(event){
-//   console.log("started touching",event);
-// })
-// document.body.addEventListener('touchmove',function(event){
-//   console.log("moved starting",event);
-// })
+document.body.addEventListener("touchstart",function(event){
+  console.log("started touching",event);
+})
+document.body.addEventListener('touchmove',function(event){
+  console.log("moved starting",event);
+})
 angular.module("Demo",[])
 .run(function($rootScope){
   $rootScope.playNote = function(modulator,tone,duration) {
@@ -35,9 +35,9 @@ angular.module("Demo",[])
   $rootScope.modulator2 = modulator2;
   $rootScope.keys = keys;
 
-  // $rootScope.enableKey = function(elem) {
-  //   console.log("enable key.",elem);
-  // }
+  $rootScope.enableKey = function(elem) {
+    console.log("enable key.",elem);
+  }
 
   $rootScope.parseFloat = parseFloat;
 
@@ -108,7 +108,7 @@ var drumsInterval;
 
 var marioPlaying = false;
 var playMario = function(){
-  // alert(Jukebox)
+
   if (marioPlaying) {
     synth.endSequence();
     marioPlaying = false;
