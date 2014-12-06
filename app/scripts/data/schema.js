@@ -18,10 +18,10 @@ var tones = {
 
             modulators.forEach(function(modulator) {
                 modulator.frequency = freq;
-                modulator.envelope = ({
+                modulator.envelope = {
                     timeIn: timeIn,
                     timeOut: timeOut,
-                });
+                };
                 modulator.play();
                 timer.setTimeout(modulator.stop, duration);
             })
@@ -100,7 +100,7 @@ var tones = {
         return function(){
           released = true;
           modulators.forEach(function(modulator){
-            modulator.stop();
+            // modulator.stop();
           })
       }
     }
