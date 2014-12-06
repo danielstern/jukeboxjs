@@ -29,6 +29,30 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
         function play() {
            willPlay = true;
+           
+           options.oscillators.forEach(function(oscillatorDefinition) {
+               var oscillator = context.createOscillator();
+               oscillator.type = oscillatorDefinition;
+
+               var gain = audioContext.createGain();
+               gain.connect(audioContext.destination);
+
+               oscillator.frequency.value = +frequency +bend;
+
+               transforms.easeGainNodeLinear({
+                   node: gain,
+                   end: volume,
+                   start: 0,
+                   duration: envelope.timeIn,
+                   context: context
+               });
+
+               oscillator.noteOn(0);
+               oscillator.gain = gain;
+               oscillator.connect(gain);
+               playingOscillators.push(oscillator);
+           });
+
         }
 
         function stop() {
@@ -78,28 +102,28 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               willPlay = false;
               playing = true;
 
-              options.oscillators.forEach(function(oscillatorDefinition) {
-                  var oscillator = context.createOscillator();
-                  oscillator.type = oscillatorDefinition;
+              // options.oscillators.forEach(function(oscillatorDefinition) {
+              //     var oscillator = context.createOscillator();
+              //     oscillator.type = oscillatorDefinition;
 
-                  var gain = audioContext.createGain();
-                  gain.connect(audioContext.destination);
+              //     var gain = audioContext.createGain();
+              //     gain.connect(audioContext.destination);
 
-                  oscillator.frequency.value = +frequency +bend;
+              //     oscillator.frequency.value = +frequency +bend;
 
-                  transforms.easeGainNodeLinear({
-                      node: gain,
-                      end: volume,
-                      start: 0,
-                      duration: envelope.timeIn,
-                      context: context
-                  });
+              //     transforms.easeGainNodeLinear({
+              //         node: gain,
+              //         end: volume,
+              //         start: 0,
+              //         duration: envelope.timeIn,
+              //         context: context
+              //     });
 
-                  oscillator.noteOn(0);
-                  oscillator.gain = gain;
-                  oscillator.connect(gain);
-                  playingOscillators.push(oscillator);
-              });
+              //     oscillator.noteOn(0);
+              //     oscillator.gain = gain;
+              //     oscillator.connect(gain);
+              //     playingOscillators.push(oscillator);
+              // });
 
               willStop = false;
 
