@@ -18,17 +18,24 @@ angular.module("Demo",[])
 .run(function($rootScope){
   $rootScope.playNote = function(modulator,tone,duration) {
     console.log("playing tone",tone);
-    modulator.setFrequency(tone);
-    modulator.play();
+    modulator1.setFrequency(tone);
+    modulator1.play();
     timer.setTimeout(modulator.stop,duration);
   };
 
+  var modulator1Settings = {};
+
+  $rootScope.modulator1Settings = modulator1Settings;
+
+
   $rootScope.modulator1 = modulator1;
 
-  $rootScope.$watch('frequency',function(freq){
-    console.log("freq change",freq);
-    modulator1.setFrequency(freq);
-  })
+  $rootScope.$watch('modulator1Settings',function(modulator1Settings){
+    console.log("Setting ")
+    // console.log("freq change",freq);
+    modulator1.setFrequency(modulator1Settings.frequency);
+    modulator1.setVolume(modulator1Settings.volume === 0 ? 0 : modulator1Settings.volume || 1);
+  },true);
 
 
 
@@ -69,10 +76,9 @@ var theme = function() {
 }
 
 function playNote (tone,duration) {
-  console.log("playing tone",tone);
-  modulator.setFrequency(tone);
-  modulator.play();
-  timer.setTimeout(modulator.stop,duration);
+  modulator1.setFrequency(tone);
+  modulator1.play();
+  timer.setTimeout(modulator1.stop,duration);
 };
 
 

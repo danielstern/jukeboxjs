@@ -18,6 +18,24 @@ var Jukebox = function() {
             // timeOut: 300,
         // };
 
+        var volume = 1;
+
+        var setVolume = function(_volume) {
+          console.log("Setting vlume...",_volume);
+          playingOscillators.forEach(function(oscillator) {
+              easeGainNodeLinear({
+                node:oscillator.gain,
+                start:volume,
+                end:_volume,
+                duration:100
+              })
+          });
+          console.error("Set volume",_volume);
+          volume = 1;
+          // volume = _volume;
+
+        }
+
 
         var envelope = options.envelope,
             context = audioContext,
@@ -29,15 +47,28 @@ var Jukebox = function() {
 
         function easeGainNodeLinear(options) {
             var node = options.node;
-            var duration = options.duration;
+            var duration = options.duration || 1;
             var start = options.start;
             var end = options.end;
+
+            if (!options.duration) {
+              console.error("no duration");
+              return;
+            }
+
+            // debugger;
+
+
 
             var startGain = node.gain.value;
             var endGain = end;
             var steps = 50;
             var timePerStep = duration / steps;
             var difference = startGain - endGain;
+
+            if (difference === 0) {
+              return;
+            }
 
             for (var currentStep = 1; currentStep <= steps; currentStep++) {
                 var volumeAtStep = startGain - difference / steps * currentStep;
@@ -71,7 +102,7 @@ var Jukebox = function() {
 
                 easeGainNodeLinear({
                     node: gain,
-                    end: 0.5,
+                    end: volume,
                     start: 0,
                     duration: envelope.timeIn
                 });
@@ -95,7 +126,7 @@ var Jukebox = function() {
                 easeGainNodeLinear({
                     node: oscillator.gain,
                     end: 0,
-                    start: 0.5,
+                    start: volume,
                     duration: envelope.timeIn
                 });
             });
@@ -127,6 +158,7 @@ var Jukebox = function() {
             stop: stop,
             setFrequency: setFrequency,
             setEnvelope: setEnvelope,
+            setVolume: setVolume,
         }
     };
 
