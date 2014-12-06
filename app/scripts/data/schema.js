@@ -9,28 +9,36 @@ var JBSCHEMA = {
 
 var tones = {
     "Thomson Ninja DK1500": {
-        "kickdrum": {
-            name: "kickdrum1",
-            processor: function(Modulator, tone, timer) {
+        "kickdrum": function(modulators, tone, timer) {
 
-                var kickdrum = new Modulator({
-                    oscillators: [SQUARE, TRIANGLE],
-                    frequency: 40,
-                    envelope: {
-                        timeIn: 5,
-                        timeOut: 5,
-                    },
-                });
+                var freq = 40,
+                timeIn = 5,
+                timeOut = 5,
+                duration = 30;
 
-                kickdrum.play();
-                timer.setTimeout(kickdrum.stop, 30);
-            }
-        },
-        "snare": {
-            name: "snare1",
-            processor: function(Modulator, tone, timer) {
+                modulators.forEach(function(modulator){
+                  modulator.setFrequency(freq);
+                  modulator.setEnvelope({
+                        timeIn: timeIn,
+                        timeOut: timeOut,
+                    })
+                  modulator.play();
+                  timer.setTimeout(modulator.stop, 30);
+                })
+
+                // var kickdrum = new Modulator({
+                //     oscillators: [SQUARE, TRIANGLE],
+                //     frequency: 40,
+                //     envelope: {
+                //         timeIn: 5,
+                //         timeOut: 5,
+                //     },
+                // });
+
+            },
+        "snare": function(Modulator, tone, timer) {
                 var snare = new Modulator({
-                    oscillators: [SAW,TRIANGLE],
+                    oscillators: [SAW, TRIANGLE],
                     envelope: {
                         timeIn: 10,
                         timeOut: 35,
@@ -39,13 +47,10 @@ var tones = {
                 });
                 snare.play();
                 timer.setTimeout(snare.stop, 30);
-            }
-        },
-        "hihat": {
-            name: "hihat",
-            processor: function(Modulator, tone, timer) {
+            },
+        "hihat": function(Modulator, tone, timer) {
                 var snare = new Modulator({
-                    oscillators: [SINE, SINE,SINE],
+                    oscillators: [SINE, SINE, SINE],
                     envelope: {
                         timeIn: 10,
                         timeOut: 70,
@@ -54,28 +59,10 @@ var tones = {
                 });
                 snare.play();
                 timer.setTimeout(snare.stop, 25);
-            }
-        },
-        "hihat": {
-            name: "hihat",
-            processor: function(Modulator, tone, timer) {
-                var hihat = new Modulator({
-                    oscillators: [SINE, SINE,SINE],
-                    envelope: {
-                        timeIn: 10,
-                        timeOut: 70,
-                    },
-                    frequency: 700
-                });
-                hihat.play();
-                timer.setTimeout(hihat.stop, 25);
-            }
-        },
-        "crash": {
-            name: "crash",
-            processor: function(Modulator, tone, timer) {
+            },
+        "crash": function(Modulator, tone, timer) {
                 var crash = new Modulator({
-                    oscillators: [SINE, SINE,TRIANGLE],
+                    oscillators: [SINE, SINE, TRIANGLE],
                     envelope: {
                         timeIn: 10,
                         timeOut: 70,
@@ -84,31 +71,30 @@ var tones = {
                 });
                 crash.play();
                 timer.setTimeout(crash.stop, 75);
-            }
-        },
+            },
     },
 
-    "keyboard1": {
-        name: 'keyboard1',
-        processor: function(modulator, tone, timer) {
-            var duration = 300;
-            var baseFrequency = 220; // Low A
+    "keyboard1": function(modulators, tone, timer) {
+        modulators.forEach(function(modulator) {
 
-            var freq = baseFrequency + (baseFrequency * tone / 12)
-            modulator.setFrequency(freq);
-            modulator.play();
-            timer.setTimeout(function() {
-                modulator.stop();
-            }, duration);
-        }
-    }
+                var duration = 300;
+                var baseFrequency = 220; // Low A
+
+                var freq = baseFrequency + (baseFrequency * tone / 12)
+                modulator.setFrequency(freq);
+                modulator.play();
+                timer.setTimeout(function() {
+                    modulator.stop();
+                }, duration);
+            })
+      }
 }
 
 var toneMaps = {
     "Drums": {
         name: "Drums",
         type: "custom",
-        tones: [
+        processor: [
             tones["Thomson Ninja DK1500"]['kickdrum'],
             tones["Thomson Ninja DK1500"]['snare'],
             tones["Thomson Ninja DK1500"]['hihat'],
@@ -118,7 +104,7 @@ var toneMaps = {
     "Keyboard": {
         name: "Keyboard",
         type: "linear",
-        tones: [tones['keyboard1']]
+        processor: tones['keyboard1']
     }
 }
 
@@ -133,7 +119,7 @@ var modulators = {
     },
     "Tabernackle T4": {
         name: "Tabernackle T4",
-        oscillators: [SAW, SAW,TRIANGLE],
+        oscillators: [SAW, SAW, TRIANGLE],
         envelope: {
             timeIn: 10,
             timeOut: 50,

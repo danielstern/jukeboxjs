@@ -15,7 +15,6 @@ var Jukebox = function() {
         var volume = options.volume || 1;
 
         var setVolume = function(_volume) {
-          console.log("Setting vlume...",_volume);
           playingOscillators.forEach(function(oscillator) {
               easeGainNodeLinear({
                 node:oscillator.gain,
@@ -24,7 +23,6 @@ var Jukebox = function() {
                 duration:100
               })
           });
-          console.error("Set volume",_volume);
           volume = 1;
           // volume = _volume;
 
@@ -176,19 +174,22 @@ var Jukebox = function() {
         }
 
         var play = function(tone) {
-            console.log("playing tone...", tone);
             var map = options.schema.toneMap;
-            var toneSchema;
             var processor;
-            if (map.type == "custom") {
-                toneSchema = map.tones[tone];
-                toneSchema.processor(Modulator, tone, timer);
+            console.log("Play tone. Options?",options,map,typeof map.processor);
+            if (typeof map.processor === "function") {
+                // modulators.forEach(function(modulator) {
+
+                // })
+                processor = map.processor;
             } else {
-                toneSchema = map.tones[0];
-                modulators.forEach(function(modulator) {
-                    toneSchema.processor(modulator, tone, timer);
-                })
+                processor = map.processor[tone];
+                // toneSchema = map.tones[tone];
+                // processor(Modulator, tone, timer);
+                // toneSchema = map.tones[0];
+                // toneSchema.processor(Modulator, tone, timer);
             }
+            processor(modulators, tone, timer);
         }
 
         return {
