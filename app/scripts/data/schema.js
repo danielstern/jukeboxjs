@@ -129,6 +129,14 @@ var modulators = {
         envelope: {
             timeIn: 10,
             timeOut: 50,
+        },
+        adjustor:function(modulator,phase) {
+          var phaseShift = 10;
+          var frequency = 1 / 25;
+          var amplitude = 5;
+
+          // console.log("adjusting stuff",modulator,Math.sin(phase) );
+          modulator.bendPitch(Math.sin((phase + phaseShift) * frequency) * amplitude - amplitude * 0.5);
         }
     },
     "Oberon 650-SSS": {

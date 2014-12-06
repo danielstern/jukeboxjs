@@ -10,148 +10,169 @@ var Jukebox = function() {
 
     var Modulator = function(options) {
 
-      console.log("Modulator init:",options);
+      console.log("Modulator init:", options);
 
-        var volume = options.volume || 1;
+      var volume = options.volume || 1;
+      var modulator = this;
+      var envelope = options.envelope,
+          context = audioContext,
+          targetAudioNode,
+          playing = false,
+          gain,
+          pitchbend = 0;
+          playingOscillators = [],
+          frequency = options.frequency || 440;
 
-        var setVolume = function(_volume) {
+      var setVolume = function(_volume) {
           playingOscillators.forEach(function(oscillator) {
               easeGainNodeLinear({
-                node:oscillator.gain,
-                start:volume,
-                end:_volume,
-                duration:100
+                  node: oscillator.gain,
+                  start: volume,
+                  end: _volume,
+                  duration: 100
               })
           });
           volume = 1;
           // volume = _volume;
 
-        }
+      }
+
+      var phase = 0;
+      timer.setInterval(function() {
+          phase++;
+          if (options.adjustor) {
+              options.adjustor(exports, phase);
+              playingOscillators.forEach(function(oscillator){
+                console.log("Bending pitch...",pitchbend, frequency,frequency+pitchbend);
+                oscillator.frequency.value = +frequency + +pitchbend;
+              })
+          }
+      },1);
+
+      function bendPitch(bend) {
+        pitchbend = bend;
+      }
 
 
-        var envelope = options.envelope,
-            context = audioContext,
-            targetAudioNode,
-            playing = false,
-            gain,
-            playingOscillators = [],
-            frequency = options.frequency;
 
-        function easeGainNodeLinear(options) {
-            var node = options.node;
-            var duration = options.duration || 1;
-            var start = options.start;
-            var end = options.end;
 
-            if (!options.duration) {
+
+      function easeGainNodeLinear(options) {
+          var node = options.node;
+          var duration = options.duration || 1;
+          var start = options.start;
+          var end = options.end;
+
+          if (!options.duration) {
               console.error("no duration");
               return;
-            }
+          }
 
-            // debugger;
+          var startGain = node.gain.value;
+          var endGain = end;
+          var steps = 50;
+          var timePerStep = duration / steps;
+          var difference = startGain - endGain;
 
-
-
-            var startGain = node.gain.value;
-            var endGain = end;
-            var steps = 50;
-            var timePerStep = duration / steps;
-            var difference = startGain - endGain;
-
-            if (difference === 0) {
+          if (difference === 0) {
               return;
-            }
+          }
 
-            for (var currentStep = 1; currentStep <= steps; currentStep++) {
-                var volumeAtStep = startGain - difference / steps * currentStep;
-                var timeAtStep = context.currentTime + timePerStep * currentStep / 10000;
-                node.gain.setValueAtTime(volumeAtStep, timeAtStep);
-            }
-        }
+          for (var currentStep = 1; currentStep <= steps; currentStep++) {
+              var volumeAtStep = startGain - difference / steps * currentStep;
+              var timeAtStep = context.currentTime + timePerStep * currentStep / 10000;
+              node.gain.setValueAtTime(volumeAtStep, timeAtStep);
+          }
+      }
 
-        var play = function() {
-            console.log("play note. Options?",options);
-            if (playing) {
-                stop();
-            };
-            if (frequency < 0) {
+      var play = function() {
+          console.log("play note. Options?", options);
+          if (playing) {
+              stop();
+          };
+          if (frequency < 0) {
               return;
-            }
-            playing = true;
+          }
+          playing = true;
 
-            options.oscillators.forEach(function(oscillatorDefinition) {
-                var oscillator = context.createOscillator();
-                oscillator.type = oscillatorDefinition;
+          options.oscillators.forEach(function(oscillatorDefinition) {
+              var oscillator = context.createOscillator();
+              oscillator.type = oscillatorDefinition;
 
-                var gain = audioContext.createGain();
-                    gain.connect(audioContext.destination);
+              var gain = audioContext.createGain();
+              gain.connect(audioContext.destination);
+              
+              oscillator.frequency.value = frequency;
 
-                if (playing) {
-                    oscillator.frequency.value = frequency;
-                } else {
-                    oscillator.frequency.value = 0;
-                }
 
-                easeGainNodeLinear({
-                    node: gain,
-                    end: volume,
-                    start: 0,
-                    duration: envelope.timeIn
-                });
+              easeGainNodeLinear({
+                  node: gain,
+                  end: volume,
+                  start: 0,
+                  duration: envelope.timeIn
+              });
 
-                oscillator.noteOn(0);
-                oscillator.gain = gain;
-                oscillator.connect(gain);
-                playingOscillators.push(oscillator);
+              oscillator.noteOn(0);
+              oscillator.gain = gain;
+              oscillator.connect(gain);
+              playingOscillators.push(oscillator);
 
-                return oscillator;
-            });
-        }
+              return oscillator;
+          });
+      }
 
-        var stop = function() {
-            if (!playing) {
-                return;
-            }
-            playing = false;
-            var fadingOscillators = [];
-            playingOscillators.forEach(function(oscillator) {
-                easeGainNodeLinear({
-                    node: oscillator.gain,
-                    end: 0,
-                    start: volume,
-                    duration: envelope.timeIn
-                });
-            });
-            while (playingOscillators[0]) {
-                fadingOscillators.push(playingOscillators.pop());
-            };
+      var stop = function() {
+          if (!playing) {
+              return;
+          }
+          playing = false;
+          var fadingOscillators = [];
+          playingOscillators.forEach(function(oscillator) {
+              easeGainNodeLinear({
+                  node: oscillator.gain,
+                  end: 0,
+                  start: volume,
+                  duration: envelope.timeIn
+              });
+          });
+          while (playingOscillators[0]) {
+              fadingOscillators.push(playingOscillators.pop());
+          };
 
-            timer.setTimeout(function() {
-                fadingOscillators.forEach(function(oscillator) {
-                    oscillator.noteOff(0);
-                    fadingOscillators.splice(fadingOscillators.indexOf(oscillator), 1);
-                });
-            }, 1000)
-        }
+          timer.setTimeout(function() {
+              fadingOscillators.forEach(function(oscillator) {
+                  oscillator.noteOff(0);
+                  fadingOscillators.splice(fadingOscillators.indexOf(oscillator), 1);
+              });
+          }, 1000)
+      }
 
-        var setEnvelope = function(_envelope) {
-            envelope = _envelope;
-        }
+      var setEnvelope = function(_envelope) {
+          envelope = _envelope;
+      }
 
-        var setFrequency = function(_frequency) {
-            frequency = _frequency;
-            playingOscillators.forEach(function(oscillator) {
-                oscillator.frequency.value = frequency;
-            });
-        }
+      var setFrequency = function(_frequency) {
+        console.log("Set frequency...",_frequency,typeof _frequency);
+        if (!parseFloat(_frequency)) {
+          return
+        };
 
-        return {
-            play: play,
-            stop: stop,
-            setFrequency: setFrequency,
-            setEnvelope: setEnvelope,
-            setVolume: setVolume,
-        }
+        frequency = _frequency;
+        playingOscillators.forEach(function(oscillator) {
+            oscillator.frequency.value = frequency;
+        });
+      }
+
+      var exports = {
+          play: play,
+          stop: stop,
+          setFrequency: setFrequency,
+          setEnvelope: setEnvelope,
+          setVolume: setVolume,
+          bendPitch: bendPitch,
+      };
+
+      return exports;
     };
 
     var Synthesizer = function(options) {
@@ -176,7 +197,7 @@ var Jukebox = function() {
         var play = function(tone) {
             var map = options.schema.toneMap;
             var processor;
-            console.log("Play tone. Options?",options,map,typeof map.processor);
+            console.log("Play tone. Options?", options, map, typeof map.processor);
             if (typeof map.processor === "function") {
                 // modulators.forEach(function(modulator) {
 
