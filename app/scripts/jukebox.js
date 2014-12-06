@@ -25,11 +25,12 @@ var Jukebox = function() {
 
       var setVolume = function(_volume) {
           playingOscillators.forEach(function(oscillator) {
-              easeGainNodeLinear({
+             transforms. easeGainNodeLinear({
                   node: oscillator.gain,
                   start: volume,
                   end: _volume,
-                  duration: 100
+                  duration: 100,
+                  context:context
               })
           });
           volume = 1;
@@ -55,36 +56,6 @@ var Jukebox = function() {
 
 
 
-
-
-      function easeGainNodeLinear(options) {
-          var node = options.node;
-          var duration = options.duration || 1;
-          var start = options.start;
-          var end = options.end;
-
-          if (!options.duration) {
-              console.error("no duration");
-              return;
-          }
-
-          var startGain = node.gain.value;
-          var endGain = end;
-          var steps = 50;
-          var timePerStep = duration / steps;
-          var difference = startGain - endGain;
-
-          if (difference === 0) {
-              return;
-          }
-
-          for (var currentStep = 1; currentStep <= steps; currentStep++) {
-              var volumeAtStep = startGain - difference / steps * currentStep;
-              var timeAtStep = context.currentTime + timePerStep * currentStep / 10000;
-              node.gain.setValueAtTime(volumeAtStep, timeAtStep);
-          }
-      }
-
       var play = function() {
           console.log("play note. Options?", options);
           if (playing) {
@@ -105,11 +76,12 @@ var Jukebox = function() {
               oscillator.frequency.value = frequency;
 
 
-              easeGainNodeLinear({
+              transforms.easeGainNodeLinear({
                   node: gain,
                   end: volume,
                   start: 0,
-                  duration: envelope.timeIn
+                  duration: envelope.timeIn,
+                  context:context
               });
 
               oscillator.noteOn(0);
@@ -128,11 +100,12 @@ var Jukebox = function() {
           playing = false;
           var fadingOscillators = [];
           playingOscillators.forEach(function(oscillator) {
-              easeGainNodeLinear({
+              transforms.easeGainNodeLinear({
                   node: oscillator.gain,
                   end: 0,
                   start: volume,
-                  duration: envelope.timeIn
+                  duration: envelope.timeIn,
+                  context:context
               });
           });
           while (playingOscillators[0]) {
