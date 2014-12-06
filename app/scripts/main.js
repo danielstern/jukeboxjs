@@ -4,6 +4,8 @@ var timer = jukebox.timer;
 var modulator1 = jukebox.getModulator(JBSCHEMA.modulators['Tabernackle T4']);
 var modulator2 = jukebox.getModulator(JBSCHEMA.modulators['Grigsby 2260']);
 
+modulator1.frequency = 440;
+
 var keys = new jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
 var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
 
@@ -15,7 +17,10 @@ angular.module("Demo",[])
     timer.setTimeout(modulator.stop,duration);
   };
 
-  var modulator1Settings = {};
+  var modulator1Settings = {
+    volume: 0.5,
+    frequency: 440
+  };
 
   $rootScope.modulator1Settings = modulator1Settings;
 
@@ -32,8 +37,8 @@ angular.module("Demo",[])
   }
 
   $rootScope.$watch('modulator1Settings',function(modulator1Settings){
-    modulator1.frequency = modulator1Settings.frequency;
-    modulator1.volume = modulator1Settings.volume === 0 ? 0 : modulator1Settings.volume || 1;
+    if (modulator1Settings.frequency) modulator1.frequency = modulator1Settings.frequency;
+    if (modulator1Settings.volume) modulator1.volume = modulator1Settings.volume === 0 ? 0 : modulator1Settings.volume || 1;
   },true);
 
   timer.setInterval(function(){

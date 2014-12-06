@@ -246,7 +246,7 @@ only screen and (max-width: 760px),
 
 .modulator-visualizer .inner {
   background-color: red;
-  height: 100%;
+  /*height: 100%;*/
   margin: auto;
   position: absolute;
   top: 0;
