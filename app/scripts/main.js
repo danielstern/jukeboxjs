@@ -1,4 +1,4 @@
-var jukebox = new Jukebox();
+var jukebox = Jukebox;
 var timer = jukebox.timer;
 
 var modulator1 = jukebox.getModulator(JBSCHEMA.modulators['Tabernackle T4']);

@@ -1,27 +1,22 @@
-var Jukebox = function() {
-
-    if (window.jukeboxAudioContext) {
-        audioContext = jukeboxAudioContext;
-    } else {
-        var audioContext = webkitAudioContext ? new webkitAudioContext() : null;
-        window.jukeboxAudioContext = audioContext;
-    }
-    var timer = new jukeboxTimer();
+(function(window){
+"use strict";
+var JukeboxConstructor = function(ActionTimer, transforms) {
+    var audioContext = webkitAudioContext ? new webkitAudioContext() : null;
+    var timer = new ActionTimer();
 
     var Modulator = function(options) {
-
-      console.log("INit new modulator...");
 
         var volume = options.volume || 1,
             modulator = this,
             envelope = options.envelope,
             context = audioContext,
             playing = false,
-            pitchbend = 0;
-             playingOscillators = [],
+            pitchbend = 0,
+            playingOscillators = [],
+            phase = 0,
             frequency = options.frequency || 440;
 
-        var setVolume = function(_volume) {
+        function setVolume(_volume) {
             playingOscillators.forEach(function(oscillator) {
                 transforms.easeGainNodeLinear({
                     node: oscillator.gain,
@@ -32,19 +27,7 @@ var Jukebox = function() {
                 })
             });
             volume = 1;
-            // volume = _volume;
-
         }
-
-        var phase = 0;
-        timer.setInterval(function() {
-            phase++;
-            if (options.adjustor) {
-                options.adjustor(modulator, phase);
-                // console.log("Modulator frequency?",frequency);
-                refreshOscillatorFrequencies();
-            };
-        }, 1);
 
         function bendPitch(bend) {
             pitchbend = bend;
@@ -55,10 +38,16 @@ var Jukebox = function() {
                 oscillator.frequency.value = +frequency + +pitchbend;
             })
         }
+        timer.setInterval(function() {
+            phase++;
+            if (options.adjustor) {
+                options.adjustor(modulator, phase);
+            };
 
+            refreshOscillatorFrequencies();
+        }, 1);
 
-
-        var play = function() {
+        function play() {
 
             if (playing) {
                 stop();
@@ -95,7 +84,7 @@ var Jukebox = function() {
             });
         }
 
-        var stop = function() {
+        function stop() {
             if (!playing) {
                 return;
             }
@@ -122,16 +111,15 @@ var Jukebox = function() {
             }, 1000)
         }
 
-        var setEnvelope = function(_envelope) {
+        function setEnvelope(_envelope) {
             envelope = _envelope;
         }
 
-        var setFrequency = function(_frequency) {
+        function setFrequency(_frequency) {
             if (!parseFloat(_frequency)) {
                 return
             };
 
-            console.log("Set frequency...");
 
             frequency = _frequency;
             playingOscillators.forEach(function(oscillator) {
@@ -231,3 +219,6 @@ var Jukebox = function() {
         timer: timer,
     }
 }
+
+window.Jukebox = new JukeboxConstructor(ActionTimer,transforms);
+})(window);

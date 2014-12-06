@@ -1,4 +1,4 @@
-var jukeboxTimer = function(){
+var ActionTimer = function(){
   var framebuffer = 0,
   msSinceInitialized = 0,
   timer = this;
