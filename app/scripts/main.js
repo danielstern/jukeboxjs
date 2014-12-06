@@ -23,7 +23,7 @@ angular.module("Demo",[])
   $rootScope.keys = keys;
 
   $rootScope.synthNotes = [];
-  for (var i = 0; i < 24; i++) {
+  for (var i = 0; i < 22; i++) {
      $rootScope.synthNotes.push(i);
   }
 

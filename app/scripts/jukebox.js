@@ -10,15 +10,11 @@ var Jukebox = function() {
 
     var Modulator = function(options) {
 
-      console.log("Modulator init:", options);
-
-      var volume = options.volume || 1;
-      var modulator = this;
-      var envelope = options.envelope,
+      var volume = options.volume || 1,
+          modulator = this,
+          envelope = options.envelope,
           context = audioContext,
-          targetAudioNode,
           playing = false,
-          gain,
           pitchbend = 0;
           playingOscillators = [],
           frequency = options.frequency || 440;
@@ -42,28 +38,32 @@ var Jukebox = function() {
       timer.setInterval(function() {
           phase++;
           if (options.adjustor) {
-              options.adjustor(exports, phase);
-              playingOscillators.forEach(function(oscillator){
-                console.log("Bending pitch...",pitchbend, frequency,frequency+pitchbend);
-                oscillator.frequency.value = +frequency + +pitchbend;
-              })
-          }
+              options.adjustor(exports, phase);    
+              refreshOscillatorFrequencies();
+          };
       },1);
 
       function bendPitch(bend) {
         pitchbend = bend;
       }
 
+      function refreshOscillatorFrequencies() {
+        playingOscillators.forEach(function(oscillator){
+          oscillator.frequency.value = +frequency + +pitchbend;
+        })
+      }
+
 
 
       var play = function() {
-          console.log("play note. Options?", options);
+
           if (playing) {
               stop();
           };
           if (frequency < 0) {
               return;
           }
+
           playing = true;
 
           options.oscillators.forEach(function(oscillatorDefinition) {
@@ -74,7 +74,6 @@ var Jukebox = function() {
               gain.connect(audioContext.destination);
               
               oscillator.frequency.value = frequency;
-
 
               transforms.easeGainNodeLinear({
                   node: gain,
@@ -125,7 +124,6 @@ var Jukebox = function() {
       }
 
       var setFrequency = function(_frequency) {
-        console.log("Set frequency...",_frequency,typeof _frequency);
         if (!parseFloat(_frequency)) {
           return
         };
