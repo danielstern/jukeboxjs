@@ -38,14 +38,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
                 oscillator.frequency.value = +frequency + +pitchbend;
             })
         }
-        timer.setInterval(function() {
-            phase++;
-            if (options.adjustor) {
-                options.adjustor(modulator, phase);
-            };
 
-            refreshOscillatorFrequencies();
-        }, 1);
 
         function play() {
 
@@ -125,14 +118,27 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             playingOscillators.forEach(function(oscillator) {
                 oscillator.frequency.value = frequency;
             });
-        }
+        };
+
+        timer.setInterval(function() {
+            phase++;
+            if (options.adjustor) {
+                options.adjustor(modulator, phase);
+            };
+
+            if (frequency !== modulator.frequency) {
+              frequency = modulator.frequency;
+              refreshOscillatorFrequencies();
+            }
+        }, 1);
 
         this.play = play;
         this.stop = stop;
-        this.setFrequency = setFrequency;
+        // this.setFrequency = setFrequency;
         this.setEnvelope = setEnvelope;
         this.setVolume = setVolume;
         this.bendPitch = bendPitch;
+        this.frequency = frequency;
     };
 
     var Synthesizer = function(schema) {
@@ -144,14 +150,12 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
 
         polyphony.forEach(function(){
-
             var modulatorSet = {};
             modulatorSet.modulators = schema.modulators.map(function(schema) {
                 return new Modulator(schema);
             });
-
             modulatorSets.push(modulatorSet);
-        })
+        });
 
         var setVolume = function(volume) {
             // modulators.forEach(function(oscillator) {
