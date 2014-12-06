@@ -89,11 +89,11 @@ var tones = {
             var baseFrequency = 220; // Low A
 
             var freq = baseFrequency + (baseFrequency * tone / 12)
-            modulator.setFrequency(freq);
+            modulator.frequency =freq;
             modulator.play();
             timer.setTimeout(function() {
                 if (released) return;
-                // modulator.stop();
+                modulator.stop();
             }, duration);
         })
 
