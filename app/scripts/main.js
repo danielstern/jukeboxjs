@@ -2,6 +2,7 @@ var jukebox = Jukebox;
 var timer = jukebox.timer;
 
 var modulator1 = jukebox.getModulator(JBSCHEMA.modulators['Tabernackle T4']);
+var modulator2 = jukebox.getModulator(JBSCHEMA.modulators['Grigsby 2260']);
 
 var keys = new jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
 var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
@@ -20,6 +21,7 @@ angular.module("Demo",[])
 
 
   $rootScope.modulator1 = modulator1;
+  $rootScope.modulator2 = modulator2;
   $rootScope.keys = keys;
 
   $rootScope.synthNotes = [];
@@ -62,10 +64,11 @@ var theme = function() {
   }))
 }
 
-function playNote (tone,duration) {
-  modulator1.frequency = tone;
-  modulator1.play();
-  timer.setTimeout(modulator1.stop,duration);
+function playNote (modulator, tone,duration) {
+  if (tone < 1) return;
+  modulator.frequency = tone;
+  modulator.play();
+  timer.setTimeout(modulator.stop,duration);
 };
 
 
@@ -87,7 +90,7 @@ var playMario = function(){
       return {
           timeout: note.duration,
           callback: function() {
-              playNote(note.frequency, note.duration - 10);
+              playNote(modulator2,note.frequency, note.duration + 10);
           }
       }
   }))

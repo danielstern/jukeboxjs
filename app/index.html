@@ -61,7 +61,7 @@
             <tr>
               <td>
               <code>
-                jukebox.getSynth(synthesizerSchema):Synthesizer
+                jukebox.getSynth(schema:synthesizerSchema):Synthesizer
               </code>
               </td>
               <td>Returns a new synthesizer object suitable for keyboard or drums.</td>
@@ -69,7 +69,7 @@
             <tr>
               <td>
               <code>
-                jukebox.getModulator(modulatorSchema):Modulator
+                jukebox.getModulator(schema:modulatorSchema):Modulator
               </code>
               </td>
               <td>Returns a new modulator object suitable for generating tones based on frequencies.</td>
@@ -132,6 +132,39 @@
                 </p>
                 <p>
                   Write - sets the frequency of the modulator.
+                </p>
+                </td> 
+            </tr>
+            <tr>
+              <td>
+              <code>
+                modulator.volume:Number
+              </code>
+              </td>
+              <td>
+                <p>
+                  Read - returns the volume of the modulator.
+                </p>
+                <p>
+                  Write - sets the volume of the modulator as a value from 0 to 1.
+                </p>
+                </td> 
+            </tr>
+            <tr>
+              <td>
+              <code>
+                modulator.bend:Number
+              </code>
+              </td>
+              <td>
+                <p>
+                  Bend is a number amount to add to the frequency at play time without changing it. It is used mainly for tremolo.
+                </p>
+                <p>
+                  Read - returns the bend of the modulator.
+                </p>
+                <p>
+                  Write - sets the bend of the modulator as a value.
                 </p>
                 </td> 
             </tr>

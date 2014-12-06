@@ -17,11 +17,11 @@ var tones = {
                 duration = 30;
 
             modulators.forEach(function(modulator) {
-                modulator.setFrequency(freq);
-                modulator.setEnvelope({
+                modulator.frequency = freq;
+                modulator.envelope = ({
                     timeIn: timeIn,
                     timeOut: timeOut,
-                })
+                });
                 modulator.play();
                 timer.setTimeout(modulator.stop, duration);
             })
@@ -143,10 +143,9 @@ var modulators = {
         adjustor:function(modulator,phase) {
           var phaseShift = 10;
           var frequency = 1 / 25;
-          var amplitude = 5;
+          var amplitude = 50;
 
-          // console.log("adjusting stuff",modulator,Math.sin(phase) );
-          modulator.bendPitch(Math.sin((phase + phaseShift) * frequency) * amplitude - amplitude * 0.5);
+          modulator.bend = Math.sin((phase + phaseShift) * frequency) * amplitude - amplitude * 0.5;
         }
     },
     "Oberon 650-SSS": {

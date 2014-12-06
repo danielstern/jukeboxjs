@@ -14,39 +14,34 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             pitchbend = 0,
             playingOscillators = [],
             phase = 0,
+            bend = 0,
             frequency = options.frequency || 440;
 
-        // function setVolume(_volume) {
-        //     playingOscillators.forEach(function(oscillator) {
-        //         transforms.easeGainNodeLinear({
-        //             node: oscillator.gain,
-        //             start: volume,
-        //             end: _volume,
-        //             duration: 100,
-        //             context: context
-        //         })
-        //     });
-        //     volume = 1;
-        // }
-
-        function bendPitch(bend) {
-            pitchbend = bend;
-        }
-
         function refreshOscillatorFrequencies() {
-            playingOscillators.forEach(function(oscillator) {
-                oscillator.frequency.value = +frequency + +pitchbend;
-            })
+          if (frequency < 0) {
+              return;
+          }
+
+          playingOscillators.forEach(function(oscillator) {
+              oscillator.frequency.value = +frequency + +bend;
+          })
         }
 
 
         function play() {
 
+          console.log("Play...",frequency);
+
             if (playing) {
                 stop();
             };
-            if (frequency < 0) {
+            if (frequency <= 0) {
                 return;
+            }
+
+            if (frequency !== modulator.frequency) {
+              frequency = modulator.frequency;
+              refreshOscillatorFrequencies();
             }
 
             playing = true;
@@ -75,6 +70,8 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
                 return oscillator;
             });
+
+            refreshOscillatorFrequencies();
         }
 
         function stop() {
@@ -104,32 +101,37 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             }, 1000)
         }
 
-        function setEnvelope(_envelope) {
-            envelope = _envelope;
-        }
-
-        // function setFrequency(_frequency) {
-        //     if (!parseFloat(_frequency)) {
-        //         return
-        //     };
-
-
-        //     frequency = _frequency;
-        //     playingOscillators.forEach(function(oscillator) {
-        //         oscillator.frequency.value = frequency;
-        //     });
-        // };
+        // function setEnvelope(_envelope) {
+        //     envelope = _envelope;
+        // }
 
         timer.setInterval(function() {
             phase++;
+
+            modulator.frequency = +modulator.frequency;
+            if (modulator.frequency <= 0) {
+              console.log("Frequency is too little. stopping")
+              stop();
+              return;
+            }
+
             if (options.adjustor) {
                 options.adjustor(modulator, phase);
             };
+
+            if (bend !== modulator.bend) {
+              bend = modulator.bend;
+              refreshOscillatorFrequencies();
+            }
+
+            frequency = +frequency;
 
             if (frequency !== modulator.frequency) {
               frequency = modulator.frequency;
               refreshOscillatorFrequencies();
             }
+            // if (frequency < 0) {
+            // }
             if (volume !== modulator.volume) {
               playingOscillators.forEach(function(){
                 transforms.easeGainNodeLinear({
@@ -141,17 +143,24 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
                 })
               })
               volume = modulator.volume;
-
             }
+
+            if (modulator.envelope.timeIn !== envelope.timeIn || modulator.envelope.timeOut != envelope.timeOut) {
+              envelope = modulator.envolope;
+            }
+
+
         }, 1);
 
         this.play = play;
         this.stop = stop;
         // this.setFrequency = setFrequency;
-        this.setEnvelope = setEnvelope;
+        // this.setEnvelope = setEnvelope;
+        this.envelope = envelope;
         // this.setVolume = setVolume;
         this.volume = volume;
-        this.bendPitch = bendPitch;
+        this.bend = bend;
+        // this.bendPitch = bendPitch;
         this.frequency = frequency;
     };
 
