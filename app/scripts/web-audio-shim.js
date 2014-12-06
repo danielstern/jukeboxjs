@@ -142,9 +142,10 @@
   }
 }(window));
 
-window.addEventListener("click",function twiddle(){
+document.body.addEventListener("touchstart",function twiddle(){
+  // alert("Twiddle")
   var audioContext = webkitAudioContext ? new webkitAudioContext() : null;
   var _oscillator = audioContext.createOscillator();
   _oscillator.noteOn(0.1);
-  window.removeEventListener("click",twiddle);
+  document.body.removeEventListener("touchstart",twiddle);
 });
