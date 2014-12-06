@@ -24,6 +24,8 @@ angular.module("Demo",[])
   $rootScope.modulator2 = modulator2;
   $rootScope.keys = keys;
 
+  $rootScope.parseFloat = parseFloat;
+
   $rootScope.synthNotes = [];
   for (var i = 0; i < 22; i++) {
      $rootScope.synthNotes.push(i);
@@ -33,6 +35,17 @@ angular.module("Demo",[])
     modulator1.frequency = modulator1Settings.frequency;
     modulator1.volume = modulator1Settings.volume === 0 ? 0 : modulator1Settings.volume || 1;
   },true);
+
+  timer.setInterval(function(){
+    $rootScope.$apply();
+  },10);
+
+  // $rootScope.$watch(function(){
+  //   // console.log("Bendwatch...")
+  //   // return modulator1.bend;
+  // },function(){
+  //   // console.log("bend change",modulator1);
+  // },true)
 
 })
 

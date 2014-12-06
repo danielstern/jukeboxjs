@@ -35,7 +35,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
           willStop = true;
         }
 
-        timer.setInterval(function() {
+        function handleStateUpdate() {
             phase++;
             modulator.frequency = +modulator.frequency;
             modulator.volume = +modulator.volume;
@@ -127,17 +127,15 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
                   });
               }, 1000)
             }
-        }, 1);
+        }
+
+        timer.setInterval(handleStateUpdate, 1);
 
         this.play = play;
         this.stop = stop;
-        // this.setFrequency = setFrequency;
-        // this.setEnvelope = setEnvelope;
         this.envelope = envelope;
-        // this.setVolume = setVolume;
         this.volume = volume;
         this.bend = bend;
-        // this.bendPitch = bendPitch;
         this.frequency = frequency;
     };
 
@@ -146,21 +144,20 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
         var modulatorSets = [],
             keyModulatorMap = [],
             map = schema.toneMap,
+            synthesizer = this,
+            volume = 1,
             polyphony = schema.polyphony || [0,0,0,0];
 
 
-        polyphony.forEach(function(){
-            var modulatorSet = {};
-            modulatorSet.modulators = schema.modulators.map(function(schema) {
-                return new Modulator(schema);
-            });
-            modulatorSets.push(modulatorSet);
-        });
 
-        var setVolume = function(volume) {
-            // modulators.forEach(function(oscillator) {
-            //     oscillator.gain.value = volume;
-            // })
+
+        function getAllModulators() {
+          var allModulators = [];
+          modulatorSets.forEach(function(set){
+            allModulators = allModulators.concat(set.modulators);
+          });
+
+          return allModulators;
         }
 
         function releaseModulator() {
@@ -186,8 +183,8 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             return freeSets[0];
         }
 
-        var play = function(tone) {
-      
+        function play (tone) {
+        
             var processor;
             if (typeof map.processor === "function") {
                 processor = map.processor;
@@ -204,10 +201,26 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
         }
 
-        return {
-            setVolume: setVolume,
-            play: play,
-        }
+        polyphony.forEach(function(){
+            var modulatorSet = {};
+            modulatorSet.modulators = schema.modulators.map(function(schema) {
+                return new Modulator(schema);
+            });
+            modulatorSets.push(modulatorSet);
+        });
+
+        timer.setInterval(function() { 
+          if (synthesizer.volume != volume) {
+            volume = synthesizer.volume;
+            getAllModulators().forEach(function(modulator){
+              modulator.volume = volume;
+            })
+          }
+        },1);
+
+        this.volume = volume;
+        this.play = play;
+
     };
 
     return {

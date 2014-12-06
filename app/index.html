@@ -168,6 +168,24 @@
                 </p>
                 </td> 
             </tr>
+            <tr>
+              <td>
+              <code>
+                modulator.envelope:Object{timeIn:Number,timeOut:Number}
+              </code>
+              </td>
+              <td>
+                <p>
+                  Sets the envelope of the pitch produced by the sound. <code>timeIn</code> is the amount of time the sound fades in, and <code>timeOut</code> is the amount of time it fades out.
+                </p>
+                <p>
+                  Read - returns the envelope of the modulator.
+                </p>
+                <p>
+                  Write - sets the envelope of the modulator as a value.
+                </p>
+                </td> 
+            </tr>
           </table>
 
           <h4>
@@ -224,20 +242,18 @@
           <p>
             In this example you will create a modulator and have it play a note.
           </p>
-<code><pre>var jukebox = new Jukebox();
-var modulator = new Jukebox.modulator({
+<pre><code>var modulator = Jukebox.getModulator({
   name: "Grigsby 2260", // optional name for no reason
   oscillators: [SINE, SAW], 
   envelope: {
       timeIn: 48,
       timeOut: 96
-  }
+  },
+  frequency: 420,
 });
 
 modulator.play();
-jukebox.timer.setTimeout(modulator.stop,256)
-</pre>
-          </code>
+jukebox.timer.setTimeout(modulator.stop,256)          </code></pre>
           <h4>Modulator Demo</h4>
           <div class="demo">
             <h5>Grigsby 2260 Modulation Unit</h5>
@@ -252,6 +268,9 @@ jukebox.timer.setTimeout(modulator.stop,256)
             <input type="range" min=0 max=1 step=0.01 ng-model='modulator1Settings.volume'> 
             </label>
             <!-- <input type="range" min=20 max=660 step=1 ng-model=frequency> -->
+            <div class="modulator-visualizer">
+              <div class="inner" style='width:{{(parseFloat(modulator1.frequency) + parseFloat(modulator1.bend)) / 5}}px; height:{{parseFloat(modulator1.volume) * 100}}%'></div>
+            </div>
           </div>
 
           <h3>
@@ -318,45 +337,17 @@ jukebox.timer.setTimeout(modulator.stop,256)
                 </p>
               </td> 
             </tr>
-            <!-- <tr>
-              <td>
-              <code>
-                modulatorSchema.envelope:{ timeIn:Number,timeOut:Number }
-              </code>
-              </td>
-              <td>
-                <p>
-                  Sets the time over which the sound fades in or out in milliseconds.
-                </p>
-                </td> 
-            </tr>
-            <tr>
-              <td>
-              <code>
-                modulatorSchema.oscillators:[]OscillatorSchema
-              </code>
-              </td>
-              <td>
-                <p>
-                  An array of one or more oscillator schemas that the modulator will use.
-                </p>
-                <p>
-                  A valid <code>OscillatorSchema</code> is any of the following strings: <code>"sawtooth","sine","square","triangle"</code>.
-                </p>
-                </td> 
-            </tr> -->
+           
           </table>
           <h4>Synthesizer Example</h4>
+          <h5>Omaha DS6 Synthesizer</h5>
+          <label for="">
+              Volume
+          <input type="range" min=0 max=1 step=0.01 ng-model='keys.volume'> 
+          </label>
           <div keyboard class="keyboard">
-                <!-- <button key ng-repeat="tone in tones" ng-class="{'mouseover':mouseover,'playing':playing}" tone=tone class='key'>  -->
-                <!-- notes? {{synthNotes}} -->
                 <button ng-repeat='note in synthNotes' key class=key ng-click=keys.play(note)></button>
-                <!-- <button key ng-click=keys.play(1)></button> -->
-                <!-- <button key ng-click=keys.play(2)></button> -->
-                <!-- <button key ng-click=keys.play(3)></button> -->
-                <!-- <button key ng-repeat="tone in tones" ng-class="{'mouseover':mouseover,'playing':playing}" tone=tone class='key'>  -->
             </button>
-
         </div>
 <!-- 
           <h4>Example</h4>

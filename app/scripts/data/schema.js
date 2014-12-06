@@ -145,6 +145,8 @@ var modulators = {
           var frequency = 1 / 25;
           var amplitude = 50;
 
+          // console.log("Adjustor",modulator.bend);
+
           modulator.bend = Math.sin((phase + phaseShift) * frequency) * amplitude - amplitude * 0.5;
         }
     },
