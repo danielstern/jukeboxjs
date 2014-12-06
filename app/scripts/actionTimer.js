@@ -1,4 +1,4 @@
-var jukeboxTimer = function(){
+var ActionTimer = function(){
   var framebuffer = 0,
   msSinceInitialized = 0,
   timer = this;
@@ -23,6 +23,10 @@ var jukeboxTimer = function(){
     },1);
 
     return interval;
+  }
+
+  this.getTimeNow = function() {
+    return new Date().getTime(); 
   }
 
   this.setSequence = function(actions) {

@@ -17,11 +17,11 @@ var tones = {
                 duration = 30;
 
             modulators.forEach(function(modulator) {
-                modulator.setFrequency(freq);
-                modulator.setEnvelope({
+                modulator.frequency = freq;
+                modulator.envelope = {
                     timeIn: timeIn,
                     timeOut: timeOut,
-                })
+                };
                 modulator.play();
                 timer.setTimeout(modulator.stop, duration);
             })
@@ -81,18 +81,28 @@ var tones = {
     },
 
     "keyboard1": function(modulators, tone, timer) {
+
+        var released = false;
         modulators.forEach(function(modulator) {
 
             var duration = 300;
             var baseFrequency = 220; // Low A
 
             var freq = baseFrequency + (baseFrequency * tone / 12)
-            modulator.setFrequency(freq);
+            modulator.frequency =freq;
             modulator.play();
             timer.setTimeout(function() {
+                if (released) return;
                 modulator.stop();
             }, duration);
         })
+
+        return function(){
+          released = true;
+          modulators.forEach(function(modulator){
+            // modulator.stop();
+          })
+      }
     }
 }
 
@@ -133,10 +143,11 @@ var modulators = {
         adjustor:function(modulator,phase) {
           var phaseShift = 10;
           var frequency = 1 / 25;
-          var amplitude = 5;
+          var amplitude = 50;
 
-          // console.log("adjusting stuff",modulator,Math.sin(phase) );
-          modulator.bendPitch(Math.sin((phase + phaseShift) * frequency) * amplitude - amplitude * 0.5);
+          // console.log("Adjustor",modulator.bend);
+
+          modulator.bend = Math.sin((phase + phaseShift) * frequency) * amplitude - amplitude * 0.5;
         }
     },
     "Oberon 650-SSS": {
@@ -152,7 +163,8 @@ var modulators = {
 var synthesizers = {
     "Omaha DS6": {
         name: "Omaha DS6",
-        modulators: [modulators['Grigsby 2260'],modulators['Tabernackle T4']],
+        modulators: [modulators['Oberon 650-SSS']],
+        // modulators: [modulators['Grigsby 2260'],modulators['Tabernackle T4']],
         toneMap: toneMaps["Keyboard"]
     },
     "Phoster P52 Drum Unit": {

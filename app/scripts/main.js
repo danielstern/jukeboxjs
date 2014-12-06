@@ -1,10 +1,11 @@
-var jukebox = new Jukebox();
+var jukebox = Jukebox;
 var timer = jukebox.timer;
 
 var modulator1 = jukebox.getModulator(JBSCHEMA.modulators['Tabernackle T4']);
+var modulator2 = jukebox.getModulator(JBSCHEMA.modulators['Grigsby 2260']);
 
-var keys = new jukebox.getSynth({schema:JBSCHEMA.synthesizers['Omaha DS6']});
-var drums = new jukebox.getSynth({schema:JBSCHEMA.synthesizers['Phoster P52 Drum Unit']});
+var keys = new jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
+var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
 
 angular.module("Demo",[])
 .run(function($rootScope){
@@ -20,7 +21,10 @@ angular.module("Demo",[])
 
 
   $rootScope.modulator1 = modulator1;
+  $rootScope.modulator2 = modulator2;
   $rootScope.keys = keys;
+
+  $rootScope.parseFloat = parseFloat;
 
   $rootScope.synthNotes = [];
   for (var i = 0; i < 22; i++) {
@@ -28,9 +32,20 @@ angular.module("Demo",[])
   }
 
   $rootScope.$watch('modulator1Settings',function(modulator1Settings){
-    modulator1.setFrequency(modulator1Settings.frequency);
-    modulator1.setVolume(modulator1Settings.volume === 0 ? 0 : modulator1Settings.volume || 1);
+    modulator1.frequency = modulator1Settings.frequency;
+    modulator1.volume = modulator1Settings.volume === 0 ? 0 : modulator1Settings.volume || 1;
   },true);
+
+  timer.setInterval(function(){
+    $rootScope.$apply();
+  },10);
+
+  // $rootScope.$watch(function(){
+  //   // console.log("Bendwatch...")
+  //   // return modulator1.bend;
+  // },function(){
+  //   // console.log("bend change",modulator1);
+  // },true)
 
 })
 
@@ -62,10 +77,11 @@ var theme = function() {
   }))
 }
 
-function playNote (tone,duration) {
-  modulator1.setFrequency(tone);
-  modulator1.play();
-  timer.setTimeout(modulator1.stop,duration);
+function playNote (modulator, tone,duration) {
+  if (tone < 1) return;
+  modulator.frequency = tone;
+  modulator.play();
+  timer.setTimeout(modulator.stop,duration);
 };
 
 
@@ -87,7 +103,7 @@ var playMario = function(){
       return {
           timeout: note.duration,
           callback: function() {
-              playNote(note.frequency, note.duration - 10);
+              playNote(modulator2,note.frequency, note.duration + 10);
           }
       }
   }))
