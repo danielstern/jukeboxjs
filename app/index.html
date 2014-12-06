@@ -195,7 +195,10 @@ jukebox.timer.setTimeout(modulator.stop,256)
             <h5>Grigsby 2260 Modulation Unit</h5>
             <button class="btn btn-default" ng-click="modulator1.play(frequency,300)">On</button>
             <button class="btn btn-default" ng-click="modulator1.stop()">Off</button>
-            <input type="range" min=20 max=660 step=1 ng-model=frequency>
+            <label for="">
+                Frequency
+            <input type="range" min=20 max=660 step=1 ng-model=frequency> 
+            </label>
             <!-- <input type="range" min=20 max=660 step=1 ng-model=frequency> -->
           </div>
 

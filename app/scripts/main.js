@@ -1,7 +1,7 @@
 var jukebox = new Jukebox();
 
-var modulator1 = jukebox.getModulator(JBSCHEMA.synthesizers['Omaha DS6']);
-var modulator2 = jukebox.getModulator(JBSCHEMA.synthesizers['Omaha DS6']);
+var modulator1 = jukebox.getModulator(JBSCHEMA.modulators['Tabernackle T4']);
+// var modulator2 = jukebox.getModulator(JBSCHEMA.synthesizers['Grigsby 2260']);
 
 var drums = new Drums();
 

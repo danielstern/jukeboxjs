@@ -9,14 +9,15 @@ var Jukebox = function() {
     var timer = new jukeboxTimer();
 
     var Modulator = function(options) {
-        options = options || {};
+        // options = options || {};
 
-        options.oscillators = options.oscillators || ["square", 'triangle', 'sawtooth', 'sine'];
-        options.frequency = options.frequency || 440;
-        options.envelope = {
-            timeIn: 300,
-            timeOut: 300,
-        };
+        // options.oscillators = options.oscillators || ["square", 'triangle', 'sawtooth', 'sine'];
+        // options.frequency = options.frequency || 440;
+        // options.envelope = {
+            // timeIn: 300,
+            // timeOut: 300,
+        // };
+
 
         var envelope = options.envelope,
             context = audioContext,
@@ -46,6 +47,7 @@ var Jukebox = function() {
         }
 
         var play = function() {
+            console.log("play note. Options?",options);
             if (playing) {
                 stop();
             };
