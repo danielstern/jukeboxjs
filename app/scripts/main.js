@@ -1,7 +1,7 @@
 var jukebox = new Jukebox();
 
-var modulator = jukebox.getModulator();
-var modulator2 = jukebox.getModulator();
+var modulator1 = jukebox.getModulator(JBSCHEMA.synthesizers['Omaha DS6']);
+var modulator2 = jukebox.getModulator(JBSCHEMA.synthesizers['Omaha DS6']);
 
 var drums = new Drums();
 
@@ -13,6 +13,26 @@ var drums = new jukebox.getSynth({schema:JBSCHEMA.synthesizers['Phoster P52 Drum
 
 // })
 // drums.tone(0);
+
+angular.module("Demo",[])
+.run(function($rootScope){
+  $rootScope.playNote = function(modulator,tone,duration) {
+    console.log("playing tone",tone);
+    modulator.setFrequency(tone);
+    modulator.play();
+    timer.setTimeout(modulator.stop,duration);
+  };
+
+  $rootScope.modulator1 = modulator1;
+
+  $rootScope.$watch('frequency',function(freq){
+    console.log("freq change",freq);
+    modulator1.setFrequency(freq);
+  })
+
+
+
+})
 
 // synth(440);
 // synth(690);

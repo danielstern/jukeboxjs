@@ -21,7 +21,6 @@ var Jukebox = function() {
         var envelope = options.envelope,
             context = audioContext,
             targetAudioNode,
-            oscillators = [],
             playing = false,
             gain,
             playingOscillators = [],
@@ -116,7 +115,7 @@ var Jukebox = function() {
 
         var setFrequency = function(_frequency) {
             frequency = _frequency;
-            oscillators.forEach(function(oscillator) {
+            playingOscillators.forEach(function(oscillator) {
                 oscillator.frequency.value = frequency;
             });
         }
@@ -131,7 +130,7 @@ var Jukebox = function() {
 
     var Synthesizer = function(options) {
         options = options || {};
-        options.schema = options.schema || JBSCHEMA.synthesizers['Omaha DS6'];
+        // options.schema = options.schema;
 
         var modulators = [],
             currentSequence;

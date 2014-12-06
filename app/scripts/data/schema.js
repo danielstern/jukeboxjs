@@ -130,7 +130,14 @@ var modulators = {
             timeIn: 200,
             timeOut: 500,
         }
-        // oscillators:[SQUARE,SAW,SINE]
+    },
+    "Tabernackle T4": {
+        name: "Tabernackle T4",
+        oscillators: [SAW, SAW,TRIANGLE],
+        envelope: {
+            timeIn: 10,
+            timeOut: 50,
+        }
     }
 };
 
