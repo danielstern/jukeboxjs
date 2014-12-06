@@ -16,18 +16,18 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             phase = 0,
             frequency = options.frequency || 440;
 
-        function setVolume(_volume) {
-            playingOscillators.forEach(function(oscillator) {
-                transforms.easeGainNodeLinear({
-                    node: oscillator.gain,
-                    start: volume,
-                    end: _volume,
-                    duration: 100,
-                    context: context
-                })
-            });
-            volume = 1;
-        }
+        // function setVolume(_volume) {
+        //     playingOscillators.forEach(function(oscillator) {
+        //         transforms.easeGainNodeLinear({
+        //             node: oscillator.gain,
+        //             start: volume,
+        //             end: _volume,
+        //             duration: 100,
+        //             context: context
+        //         })
+        //     });
+        //     volume = 1;
+        // }
 
         function bendPitch(bend) {
             pitchbend = bend;
@@ -108,17 +108,17 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             envelope = _envelope;
         }
 
-        function setFrequency(_frequency) {
-            if (!parseFloat(_frequency)) {
-                return
-            };
+        // function setFrequency(_frequency) {
+        //     if (!parseFloat(_frequency)) {
+        //         return
+        //     };
 
 
-            frequency = _frequency;
-            playingOscillators.forEach(function(oscillator) {
-                oscillator.frequency.value = frequency;
-            });
-        };
+        //     frequency = _frequency;
+        //     playingOscillators.forEach(function(oscillator) {
+        //         oscillator.frequency.value = frequency;
+        //     });
+        // };
 
         timer.setInterval(function() {
             phase++;
@@ -130,13 +130,27 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               frequency = modulator.frequency;
               refreshOscillatorFrequencies();
             }
+            if (volume !== modulator.volume) {
+              playingOscillators.forEach(function(){
+                transforms.easeGainNodeLinear({
+                    node: oscillator.gain,
+                    start: volume,
+                    end: modulator.volume,
+                    duration: 1,
+                    context: context
+                })
+              })
+              volume = modulator.volume;
+
+            }
         }, 1);
 
         this.play = play;
         this.stop = stop;
         // this.setFrequency = setFrequency;
         this.setEnvelope = setEnvelope;
-        this.setVolume = setVolume;
+        // this.setVolume = setVolume;
+        this.volume = volume;
         this.bendPitch = bendPitch;
         this.frequency = frequency;
     };

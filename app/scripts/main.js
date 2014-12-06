@@ -29,7 +29,7 @@ angular.module("Demo",[])
 
   $rootScope.$watch('modulator1Settings',function(modulator1Settings){
     modulator1.frequency = modulator1Settings.frequency;
-    modulator1.setVolume(modulator1Settings.volume === 0 ? 0 : modulator1Settings.volume || 1);
+    modulator1.volume = modulator1Settings.volume === 0 ? 0 : modulator1Settings.volume || 1;
   },true);
 
 })
@@ -63,7 +63,7 @@ var theme = function() {
 }
 
 function playNote (tone,duration) {
-  modulator1.setFrequency(tone);
+  modulator1.frequency = tone;
   modulator1.play();
   timer.setTimeout(modulator1.stop,duration);
 };
