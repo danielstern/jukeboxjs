@@ -142,10 +142,3 @@
   }
 }(window));
 
-window.addEventListener("click",function twiddle(){
-  var audioContext = webkitAudioContext ? new webkitAudioContext() : null;
-  var _oscillator = audioContext.createOscillator();
-  // alert("twiddle");
-  _oscillator.noteOn(0.1);
-  // window.removeEventListener("click",twiddle);
-});
