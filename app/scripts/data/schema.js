@@ -162,7 +162,8 @@ var modulators = {
 var synthesizers = {
     "Omaha DS6": {
         name: "Omaha DS6",
-        modulators: [modulators['Grigsby 2260'],modulators['Tabernackle T4']],
+        modulators: [modulators['Oberon 650-SSS']],
+        // modulators: [modulators['Grigsby 2260'],modulators['Tabernackle T4']],
         toneMap: toneMaps["Keyboard"]
     },
     "Phoster P52 Drum Unit": {

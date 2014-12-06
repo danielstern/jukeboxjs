@@ -10,17 +10,16 @@ var Jukebox = function() {
 
     var Modulator = function(options) {
 
+      console.log("INit new modulator...");
+
         var volume = options.volume || 1,
             modulator = this,
             envelope = options.envelope,
             context = audioContext,
             playing = false,
             pitchbend = 0;
-            playingOscillators = [],
-
-            customSettings = {
-            frequency: options.frequency || 440,
-        }
+             playingOscillators = [],
+            frequency = options.frequency || 440;
 
         var setVolume = function(_volume) {
             playingOscillators.forEach(function(oscillator) {
@@ -41,8 +40,8 @@ var Jukebox = function() {
         timer.setInterval(function() {
             phase++;
             if (options.adjustor) {
-              console.log("oscillator...",customSettings.frequency);
-                options.adjustor(exports, phase);
+                options.adjustor(modulator, phase);
+                // console.log("Modulator frequency?",frequency);
                 refreshOscillatorFrequencies();
             };
         }, 1);
@@ -53,7 +52,7 @@ var Jukebox = function() {
 
         function refreshOscillatorFrequencies() {
             playingOscillators.forEach(function(oscillator) {
-                oscillator.frequency.value = +customSettings.frequency + +pitchbend;
+                oscillator.frequency.value = +frequency + +pitchbend;
             })
         }
 
@@ -64,7 +63,7 @@ var Jukebox = function() {
             if (playing) {
                 stop();
             };
-            if (customSettings.frequency < 0) {
+            if (frequency < 0) {
                 return;
             }
 
@@ -77,7 +76,7 @@ var Jukebox = function() {
                 var gain = audioContext.createGain();
                 gain.connect(audioContext.destination);
 
-                oscillator.frequency.value = customSettings.frequency;
+                oscillator.frequency.value = frequency;
 
                 transforms.easeGainNodeLinear({
                     node: gain,
@@ -132,22 +131,20 @@ var Jukebox = function() {
                 return
             };
 
-            customSettings.frequency = _frequency;
+            console.log("Set frequency...");
+
+            frequency = _frequency;
             playingOscillators.forEach(function(oscillator) {
-                oscillator.frequency.value = customSettings.frequency;
+                oscillator.frequency.value = frequency;
             });
         }
 
-        var exports = {
-            play: play,
-            stop: stop,
-            setFrequency: setFrequency,
-            setEnvelope: setEnvelope,
-            setVolume: setVolume,
-            bendPitch: bendPitch,
-        };
-
-        return exports;
+        this.play = play;
+        this.stop = stop;
+        this.setFrequency = setFrequency;
+        this.setEnvelope = setEnvelope;
+        this.setVolume = setVolume;
+        this.bendPitch = bendPitch;
     };
 
     var Synthesizer = function(schema) {
