@@ -15,6 +15,8 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             playingOscillators = [],
             phase = 0,
             bend = 0,
+            willPlay = false,
+            willStop = false,
             frequency = options.frequency || 440;
 
         function refreshOscillatorFrequencies() {
@@ -30,75 +32,77 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
         function play() {
 
-          console.log("Play...",frequency);
+          willPlay = true;
 
-            if (playing) {
-                stop();
-            };
-            if (frequency <= 0) {
-                return;
-            }
 
-            if (frequency !== modulator.frequency) {
-              frequency = modulator.frequency;
-              refreshOscillatorFrequencies();
-            }
+            // if (playing) {
+            //     stop();
+            // };
+            // if (frequency <= 0) {
+            //     return;
+            // }
 
-            playing = true;
+            // if (frequency !== modulator.frequency) {
+            //   frequency = modulator.frequency;
+            //   refreshOscillatorFrequencies();
+            // }
 
-            options.oscillators.forEach(function(oscillatorDefinition) {
-                var oscillator = context.createOscillator();
-                oscillator.type = oscillatorDefinition;
+            // playing = true;
 
-                var gain = audioContext.createGain();
-                gain.connect(audioContext.destination);
+            // options.oscillators.forEach(function(oscillatorDefinition) {
+            //     var oscillator = context.createOscillator();
+            //     oscillator.type = oscillatorDefinition;
 
-                oscillator.frequency.value = frequency;
+            //     var gain = audioContext.createGain();
+            //     gain.connect(audioContext.destination);
 
-                transforms.easeGainNodeLinear({
-                    node: gain,
-                    end: volume,
-                    start: 0,
-                    duration: envelope.timeIn,
-                    context: context
-                });
+            //     oscillator.frequency.value = frequency;
 
-                oscillator.noteOn(0);
-                oscillator.gain = gain;
-                oscillator.connect(gain);
-                playingOscillators.push(oscillator);
+            //     transforms.easeGainNodeLinear({
+            //         node: gain,
+            //         end: volume,
+            //         start: 0,
+            //         duration: envelope.timeIn,
+            //         context: context
+            //     });
 
-                return oscillator;
-            });
+            //     oscillator.noteOn(0);
+            //     oscillator.gain = gain;
+            //     oscillator.connect(gain);
+            //     playingOscillators.push(oscillator);
 
-            refreshOscillatorFrequencies();
+            //     return oscillator;
+            // });
+
+            // refreshOscillatorFrequencies();
         }
 
         function stop() {
-            if (!playing) {
-                return;
-            }
-            playing = false;
-            var fadingOscillators = [];
-            playingOscillators.forEach(function(oscillator) {
-                transforms.easeGainNodeLinear({
-                    node: oscillator.gain,
-                    end: 0,
-                    start: volume,
-                    duration: envelope.timeIn,
-                    context: context
-                });
-            });
-            while (playingOscillators[0]) {
-                fadingOscillators.push(playingOscillators.pop());
-            };
+            willStop = true;
+            // if (!playing) {
+            //     return;
+            // }
+            // playing = false;
+            // var fadingOscillators = [];
+            // playingOscillators.forEach(function(oscillator) {
+            //     transforms.easeGainNodeLinear({
+            //         node: oscillator.gain,
+            //         end: 0,
+            //         start: volume,
+            //         duration: envelope.timeIn,
+            //         context: context
+            //     });
+            // });
+            // while (playingOscillators[0]) {
+            //     fadingOscillators.push(playingOscillators.pop());
+            // };
 
-            timer.setTimeout(function() {
-                fadingOscillators.forEach(function(oscillator) {
-                    oscillator.noteOff(0);
-                    fadingOscillators.splice(fadingOscillators.indexOf(oscillator), 1);
-                });
-            }, 1000)
+            // timer.setTimeout(function() {
+            //     fadingOscillators.forEach(function(oscillator) {
+            //         oscillator.noteOff(0);
+            //         fadingOscillators.splice(fadingOscillators.indexOf(oscillator), 1);
+            //     });
+            // }, 1000)
         }
 
         // function setEnvelope(_envelope) {
@@ -107,13 +111,14 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
         timer.setInterval(function() {
             phase++;
-
             modulator.frequency = +modulator.frequency;
-            if (modulator.frequency <= 0) {
-              console.log("Frequency is too little. stopping")
-              stop();
-              return;
-            }
+            modulator.volume = +modulator.volume;
+            modulator.bend = +modulator.bend;
+
+            // if (modulator.frequency <= 0) {
+            //   stop();
+            //   return;
+            // }
 
             if (options.adjustor) {
                 options.adjustor(modulator, phase);
@@ -121,27 +126,25 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
             if (bend !== modulator.bend) {
               bend = modulator.bend;
-              refreshOscillatorFrequencies();
+              // refreshOscillatorFrequencies();
             }
 
-            frequency = +frequency;
 
-            if (frequency !== modulator.frequency) {
+            if (frequency !== modulator.frequency && !willStop) {
               frequency = modulator.frequency;
               refreshOscillatorFrequencies();
             }
-            // if (frequency < 0) {
-            // }
+
             if (volume !== modulator.volume) {
-              playingOscillators.forEach(function(){
-                transforms.easeGainNodeLinear({
-                    node: oscillator.gain,
-                    start: volume,
-                    end: modulator.volume,
-                    duration: 1,
-                    context: context
-                })
-              })
+              // playingOscillators.forEach(function(oscillator){
+              //   transforms.easeGainNodeLinear({
+              //       node: oscillator.gain,
+              //       start: volume,
+              //       end: modulator.volume,
+              //       duration: 1,
+              //       context: context
+              //   })
+              // })
               volume = modulator.volume;
             }
 
@@ -149,7 +152,58 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               envelope = modulator.envolope;
             }
 
+            if (willPlay && !playing) {
+              willPlay = false;
+              playing = true;
 
+              options.oscillators.forEach(function(oscillatorDefinition) {
+                  var oscillator = context.createOscillator();
+                  oscillator.type = oscillatorDefinition;
+
+                  var gain = audioContext.createGain();
+                  gain.connect(audioContext.destination);
+
+                  oscillator.frequency.value = frequency;
+
+                  transforms.easeGainNodeLinear({
+                      node: gain,
+                      end: volume,
+                      start: 0,
+                      duration: envelope.timeIn,
+                      context: context
+                  });
+
+                  oscillator.noteOn(0);
+                  oscillator.gain = gain;
+                  oscillator.connect(gain);
+                  playingOscillators.push(oscillator);
+
+                  return oscillator;
+              });
+            } else if (willStop && playing) {
+              willStop = false;
+              playing = false;
+              var fadingOscillators = [];
+              playingOscillators.forEach(function(oscillator) {
+                  transforms.easeGainNodeLinear({
+                      node: oscillator.gain,
+                      end: 0,
+                      start: volume,
+                      duration: envelope.timeIn,
+                      context: context
+                  });
+              });
+              while (playingOscillators[0]) {
+                  fadingOscillators.push(playingOscillators.pop());
+              };
+
+              timer.setTimeout(function() {
+                  fadingOscillators.forEach(function(oscillator) {
+                      oscillator.noteOff(0);
+                      fadingOscillators.splice(fadingOscillators.indexOf(oscillator), 1);
+                  });
+              }, 1000)
+            }
         }, 1);
 
         this.play = play;
