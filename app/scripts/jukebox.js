@@ -4,6 +4,13 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
     var audioContext = webkitAudioContext ? new webkitAudioContext() : null;
     var timer = new ActionTimer();
 
+    window.addEventListener("click",function twiddle(){
+      var _oscillator = audioContext.createOscillator();
+      _oscillator.noteOn(0.1);
+      window.removeEventListener("click",twiddle);
+    });
+
+
     var Modulator = function(options) {
 
         var volume = options.volume || 1,
