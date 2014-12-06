@@ -3,8 +3,8 @@ var timer = jukebox.timer;
 
 var modulator1 = jukebox.getModulator(JBSCHEMA.modulators['Tabernackle T4']);
 
-var keys = new jukebox.getSynth({schema:JBSCHEMA.synthesizers['Omaha DS6']});
-var drums = new jukebox.getSynth({schema:JBSCHEMA.synthesizers['Phoster P52 Drum Unit']});
+var keys = new jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
+var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
 
 angular.module("Demo",[])
 .run(function($rootScope){

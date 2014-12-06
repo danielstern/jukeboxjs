@@ -25,6 +25,10 @@ var jukeboxTimer = function(){
     return interval;
   }
 
+  this.getTimeNow = function() {
+    return new Date().getTime(); 
+  }
+
   this.setSequence = function(actions) {
     
     var sequenceQueuedActions = [];

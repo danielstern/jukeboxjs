@@ -81,6 +81,8 @@ var tones = {
     },
 
     "keyboard1": function(modulators, tone, timer) {
+
+        var released = false;
         modulators.forEach(function(modulator) {
 
             var duration = 300;
@@ -90,9 +92,17 @@ var tones = {
             modulator.setFrequency(freq);
             modulator.play();
             timer.setTimeout(function() {
-                modulator.stop();
+                if (released) return;
+                // modulator.stop();
             }, duration);
         })
+
+        return function(){
+          released = true;
+          modulators.forEach(function(modulator){
+            modulator.stop();
+          })
+      }
     }
 }
 
