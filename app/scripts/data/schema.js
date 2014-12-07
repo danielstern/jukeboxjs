@@ -138,12 +138,6 @@ var tabernackle = {
         timeOut: 50,
     },
     adjustor: getAdjustor(10,1/25,50)
-    // adjustor: function(modulator, phase) {
-    //     var phaseShift = 10;
-    //     var frequency = 1 / 25;
-    //     var amplitude = 50;
-       
-    // }
 }
 
 var modulators = {

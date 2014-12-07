@@ -7,18 +7,8 @@ var modulator2 = jukebox.getModulator(JBSCHEMA.modulators['Grigsby 2260']);
 modulator1.frequency = 440;
 
 var keys = new jukebox.getSynth(JBSCHEMA.synthesizers["Borg Assimilator"]);
-// var keys = new jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
-// var keys = new jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
 var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
 
-// document.body.addEventListener("touchstart",function(event){
-//   console.log("started touching",event);
-// })
-// document.body.addEventListener('touchmove',function(event){
-//   console.log("moved starting",event.changedTouches);
-//   console.log("moved starting",event.touches);
-//   console.log("moved starting",event.targetTouches);
-// })
 angular.module("Demo", [])
     .run(function($rootScope) {
         $rootScope.playNote = function(modulator, tone, duration) {
@@ -47,7 +37,6 @@ angular.module("Demo", [])
         }
 
         $rootScope.drumNotes = [0,1,2,3]
-        // $rootScope.drumNotes = ["kick","snare","hi","crash"]
 
         $rootScope.$watch('modulator1Settings', function(modulator1Settings) {
             if (modulator1Settings.frequency) modulator1.frequency = modulator1Settings.frequency;
@@ -68,7 +57,6 @@ angular.module("Demo", [])
             },
             link: function(scope, elem, attr) {
                 var keys = scope.synth;
-                // console.log("Key",elem);
                 elem.on("touchstart touchenter mousedown", function(event) {
                     event.preventDefault();
                     keys.play(scope.note);
@@ -83,7 +71,6 @@ angular.module("Demo", [])
                     alert("touchcancel");
                 })
                 elem.on('touchmove mousemove mouseout', function(event) {
-                    // console.log("moved starting",event.changedTouches[0].target);
                     if (event.changedTouches) {
                         var currentHover = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
                         if (currentHover != elem[0]) {
