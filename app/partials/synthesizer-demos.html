@@ -1,0 +1,29 @@
+<aside>
+    Synthesizer Demos
+    <section>
+
+        <h4>Synthesizer Demo</h4>
+        <div ng-controller=SynthDemo>
+            <!-- {{synthesizers}} -->
+            <select ng-model=synthesizer ng-options="obj.name for obj in synthesizers"></select>
+
+            <div synthesizer-keyboard-visualizer synth=synthesizer>
+
+            </div>
+        </div>
+    </section>
+    <section>
+
+
+
+        <h4>Synthesizer Demo 2</h4>
+        <p>
+            A variation of a synthesizer using an <code>array</code> for a processor.
+        </p>
+        <h5>Phoster P52 Drum Unit</h5>
+        <div drumkit class="drums">
+            <button ng-repeat='note in drumNotes' note=note synth=drums key class=drum></button>
+        </div>
+   
+    </section>
+</aside>

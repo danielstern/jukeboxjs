@@ -162,6 +162,12 @@ only screen and (max-width: 760px),
   border: 5px solid green;
 }
 
+section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(0,0,0,0.22);
+}
+
 .tone {
   padding: 5px;
   width: 30px;
@@ -193,8 +199,8 @@ only screen and (max-width: 760px),
 
 .keyboard {
   width: 100%;
-  overflow: hidden;
-  height: 128px;
+  /*overflow: hidden;*/
+  /*height: 128px;*/
   position: relative;
 }
 
