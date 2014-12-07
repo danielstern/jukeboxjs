@@ -195,7 +195,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             if (typeof map.processor === "function") {
                 processor = map.processor;
             } else {
-                processor = map.processor[tone];
+                processor = map.processor[tone % map.processor.length];
             }
 
             var modulatorSet = getFreeModulatorSet();
