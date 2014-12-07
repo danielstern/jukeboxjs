@@ -13,10 +13,9 @@ var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit'])
 
 angular.module("Demo", ['ui.router'])
 .config(function($stateProvider,$urlRouterProvider){
-     $urlRouterProvider.otherwise('/');
      $stateProvider
        .state('docs',{
-        url:'documentation',
+        url:'/documentation',
         templateUrl:"partials/documentation.html"
        })
        .state('home',{
@@ -26,6 +25,7 @@ angular.module("Demo", ['ui.router'])
           console.log("It's hoem time");
         }
        })
+     $urlRouterProvider.otherwise('/');
 
 })
 .run(function($rootScope) {
