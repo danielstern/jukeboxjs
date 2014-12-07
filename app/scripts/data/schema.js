@@ -14,7 +14,7 @@ var tones = {
             var freq = 40,
                 timeIn = 5,
                 timeOut = 5,
-                duration = 30;
+                duration = 150;
 
             modulators.forEach(function(modulator) {
                 modulator.frequency = freq;
@@ -29,17 +29,17 @@ var tones = {
         },
         "snare": function(modulators, tone, timer) {
 
-            var freq = 170,
+            var freq = 120,
                 timeIn = 10,
                 timeOut = 35,
-            duration = 30;
+            duration = 100;
 
-            modulators.forEach(function(modulator) {
-                modulator.setFrequency(freq);
-                modulator.setEnvelope({
+             modulators.forEach(function(modulator) {
+                modulator.frequency = freq;
+                modulator.envelope = {
                     timeIn: timeIn,
                     timeOut: timeOut,
-                })
+                };
                 modulator.play();
                 timer.setTimeout(modulator.stop, duration);
             })
@@ -49,14 +49,14 @@ var tones = {
             var freq = 700,
                 timeIn = 10,
                 timeOut = 70,
-            duration = 25;
+            duration = 40;
 
-            modulators.forEach(function(modulator) {
-                modulator.setFrequency(freq);
-                modulator.setEnvelope({
+           modulators.forEach(function(modulator) {
+                modulator.frequency = freq;
+                modulator.envelope = {
                     timeIn: timeIn,
                     timeOut: timeOut,
-                })
+                };
                 modulator.play();
                 timer.setTimeout(modulator.stop, duration);
             })
@@ -66,17 +66,17 @@ var tones = {
           var freq = 620,
               timeIn = 10,
               timeOut = 70,
-          duration = 75;
+                duration = 150;
 
           modulators.forEach(function(modulator) {
-              modulator.setFrequency(freq);
-              modulator.setEnvelope({
-                  timeIn: timeIn,
-                  timeOut: timeOut,
-              })
-              modulator.play();
-              timer.setTimeout(modulator.stop, duration);
-          })
+                modulator.frequency = freq;
+                modulator.envelope = {
+                    timeIn: timeIn,
+                    timeOut: timeOut,
+                };
+                modulator.play();
+                timer.setTimeout(modulator.stop, duration);
+            })
         },
     },
 

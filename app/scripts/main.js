@@ -36,10 +36,7 @@ angular.module("Demo", [])
         $rootScope.modulator1 = modulator1;
         $rootScope.modulator2 = modulator2;
         $rootScope.keys = keys;
-
-        $rootScope.enableKey = function(elem) {
-            console.log("enable key.", elem);
-        }
+        $rootScope.drums = drums;
 
         $rootScope.parseFloat = parseFloat;
 
@@ -47,6 +44,9 @@ angular.module("Demo", [])
         for (var i = 0; i < 22; i++) {
             $rootScope.synthNotes.push(i);
         }
+
+        $rootScope.drumNotes = [0,1,2,3]
+        // $rootScope.drumNotes = ["kick","snare","hi","crash"]
 
         $rootScope.$watch('modulator1Settings', function(modulator1Settings) {
             if (modulator1Settings.frequency) modulator1.frequency = modulator1Settings.frequency;
@@ -62,9 +62,11 @@ angular.module("Demo", [])
         return {
             restrict: "EA",
             scope: {
-                note: "="
+                note: "=",
+                synth: "=",
             },
             link: function(scope, elem, attr) {
+                var keys = scope.synth;
                 // console.log("Key",elem);
                 elem.on("touchstart touchenter mousedown", function(event) {
                     event.preventDefault();

@@ -386,7 +386,18 @@ synthesizer.play(2); // boop</code></pre>
           <input type="range" min=0 max=1 step=0.01 ng-model='keys.volume'> 
           </label>
           <div keyboard class="keyboard">
-                <button ng-repeat='note in synthNotes' note=note key class=key></button>
+                <button ng-repeat='note in synthNotes' note=note synth=keys key class=key></button>
+            </button>
+        </div>
+
+          <h4>Synthesizer Demo 2</h4>
+          <h5>Phoster P52 Drum Unit</h5>
+          <label for="">
+              Volume
+          <input type="range" min=0 max=1 step=0.01 ng-model='keys.volume'> 
+          </label>
+          <div keyboard class="drums">
+                <button ng-repeat='note in drumNotes' note=note synth=drums key class=drum></button>
             </button>
         </div>
 <!-- 

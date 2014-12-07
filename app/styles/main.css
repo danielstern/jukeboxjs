@@ -259,3 +259,11 @@ only screen and (max-width: 760px),
   min-width: 0px;
   /*width: 100%;*/
 }
+
+.drum {
+  width: 96px;
+  height: 96px;
+  border: none;
+  background-color: sandybrown;
+  margin: 10px;
+}
