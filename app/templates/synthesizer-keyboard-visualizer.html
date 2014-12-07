@@ -1,0 +1,10 @@
+<div class="synth-keyboard">
+    <h5>{{synth.name}}</h5>
+    <label for="">
+        Volume
+        <input type="range" min=0 max=1 step=0.01 ng-model='synth.volume'>
+    </label>
+    <div keyboard class="keyboard">
+        <button ng-repeat='note in [0,1,2,3,4]' note=note synth=synth key class=key></button>
+    </div>
+</div>

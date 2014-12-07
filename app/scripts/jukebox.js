@@ -69,8 +69,9 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             }
 
             if (volume !== modulator.volume && !willStop) {
+              // console.log("adjust volume...")
               playingOscillators.forEach(function(oscillator){
-                oscillator.gain.gain.linearRampToValueAtTime(volume,context.currentTime + 0.05);
+                oscillator.gain.gain.linearRampToValueAtTime(modulator.volume,context.currentTime + 0.001);
               })
               volume = modulator.volume;
             }
@@ -100,7 +101,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
                     oscillator.frequency.value = +frequency +bend;
 
-                    gain.gain.linearRampToValueAtTime(1,context.currentTime + envelope.timeIn / 1000);
+                    gain.gain.linearRampToValueAtTime(volume,context.currentTime + envelope.timeIn / 1000);
 
                     oscillator.noteOn(1);
                     oscillator.gain = gain;
@@ -242,6 +243,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
         this.volume = volume;
         this.play = play;
         this.stop = stop;
+        this.name = schema.name;
 
     };
 

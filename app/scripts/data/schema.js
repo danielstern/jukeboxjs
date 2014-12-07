@@ -113,32 +113,34 @@ var toneMaps = {
     }
 }
 
-var grigsby = {
-    name: "Grigsby 2260",
-    oscillators: [SINE, SAW],
-    phase: 25,
-    envelope: {
-        timeIn: 200,
-        timeOut: 500,
-    }
-}
-
-function getAdjustor(phaseShift,frequency,amplitude,shift) {
+function getPhaseAdjustor(phaseShift,frequency,amplitude,shift) {
     return function(modulator,phase){
 
          modulator.bend = Math.sin((phase + shift + phaseShift) * frequency) * amplitude - amplitude * 0.5;
     }
 };
 
+var grigsby = {
+    name: "Grigsby 2260",
+    oscillators: [SINE, SAW],
+    phase: 25,
+    adjustor: getPhaseAdjustor(4,13,1,0),
+    envelope: {
+        timeIn: 200,
+        timeOut: 500,
+    }
+}
+
 var tabernackle = {
     name: "Tabernackle T4",
     oscillators: [SAW, SAW, TRIANGLE],
     modulators: [],
+    adjustor: getPhaseAdjustor(4,50,5,0),
     envelope: {
         timeIn: 10,
         timeOut: 50,
     },
-    adjustor: getAdjustor(10,1/25,50,0)
+    adjustor: getPhaseAdjustor(10,1/25,50,0)
 }
 
 var modulators = {
@@ -148,19 +150,28 @@ var modulators = {
         name: "Sylvester Triple Series",
         submodulators:[{
             oscillators:[SAW],
-            adjustor: getAdjustor(10,1/25,50,0),
+            adjustor: getPhaseAdjustor(10,1/25,50,0),
             envelope:{
                 timeIn:10,
                 timeOut:111,
             }
         },{
             oscillators:[SAW],
-            adjustor: getAdjustor(10,1/25,50,60),
+            adjustor: getPhaseAdjustor(10,1/25,50,60),
             envelope:{
                 timeIn:10,
                 timeOut:111,
             }
         }]
+    },
+    "Angel 36-B": {
+        name: "Angel 36-B",
+        adjustor: getPhaseAdjustor(10,1/25,5,60),
+        oscillators: [SINE],
+        envelope: {
+            timeIn: 10,
+            timeOut: 1500,
+        }
     },
     "Oberon 650-SSS": {
         name: "Oberon 650-SSS",
@@ -175,14 +186,17 @@ var modulators = {
 var synthesizers = {
     "Omaha DS6": {
         name: "Omaha DS6",
-        // modulators: [modulators['Oberon 650-SSS']],
         modulators: [modulators['Grigsby 2260'], modulators['Oberon 650-SSS']],
-        // modulators: [modulators['Grigsby 2260'],modulators['Tabernackle T4']],
         toneMap: toneMaps["Keyboard"]
     },
     "Borg Assimilator": {
-        name: "Omaha DS6",
+        name: "Borg Assimilator",
         modulators: [modulators['Sylvester Triple Series']],
+        toneMap: toneMaps["Keyboard"]
+    },
+    "Bellator 7575": {
+        name: "Bellator 7575",
+        modulators: [modulators['Grigsby 2260'],modulators['Tabernackle T4']],
         toneMap: toneMaps["Keyboard"]
     },
     "Phoster P52 Drum Unit": {

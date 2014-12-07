@@ -6,7 +6,7 @@ var modulator2 = jukebox.getModulator(JBSCHEMA.modulators['Grigsby 2260']);
 
 modulator1.frequency = 440;
 
-var keys = new jukebox.getSynth(JBSCHEMA.synthesizers["Borg Assimilator"]);
+// var keys = new jukebox.getSynth(JBSCHEMA.synthesizers["Borg Assimilator"]);
 var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
 
 angular.module("Demo", [])
@@ -26,8 +26,10 @@ angular.module("Demo", [])
 
         $rootScope.modulator1 = modulator1;
         $rootScope.modulator2 = modulator2;
-        $rootScope.keys = keys;
+        // $rootScope.keys = keys;
         $rootScope.drums = drums;
+
+
 
         $rootScope.parseFloat = parseFloat;
 
@@ -45,8 +47,37 @@ angular.module("Demo", [])
         }, true);
 
         timer.setInterval(function() {
-            $rootScope.$apply();
+          $rootScope.$apply();
         }, 10);
+
+    })
+    .controller("ModulatorDemo",function($scope){
+
+      var modulators = [];
+      for (key in JBSCHEMA.modulators) {
+        modulators.push(Jukebox.getModulator(JBSCHEMA.modulators[key]));
+      }
+      $scope.modulators = modulators;
+
+      $scope.$watch('modulator',function(){
+        modulators.forEach(function(mod){
+          mod.stop();
+        })
+      })
+
+      $scope.modulator = $scope.modulators[0];
+
+    })
+    .controller("SynthDemo",function($scope){
+
+      var synthesizers = [];
+      for (key in JBSCHEMA.synthesizers) {
+        synthesizers.push(Jukebox.getSynth(JBSCHEMA.synthesizers[key]));
+      }
+      console.log("synthesizers?",synthesizers)
+      $scope.synthesizers = synthesizers;
+
+      $scope.synthesizer = synthesizers[1];
 
     })
     .directive("key", function() {
@@ -57,16 +88,16 @@ angular.module("Demo", [])
                 synth: "=",
             },
             link: function(scope, elem, attr) {
-                var keys = scope.synth;
+                console.log("Keys...",scope.synth);
                 elem.on("touchstart touchenter mousedown", function(event) {
                     event.preventDefault();
-                    keys.play(scope.note);
+                    scope.synth.play(scope.note);
                 })
                 elem.on("mouseup", function(event) {
-                    keys.stop(scope.note);
+                    scope.synth.stop(scope.note);
                 })
                 elem.on("touchend touchcancel mouseup mouseout", function() {
-                    keys.stop(scope.note);
+                    scope.synth.stop(scope.note);
                 })
                 elem.on('touchcancel', function() {
                     alert("touchcancel");
@@ -75,10 +106,8 @@ angular.module("Demo", [])
                     if (event.changedTouches) {
                         var currentHover = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
                         if (currentHover != elem[0]) {
-                            keys.stop(scope.note);
-                            // console.log("Moved off.",currentHover,elem[0],event.changedTouches[0]);
+                            scope.synth.stop(scope.note);
                         } else {
-                            // keys.play(scope.note);
                             event.preventDefault();
                         }
                     }
@@ -86,6 +115,36 @@ angular.module("Demo", [])
                 })
             }
         }
+    })
+    .directive('modulatorVisualizer',function(){
+      return {
+        restrict:"AE",
+        scope: {
+          modulator:"=",
+        },
+        link:function(scope){
+          console.log("Vis init",scope.modulator);
+          scope.getModulatorTotalFrequency = function(){
+            return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 5;
+          }
+        },
+        templateUrl:"templates/modulator-visualizer.html"
+      }
+    })
+    .directive('synthesizerKeyboardVisualizer',function(){
+      return {
+        restrict:"AE",
+        scope: {
+          synth:"=",
+        },
+        link:function(scope){
+          console.log("Vis init",scope.synth.name);
+          // scope.getModulatorTotalFrequency = function(){
+            // return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 5;
+          // }
+        },
+        templateUrl:"templates/synthesizer-keyboard-visualizer.html"
+      }
     })
 
 var _dur = 500;

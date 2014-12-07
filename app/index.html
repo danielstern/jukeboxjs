@@ -28,8 +28,10 @@
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="#">Getting Started</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Examples</a></li>
+          <li><a href="#">Demos</a></li>
         </ul>
         <h3 class="text-muted">jukeboxjs</h3>
       </div>
@@ -312,22 +314,29 @@ var modulator = Jukebox.getModulator(modulatorSchema);
 
 modulator.play();
 jukebox.timer.setTimeout(modulator.stop,256)          </code></pre>
+
+
+
           <h4>Modulator Demo</h4>
-          <div class="demo">
-            <h5>Grigsby 2260 Modulation Unit</h5>
-            <button class="btn btn-default" ng-click="modulator1.play()">On</button>
-            <button class="btn btn-default" ng-click="modulator1.stop()">Off</button>
+          <div class="demo" ng-controller=ModulatorDemo>
+            <h5>{{modulator.name}}</h5>
+            <!-- {{modulator}} -->
+            <button class="btn btn-default" ng-click="modulator.play()">On</button>
+            <button class="btn btn-default" ng-click="modulator.stop()">Off</button>
             <label for="">
                 Frequency
-            <input type="range" min=20 max=660 step=1 ng-model=modulator1Settings.frequency> 
+            <input type="range" min=20 max=660 step=1 ng-model=modulator.frequency> 
             </label>
             <label for="">
                 Volume
-            <input type="range" min=0 max=1 step=0.01 ng-model='modulator1Settings.volume'> 
+        
+            <input type="range" min=0 max=1 step=0.01 ng-model=modulator.volume> 
             </label>
+            <!-- {{modulators}} -->
+            <select ng-model=modulator ng-options="obj.name for obj in modulators"></select>
             <!-- <input type="range" min=20 max=660 step=1 ng-model=frequency> -->
-            <div class="modulator-visualizer">
-              <div class="inner" style='width:{{(parseFloat(modulator1.frequency) + parseFloat(modulator1.bend)) / 5}}px; height:{{parseFloat(modulator1.volume) * 100}}%'></div>
+            <div class="" modulator=modulator modulator-visualizer>
+
             </div>
           </div>
 
@@ -336,7 +345,7 @@ jukebox.timer.setTimeout(modulator.stop,256)          </code></pre>
           </h3>
           <p>
             A synthesizer is a collection of modulators. The synthesizer class abstracts playing frequencies into a series of integers starting at <code>0</code>, relating to keys.
-            <!-- <img src="images/graphic-1.jpg" alt=""> -->
+            <img src="images/synthesizer-1.svg" alt="">
           </p>
           <h4>Synthesizer Documentation</h4>
           <table class='table table-striped'>
@@ -436,15 +445,14 @@ synthesizer.play(7); // beep
 synthesizer.play(2); // boop</code></pre>          
            
           <h4>Synthesizer Demo</h4>
-          <h5>Borg Mind Controller</h5>
-          <label for="">
-              Volume
-          <input type="range" min=0 max=1 step=0.01 ng-model='keys.volume'> 
-          </label>
-          <div keyboard class="keyboard">
-                <button ng-repeat='note in synthNotes' note=note synth=keys key class=key></button>
-            </button>
-        </div>
+            <div ng-controller=SynthDemo>
+            <!-- {{synthesizers}} -->
+            <select ng-model=synthesizer ng-options="obj.name for obj in synthesizers"></select>
+              
+            <div synthesizer-keyboard-visualizer synth=synthesizer>
+
+                </div>
+            </div>
 
           <h4>Synthesizer Demo 2</h4>
           <p>
