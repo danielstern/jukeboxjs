@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -61,7 +62,8 @@
             <tr>
               <td>
               <code>
-                jukebox.getSynth(schema:synthesizerSchema):Synthesizer
+                jukebox.getSynth(
+                schema:synthesizerSchema):Synthesizer
               </code>
               </td>
               <td>Returns a new synthesizer object suitable for keyboard or drums.</td>
@@ -69,7 +71,8 @@
             <tr>
               <td>
               <code>
-                jukebox.getModulator(schema:modulatorSchema):Modulator
+                jukebox.getModulator(
+                schema:modulatorSchema):Modulator
               </code>
               </td>
               <td>Returns a new modulator object suitable for generating tones based on frequencies.</td>
@@ -171,7 +174,8 @@
             <tr>
               <td>
               <code>
-                modulator.envelope:Object{timeIn:Number,timeOut:Number}
+                modulator.envelope
+                :Object{timeIn:Number,timeOut:Number}
               </code>
               </td>
               <td>
@@ -346,7 +350,7 @@ jukebox.timer.setTimeout(modulator.stop,256)          </code></pre>
           <input type="range" min=0 max=1 step=0.01 ng-model='keys.volume'> 
           </label>
           <div keyboard class="keyboard">
-                <button ng-repeat='note in synthNotes' key class=key ng-click=keys.play(note)></button>
+                <button ng-repeat='note in synthNotes' note=note key class=key></button>
             </button>
         </div>
 <!-- 

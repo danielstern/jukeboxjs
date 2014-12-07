@@ -208,6 +208,7 @@ only screen and (max-width: 760px),
     height: 100px;
     width: 32px;
     background-color: white;
+    -webkit-user-select: none;
 }
 .keyboard .key:nth-child(12n-3),
 .keyboard .key:nth-child(12n-5),

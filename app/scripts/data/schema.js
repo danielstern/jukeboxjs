@@ -88,21 +88,10 @@ var tones = {
             var duration = 300;
             var baseFrequency = 220; // Low A
 
-            var freq = baseFrequency + (baseFrequency * tone / 12)
+            var freq = baseFrequency + (baseFrequency * tone / 13)
             modulator.frequency =freq;
             modulator.play();
-            timer.setTimeout(function() {
-                if (released) return;
-                modulator.stop();
-            }, duration);
         })
-
-        return function(){
-          released = true;
-          modulators.forEach(function(modulator){
-            // modulator.stop();
-          })
-      }
     }
 }
 
@@ -149,7 +138,7 @@ var modulators = {
     },
     "Oberon 650-SSS": {
         name: "Oberon 650-SSS",
-        oscillators: [SINE,SINE,SINE,SINE],
+        oscillators: [SINE,SINE],
         envelope: {
             timeIn: 10,
             timeOut: 10,
