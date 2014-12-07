@@ -2,7 +2,9 @@ var jukebox = Jukebox;
 var timer = jukebox.timer;
 
 var modulator1 = jukebox.getModulator(JBSCHEMA.modulators['Tabernackle T4']);
+modulator1.volume = 0.2;
 var modulator2 = jukebox.getModulator(JBSCHEMA.modulators['Grigsby 2260']);
+modulator2.volume = 0.2;
 
 modulator1.frequency = 440;
 
@@ -11,11 +13,19 @@ var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit'])
 
 angular.module("Demo", ['ui.router'])
 .config(function($stateProvider,$urlRouterProvider){
-     $urlRouterProvider.otherwise('/home');
-     $stateProvider.state('docs',{
+     $urlRouterProvider.otherwise('/');
+     $stateProvider
+       .state('docs',{
         url:'documentation',
         templateUrl:"partials/documentation.html"
-     })
+       })
+       .state('home',{
+        url:'/',
+        templateUrl:"partials/home.html",
+        controller:function(){
+          console.log("It's hoem time");
+        }
+       })
 
 })
 .run(function($rootScope) {
