@@ -39,6 +39,7 @@ angular.module("Demo", [])
         $rootScope.drumNotes = [0,1,2,3]
 
         $rootScope.$watch('modulator1Settings', function(modulator1Settings) {
+          console.log("Setting change",modulator1);
             if (modulator1Settings.frequency) modulator1.frequency = modulator1Settings.frequency;
             if (modulator1Settings.volume) modulator1.volume = modulator1Settings.volume === 0 ? 0 : modulator1Settings.volume || 1;
         }, true);

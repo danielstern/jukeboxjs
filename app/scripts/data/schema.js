@@ -125,6 +125,7 @@ var grigsby = {
 
 function getAdjustor(phaseShift,frequency,amplitude,shift) {
     return function(modulator,phase){
+
          modulator.bend = Math.sin((phase + shift + phaseShift) * frequency) * amplitude - amplitude * 0.5;
     }
 };
@@ -137,7 +138,7 @@ var tabernackle = {
         timeIn: 10,
         timeOut: 50,
     },
-    adjustor: getAdjustor(10,1/25,50)
+    adjustor: getAdjustor(10,1/25,50,0)
 }
 
 var modulators = {

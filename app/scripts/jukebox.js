@@ -149,6 +149,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
         this.volume = volume;
         this.bend = bend;
         this.frequency = frequency;
+        this.name = schema.name;
     };
 
     var Synthesizer = function(schema) {
