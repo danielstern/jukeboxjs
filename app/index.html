@@ -311,17 +311,6 @@ jukebox.timer.setTimeout(modulator.stop,256)          </code></pre>
                  </p>
                  </td> 
              </tr>
-            <!-- <tr>
-              <td>
-              <code>
-                synthesizer.sequence([{ frequency:Number , duration:Number }...])
-              </code>
-              </td>
-              <td><p>
-                  Plays a sequence of tones one after the other. 
-                </p>
-                </td> 
-            </tr> -->
           </table>
 
           <h4>Synthesizer Schema</h4>
@@ -341,9 +330,56 @@ jukebox.timer.setTimeout(modulator.stop,256)          </code></pre>
                 </p>
               </td> 
             </tr>
-           
+            <tr>
+              <td>
+              <code>
+                synthesizerSchema.toneMap:Array[]Function||Function
+              </code>
+              </td>
+              <td>
+                <p>
+                  Either an array of processor functions to handle a note equivalent to the index of the function in the array, or a single function handle all input.
+                </p>
+                <p>
+                  Processor functions take the form of <code>processor(modulators:[]Modulators,tone:Interger)</code>
+                </p>
+              </td> 
+            </tr>
           </table>
-          <h4>Synthesizer Example</h4>
+
+          <h4>
+            Synthesizer Example Usage
+          </h4>
+          <p>
+            In this example, you will create a synthesizer that implements several modulators and plays music.
+          </p>          
+<pre><code>var modulatorSchema = {
+    oscillators: ["sine","sine"],
+    envelope: {
+        timeIn: 10,
+        timeOut: 10,
+    }
+}
+
+var synthesizerSchema = {
+  "Omaha DS6": {
+      name: "Omaha DS6",
+      modulators: [modulatorSchema],
+      toneMap: function(modulators, tone) {
+        modulators.forEach(function(modulator) {
+          var freq = 220 + (220 * tone / 13)
+          modulator.frequency = freq;
+          modulator.play();
+      })
+    }
+  },
+};
+
+var synthesizer = Jukebox.getSynth(synthesizerSchema);
+synthesizer.play(7); // beep
+synthesizer.play(2); // boop</code></pre>          
+           
+          <h4>Synthesizer Demo</h4>
           <h5>Omaha DS6 Synthesizer</h5>
           <label for="">
               Volume
@@ -439,15 +475,6 @@ korg.tone(262,300);
 
         <!-- </div> -->
       </div>
-
-      <h3>Keys</h3>
-      <p>
-        Play some sweet keys dude.
-      </p>
-      <button onclick=keys.play(0)>Key 1</button>
-      <button onclick=keys.play(1)>Key 2</button>
-      <button onclick=keys.play(2)>Key 3</button>
-      <button onclick=keys.play(3)>Key 4</button>
 
       <div class="footer">
         <p><span class="glyphicon glyphicon-heart"></span> danielstern</p>

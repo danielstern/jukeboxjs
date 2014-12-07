@@ -67,7 +67,6 @@ angular.module("Demo", [])
             link: function(scope, elem, attr) {
                 // console.log("Key",elem);
                 elem.on("touchstart touchenter mousedown", function(event) {
-                    console.log("started touching", scope.note,event);
                     event.preventDefault();
                     keys.play(scope.note);
                 })
@@ -75,7 +74,6 @@ angular.module("Demo", [])
                     keys.stop(scope.note);
                 })
                 elem.on("touchend touchcancel mouseup mouseout", function() {
-                    console.log("touchend")
                     keys.stop(scope.note);
                 })
                 elem.on('touchcancel', function() {

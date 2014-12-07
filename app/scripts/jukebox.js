@@ -212,12 +212,10 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
         }
 
         function stop(tone) {
-          console.log("Stopping",tone);
           modulatorSets.filter(function(set){
             return set.currentTone === tone;
           })
           .forEach(function(set){
-            console.log("stopping modulator...",set);
             set.modulators.forEach(function(modulator){
               modulator.stop();
             })
