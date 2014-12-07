@@ -129,16 +129,17 @@ var bps = bpm / 60;
 
 var drumsPlaying = false;
 var drumsInterval;
+var seq;
 
 var marioPlaying = false;
 var playMario = function() {
 
     if (marioPlaying) {
-        synth.endSequence();
+        timer.clearSequence(seq);
         marioPlaying = false;
         return;
     }
-    var seq = timer.setSequence(mario.map(function(note) {
+    seq = timer.setSequence(mario.map(function(note) {
         return {
             timeout: note.duration,
             callback: function() {
