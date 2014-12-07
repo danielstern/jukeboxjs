@@ -6,7 +6,8 @@ var modulator2 = jukebox.getModulator(JBSCHEMA.modulators['Grigsby 2260']);
 
 modulator1.frequency = 440;
 
-var keys = new jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
+var keys = new jukebox.getSynth(JBSCHEMA.synthesizers["Borg Assimilator"]);
+// var keys = new jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
 // var keys = new jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
 var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
 

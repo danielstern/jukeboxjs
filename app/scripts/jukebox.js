@@ -12,15 +12,18 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
     var Modulator = function(schema) {
 
+      console.log("Module init...",schema.name,schema.envelope);
+
         var volume = schema.volume || 1,
             modulator = this,
-            envelope = schema.envelope,
+            envelope = schema.envelope || {},
             context = audioContext,
             playing = false,
             pitchbend = 0,
             playingOscillators = [],
             phase = 0,
             bend = 0,
+            submodulators = [],
             willPlay = false,
             willStop = false,
             frequency = schema.frequency || 440;
@@ -35,10 +38,17 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
         function play() {
            willPlay = true;
+           console.log("Playing,",envelope);
+           submodulators.forEach(function(submod){
+              submod.play();
+           })
         }
 
         function stop() {
           willStop = true;
+          submodulators.forEach(function(submod){
+             submod.stop();
+          })
         }
 
         function handleStateUpdate() {
@@ -75,38 +85,48 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               volume = modulator.volume;
             }
 
+
             if (modulator.envelope.timeIn !== envelope.timeIn || modulator.envelope.timeOut != envelope.timeOut) {
               envelope = modulator.envelope;
             }
+
+            submodulators.forEach(function(submod){
+               submod.volume = volume;
+               submod.frequency = frequency;
+               submod.bend = bend;
+               // submod.envelope = envelope;
+            })
 
             if (willPlay && !playing) {
               willPlay = false;
               playing = true;
 
-              schema.oscillators.forEach(function(oscillatorDefinition) {
-                  var oscillator = context.createOscillator();
-                  oscillator.type = oscillatorDefinition;
+              if (schema.oscillators) {             
+                schema.oscillators.forEach(function(oscillatorDefinition) {
+                    var oscillator = context.createOscillator();
+                    oscillator.type = oscillatorDefinition;
 
-                  var gain = audioContext.createGain();
-                  gain.connect(audioContext.destination);
-                  // oscillator.connect(audioContext.destination);
+                    var gain = audioContext.createGain();
+                    gain.connect(audioContext.destination);
+                    // oscillator.connect(audioContext.destination);
 
-                  oscillator.frequency.value = +frequency +bend;
+                    oscillator.frequency.value = +frequency +bend;
 
-                  transforms.easeGainNodeLinear({
-                      node: gain,
-                      end: volume,
-                      start: 0,
-                      duration: envelope.timeIn,
-                      context: context
-                  });
+                    transforms.easeGainNodeLinear({
+                        node: gain,
+                        end: volume,
+                        start: 0,
+                        duration: envelope.timeIn,
+                        context: context
+                    });
 
-                  // oscillator.noteOn(0);
-                  oscillator.noteOn(1);
-                  oscillator.gain = gain;
-                  oscillator.connect(gain);
-                  playingOscillators.push(oscillator);
-              });
+                    // oscillator.noteOn(0);
+                    oscillator.noteOn(1);
+                    oscillator.gain = gain;
+                    oscillator.connect(gain);
+                    playingOscillators.push(oscillator);
+                });
+              }
 
               // willStop = false;
 
@@ -145,6 +165,14 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
         timer.setInterval(handleStateUpdate, 1);
 
+
+        if (schema.submodulators) {
+          schema.submodulators.forEach(function(schema){
+            var submodulator = new Modulator(schema);
+            submodulators.push(submodulator);
+          })
+        }
+
         this.play = play;
         this.stop = stop;
         this.envelope = envelope;
@@ -160,6 +188,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             map = schema.toneMap,
             synthesizer = this,
             volume = 1,
+            // subModulators = [],
             polyphony = schema.polyphony || [0,0,0,0,0,0,0,0];
 
 
@@ -239,6 +268,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             });
             modulatorSets.push(modulatorSet);
         });
+
 
         timer.setInterval(function() { 
           if (synthesizer.volume != volume) {
