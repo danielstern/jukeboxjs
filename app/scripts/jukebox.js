@@ -108,7 +108,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
                   // });
 
                   // oscillator.noteOn(0);
-                  oscillator.noteOn(0);
+                  oscillator.noteOn(1);
                   // oscillator.gain = gain;
                   // oscillator.connect(gain);
                   playingOscillators.push(oscillator);
@@ -135,15 +135,20 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
               console.log("Stopping..",playingOscillators,fadingOscillators);
 
-              timer.setTimeout(function() {
+              timer.setTimeout(function(fadingOscillators) {
+                console.log("Kill oscillators...",fadingOscillators);
                   fadingOscillators.forEach(function(oscillator,index) {
                     console.log("Kill oscilliator",oscillator);
-                      oscillator.noteOff(0);
+                      oscillator.noteOff(1);
                       oscillator.disconnect(oscillator.gain);
                       // oscillator.gain.disconnect(audioContext);
-                      fadingOscillators.splice(index, 1);
+                      // fadingOscillators.splice(index, 1);
                   });
-              }, 1000)
+
+                  while (fadingOscillators[0]) {
+                    fadingOscillators.pop();
+                  }
+              }, 1000,fadingOscillators);
             }
         }
 
