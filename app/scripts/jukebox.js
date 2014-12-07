@@ -70,13 +70,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
             if (volume !== modulator.volume && !willStop) {
               playingOscillators.forEach(function(oscillator){
-                transforms.easeGainNodeLinear({
-                    node: oscillator.gain,
-                    start: volume,
-                    end: modulator.volume,
-                    duration: 1,
-                    context: context
-                })
+                oscillator.gain.gain.linearRampToValueAtTime(volume,context.currentTime + 0.05);
               })
               volume = modulator.volume;
             }
@@ -106,15 +100,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
                     oscillator.frequency.value = +frequency +bend;
 
-                    // transforms.easeGainNodeLinear({
-                    //     node: gain,
-                    //     end: volume,
-                    //     start: 0,
-                    //     duration: envelope.timeIn,
-                    //     context: context
-                    // });
-
-                    gain.gain.linearRampToValueAtTime(1,context.currentTime + 0.01);
+                    gain.gain.linearRampToValueAtTime(1,context.currentTime + envelope.timeIn / 1000);
 
                     oscillator.noteOn(1);
                     oscillator.gain = gain;
@@ -127,14 +113,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               playing = false;
               var fadingOscillators = [];
               playingOscillators.forEach(function(oscillator) {
-                  oscillator.gain.gain.linearRampToValueAtTime(0,context.currentTime + 1);
-                  // transforms.easeGainNodeLinear({
-                  //     node: oscillator.gain,
-                  //     end: 0,
-                  //     start: volume,
-                  //     duration: envelope.timeIn,
-                  //     context: context
-                  // });
+                  oscillator.gain.gain.linearRampToValueAtTime(0,context.currentTime + envelope.timeOut / 1000);
               });
               while (playingOscillators[0]) {
                   fadingOscillators.push(playingOscillators.pop());
@@ -145,8 +124,6 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
                   fadingOscillators.forEach(function(oscillator,index) {
                       oscillator.noteOff(1);
                       oscillator.disconnect(oscillator.gain);
-                      // oscillator.gain.disconnect(audioContext);
-                      // fadingOscillators.splice(index, 1);
                   });
 
                   while (fadingOscillators[0]) {
@@ -181,7 +158,6 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             map = schema.toneMap,
             synthesizer = this,
             volume = 1,
-            // subModulators = [],
             polyphony = schema.polyphony || [0,0,0,0,0,0,0,0];
 
 
@@ -194,16 +170,6 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
           return allModulators;
         }
 
-        // function releaseModulator() {
-        //   var set = modulatorSets.sort(function(a,b){
-        //     return a.timePressed - b.timePressed;
-        //   })[0];
-        //   set.modulators.forEach(function(modulator){
-        //     modulator.stop();
-        //   });
-        //   set.playing = false;
-        //   return set;
-        // }
 
         function getFreeModulatorSet() {
             var freeSets = modulatorSets.filter(function(set) {
@@ -292,5 +258,5 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
     }
 }
 
-window.Jukebox = new JukeboxConstructor(ActionTimer,transforms);
+window.Jukebox = new JukeboxConstructor(ActionTimer);
 })(window);
