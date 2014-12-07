@@ -1,0 +1,21 @@
+<section>
+    <h4>Modulator Demo</h4>
+    <div class="demo" ng-controller=ModulatorDemo>
+        <h5>{{modulator.name}}</h5>
+        <!-- {{modulator}} -->
+        <button class="btn btn-default" ng-click="modulator.play()">On</button>
+        <button class="btn btn-default" ng-click="modulator.stop()">Off</button>
+        <label for="">
+            Frequency
+            <input type="range" min=20 max=660 step=1 ng-model=modulator.frequency>
+        </label>
+        <label for="">
+            Volume
+
+            <input type="range" min=0 max=1 step=0.01 ng-model=modulator.volume>
+        </label>
+        <select ng-model=modulator ng-options="obj.name for obj in modulators"></select>
+        <div class="" modulator=modulator modulator-visualizer>
+        </div>
+    </div>
+</section>
