@@ -88,7 +88,7 @@ var tones = {
             var duration = 300;
             var baseFrequency = 220; // Low A
 
-            var freq = baseFrequency + (baseFrequency * tone / 13)
+            var freq = baseFrequency + (baseFrequency * tone / 8)
             modulator.frequency =freq;
             modulator.play();
         })

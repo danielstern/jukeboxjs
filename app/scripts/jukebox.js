@@ -10,11 +10,11 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
     });
 
 
-    var Modulator = function(options) {
+    var Modulator = function(schema) {
 
-        var volume = options.volume || 1,
+        var volume = schema.volume || 1,
             modulator = this,
-            envelope = options.envelope,
+            envelope = schema.envelope,
             context = audioContext,
             playing = false,
             pitchbend = 0,
@@ -23,10 +23,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             bend = 0,
             willPlay = false,
             willStop = false,
-            frequency = options.frequency || 440;
-
-        console.log("Create gain node");
-   
+            frequency = schema.frequency || 440;
 
         function refreshOscillatorFrequencies() {
 
@@ -50,8 +47,8 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             modulator.volume = +modulator.volume;
             modulator.bend = +modulator.bend;
 
-            if (options.adjustor) {
-                options.adjustor(modulator, phase);
+            if (schema.adjustor) {
+                schema.adjustor(modulator, phase);
             };
 
             if (bend !== modulator.bend) {
@@ -79,7 +76,6 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             }
 
             if (modulator.envelope.timeIn !== envelope.timeIn || modulator.envelope.timeOut != envelope.timeOut) {
-              // console.log("Updating envelope...",modulator.e)
               envelope = modulator.envelope;
             }
 
@@ -87,15 +83,13 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               willPlay = false;
               playing = true;
 
-              options.oscillators.forEach(function(oscillatorDefinition) {
-                  console.log("Create oscillator");
+              schema.oscillators.forEach(function(oscillatorDefinition) {
                   var oscillator = context.createOscillator();
                   oscillator.type = oscillatorDefinition;
 
                   var gain = audioContext.createGain();
                   gain.connect(audioContext.destination);
                   // oscillator.connect(audioContext.destination);
-
 
                   oscillator.frequency.value = +frequency +bend;
 
@@ -226,7 +220,6 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
         }
 
         function stop(tone) {
-          console.log("Stop");
           modulatorSets.filter(function(set){
             return set.currentTone === tone;
           })
@@ -263,11 +256,11 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
     };
 
     return {
-        getSynth: function(options) {
-            return new Synthesizer(options);
+        getSynth: function(schema) {
+            return new Synthesizer(schema);
         },
-        getModulator: function(options) {
-            return new Modulator(options);
+        getModulator: function(schema) {
+            return new Modulator(schema);
         },
         getContext: function() {
             return audioContext;

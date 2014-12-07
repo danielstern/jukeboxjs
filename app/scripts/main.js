@@ -84,10 +84,8 @@ angular.module("Demo", [])
                 elem.on('touchmove mousemove mouseout', function(event) {
                     // console.log("moved starting",event.changedTouches[0].target);
                     if (event.changedTouches) {
-
                         var currentHover = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
                         if (currentHover != elem[0]) {
-                            console.log("moved off");
                             keys.stop(scope.note);
                             // console.log("Moved off.",currentHover,elem[0],event.changedTouches[0]);
                         } else {
