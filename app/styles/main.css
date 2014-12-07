@@ -191,9 +191,16 @@ only screen and (max-width: 760px),
   background-color: #bada55;
 }
 
+.keyboard {
+  width: 100%;
+  overflow: hidden;
+  height: 128px;
+  position: relative;
+}
+
 .keyboard .key {
-    height: 100px;
-    width: 32px;
+    height: 128px;
+    width: 64px;
     background-color: white;
     -webkit-user-select: none;
 }
@@ -203,14 +210,14 @@ only screen and (max-width: 760px),
 .keyboard .key:nth-child(12n-10),
 .keyboard .key:nth-child(12n-12)
 {
-    height: 70px;
+    height: 84px;
+    width: 48px;
+    margin-left: -24px;
     background-color: black;
-    margin-left: -10px;
     z-index: 10;
     position: absolute;
     text-align: center;
     color: white;
-    width: 20px;
 }
 
 .key.activated {

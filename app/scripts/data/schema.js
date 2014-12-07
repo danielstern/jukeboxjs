@@ -83,12 +83,16 @@ var tones = {
     "keyboard1": function(modulators, tone, timer) {
 
         var released = false;
+
+        var duration = 300;
+        var baseFrequency = 146.832; // Low D
+        var tonesPerOctave = 12;
+        var ratio = Math.pow(2,1/12);
+
+        // console.log("playing key...",baseFrequency+ baseFrequency * tone / tonesPerOctave)
         modulators.forEach(function(modulator) {
-
-            var duration = 300;
-            var baseFrequency = 220; // Low A
-
-            var freq = baseFrequency + (baseFrequency * tone / 8)
+            var freq = baseFrequency * Math.pow(ratio,tone);
+            // var freq = baseFrequency + (baseFrequency * tone / tonesPerOctave);
             modulator.frequency = freq;
             modulator.play();
         })
@@ -196,7 +200,7 @@ var synthesizers = {
     },
     "Bellator 7575": {
         name: "Bellator 7575",
-        modulators: [modulators['Grigsby 2260'],modulators['Tabernackle T4']],
+        modulators: [modulators['Grigsby 2260'],modulators['Angel 36-B']],
         toneMap: toneMaps["Keyboard"]
     },
     "Phoster P52 Drum Unit": {

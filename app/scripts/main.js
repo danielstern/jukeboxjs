@@ -33,10 +33,7 @@ angular.module("Demo", [])
 
         $rootScope.parseFloat = parseFloat;
 
-        $rootScope.synthNotes = [];
-        for (var i = 0; i < 22; i++) {
-            $rootScope.synthNotes.push(i);
-        }
+
 
         $rootScope.drumNotes = [0,1,2,3]
 
@@ -74,7 +71,7 @@ angular.module("Demo", [])
       for (key in JBSCHEMA.synthesizers) {
         synthesizers.push(Jukebox.getSynth(JBSCHEMA.synthesizers[key]));
       }
-      console.log("synthesizers?",synthesizers)
+
       $scope.synthesizers = synthesizers;
 
       $scope.synthesizer = synthesizers[1];
@@ -88,7 +85,7 @@ angular.module("Demo", [])
                 synth: "=",
             },
             link: function(scope, elem, attr) {
-                console.log("Keys...",scope.synth);
+
                 elem.on("touchstart touchenter mousedown", function(event) {
                     event.preventDefault();
                     scope.synth.play(scope.note);
@@ -123,7 +120,7 @@ angular.module("Demo", [])
           modulator:"=",
         },
         link:function(scope){
-          console.log("Vis init",scope.modulator);
+
           scope.getModulatorTotalFrequency = function(){
             return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 5;
           }
@@ -138,7 +135,12 @@ angular.module("Demo", [])
           synth:"=",
         },
         link:function(scope){
-          console.log("Vis init",scope.synth.name);
+          // console.log("Vis init",scope.synth.name);
+
+          scope.notes = [];
+          for (var i = 0; i < 22; i++) {
+              scope.notes.push(i);
+          }
           // scope.getModulatorTotalFrequency = function(){
             // return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 5;
           // }
