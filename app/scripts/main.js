@@ -9,8 +9,16 @@ modulator1.frequency = 440;
 // var keys = new jukebox.getSynth(JBSCHEMA.synthesizers["Borg Assimilator"]);
 var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
 
-angular.module("Demo", [])
-    .run(function($rootScope) {
+angular.module("Demo", ['ui.router'])
+.config(function($stateProvider,$urlRouterProvider){
+     $urlRouterProvider.otherwise('/home');
+     $stateProvider.state('docs',{
+        url:'documentation',
+        templateUrl:"partials/documentation.html"
+     })
+
+})
+.run(function($rootScope) {
         $rootScope.playNote = function(modulator, tone, duration) {
             modulator1.setFrequency(tone);
             modulator1.play();
@@ -35,46 +43,46 @@ angular.module("Demo", [])
 
 
 
-        $rootScope.drumNotes = [0,1,2,3]
+        $rootScope.drumNotes = [0, 1, 2, 3]
 
         $rootScope.$watch('modulator1Settings', function(modulator1Settings) {
-          console.log("Setting change",modulator1);
+            console.log("Setting change", modulator1);
             if (modulator1Settings.frequency) modulator1.frequency = modulator1Settings.frequency;
             if (modulator1Settings.volume) modulator1.volume = modulator1Settings.volume === 0 ? 0 : modulator1Settings.volume || 1;
         }, true);
 
         timer.setInterval(function() {
-          $rootScope.$apply();
+            $rootScope.$apply();
         }, 10);
 
     })
-    .controller("ModulatorDemo",function($scope){
+    .controller("ModulatorDemo", function($scope) {
 
-      var modulators = [];
-      for (key in JBSCHEMA.modulators) {
-        modulators.push(Jukebox.getModulator(JBSCHEMA.modulators[key]));
-      }
-      $scope.modulators = modulators;
+        var modulators = [];
+        for (key in JBSCHEMA.modulators) {
+            modulators.push(Jukebox.getModulator(JBSCHEMA.modulators[key]));
+        }
+        $scope.modulators = modulators;
 
-      $scope.$watch('modulator',function(){
-        modulators.forEach(function(mod){
-          mod.stop();
+        $scope.$watch('modulator', function() {
+            modulators.forEach(function(mod) {
+                mod.stop();
+            })
         })
-      })
 
-      $scope.modulator = $scope.modulators[0];
+        $scope.modulator = $scope.modulators[0];
 
     })
-    .controller("SynthDemo",function($scope){
+    .controller("SynthDemo", function($scope) {
 
-      var synthesizers = [];
-      for (key in JBSCHEMA.synthesizers) {
-        synthesizers.push(Jukebox.getSynth(JBSCHEMA.synthesizers[key]));
-      }
+        var synthesizers = [];
+        for (key in JBSCHEMA.synthesizers) {
+            synthesizers.push(Jukebox.getSynth(JBSCHEMA.synthesizers[key]));
+        }
 
-      $scope.synthesizers = synthesizers;
+        $scope.synthesizers = synthesizers;
 
-      $scope.synthesizer = synthesizers[1];
+        $scope.synthesizer = synthesizers[1];
 
     })
     .directive("key", function() {
@@ -113,40 +121,40 @@ angular.module("Demo", [])
             }
         }
     })
-    .directive('modulatorVisualizer',function(){
-      return {
-        restrict:"AE",
-        scope: {
-          modulator:"=",
-        },
-        link:function(scope){
+    .directive('modulatorVisualizer', function() {
+        return {
+            restrict: "AE",
+            scope: {
+                modulator: "=",
+            },
+            link: function(scope) {
 
-          scope.getModulatorTotalFrequency = function(){
-            return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 5;
-          }
-        },
-        templateUrl:"templates/modulator-visualizer.html"
-      }
+                scope.getModulatorTotalFrequency = function() {
+                    return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 5;
+                }
+            },
+            templateUrl: "templates/modulator-visualizer.html"
+        }
     })
-    .directive('synthesizerKeyboardVisualizer',function(){
-      return {
-        restrict:"AE",
-        scope: {
-          synth:"=",
-        },
-        link:function(scope){
-          // console.log("Vis init",scope.synth.name);
+    .directive('synthesizerKeyboardVisualizer', function() {
+        return {
+            restrict: "AE",
+            scope: {
+                synth: "=",
+            },
+            link: function(scope) {
+                // console.log("Vis init",scope.synth.name);
 
-          scope.notes = [];
-          for (var i = 0; i < 22; i++) {
-              scope.notes.push(i);
-          }
-          // scope.getModulatorTotalFrequency = function(){
-            // return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 5;
-          // }
-        },
-        templateUrl:"templates/synthesizer-keyboard-visualizer.html"
-      }
+                scope.notes = [];
+                for (var i = 0; i < 22; i++) {
+                    scope.notes.push(i);
+                }
+                // scope.getModulatorTotalFrequency = function(){
+                // return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 5;
+                // }
+            },
+            templateUrl: "templates/synthesizer-keyboard-visualizer.html"
+        }
     })
 
 var _dur = 500;
