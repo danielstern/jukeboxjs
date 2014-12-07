@@ -133,12 +133,9 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
                   fadingOscillators.push(playingOscillators.pop());
               };
 
-              console.log("Stopping..",playingOscillators,fadingOscillators);
 
               timer.setTimeout(function(fadingOscillators) {
-                console.log("Kill oscillators...",fadingOscillators);
                   fadingOscillators.forEach(function(oscillator,index) {
-                    console.log("Kill oscilliator",oscillator);
                       oscillator.noteOff(1);
                       oscillator.disconnect(oscillator.gain);
                       // oscillator.gain.disconnect(audioContext);

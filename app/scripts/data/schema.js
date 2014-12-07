@@ -138,7 +138,7 @@ var modulators = {
     },
     "Oberon 650-SSS": {
         name: "Oberon 650-SSS",
-        oscillators: [SINE,SINE],
+        oscillators: [SINE,SINE,SAW],
         envelope: {
             timeIn: 10,
             timeOut: 10,
@@ -149,7 +149,8 @@ var modulators = {
 var synthesizers = {
     "Omaha DS6": {
         name: "Omaha DS6",
-        modulators: [modulators['Oberon 650-SSS']],
+        // modulators: [modulators['Oberon 650-SSS']],
+        modulators: [modulators['Grigsby 2260'],modulators['Oberon 650-SSS']],
         // modulators: [modulators['Grigsby 2260'],modulators['Tabernackle T4']],
         toneMap: toneMaps["Keyboard"]
     },
