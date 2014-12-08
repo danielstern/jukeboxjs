@@ -73,7 +73,7 @@ angular.module("Demo", ['ui.router'])
 
         $rootScope.modulator1 = modulator1;
         $rootScope.modulator2 = modulator2;
-        // $rootScope.keys = keys;
+        $rootScope.keys = Jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
         $rootScope.drums = drums;
 
 
@@ -212,17 +212,29 @@ angular.module("Demo", ['ui.router'])
                 synth: "=",
             },
             link: function(scope) {
-                // console.log("Vis init",scope.synth.name);
 
                 scope.notes = [];
                 for (var i = 0; i < 22; i++) {
                     scope.notes.push(i);
                 }
-                // scope.getModulatorTotalFrequency = function(){
-                // return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 5;
-                // }
             },
             templateUrl: "templates/synthesizer-keyboard-visualizer.html"
+        }
+    })
+    .directive('synthesizerPadVisualizer', function() {
+        return {
+            restrict: "AE",
+            scope: {
+                synth: "=",
+            },
+            link: function(scope) {
+
+                scope.notes = [];
+                for (var i = 0; i < 12; i++) {
+                    scope.notes.push(i);
+                }
+            },
+            templateUrl: "templates/synthesizer-pad-visualizer.html"
         }
     })
 
