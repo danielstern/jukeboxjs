@@ -65,7 +65,7 @@ angular.module("Demo", ['ui.router'])
         };
 
         var modulator1Settings = {
-            volume: 0.5,
+            volume: 0.2,
             frequency: 440
         };
 
@@ -108,8 +108,8 @@ angular.module("Demo", ['ui.router'])
         }
 
         modulators.forEach(function(mod) {
-                mod.volume = 0.15;
-            })
+            mod.volume = 0.15;
+        })
 
         $scope.$watch('config.modulator', function() {
             modulators.forEach(function(mod) {
