@@ -57,10 +57,17 @@
             </div>
             </section>
             <section>
-            	<h3>
+            	<h4>
             		Using the Library
             	</h4>
+            	<p>
+            		In order to use the library, all you need to do is include a link to the <code>jukebox.js</code> file. It is also recommended you include the <code>html5webaudio shim</code>, which improves compatibility with additional browsers. Sadly, IE does not support web audio at all.
+            	</p>
+            	<p>
+            		In addition to the Jukebox library, including the <code>schema</code> pack is recommended, especially for beginners. If space is an issue, power users can skip shemas in favor object literals. See the section on schemas.
+            	</p>
             </section>
+              <div ng-include="'partials/getting-started-example.html'"></div>
         </div>
         <div class="hidden-sm col-md-6">
             <img src="images/synthesizer-2.svg" alt="">
