@@ -99,8 +99,6 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               willPlay = false;
               playing = true;
 
-              console.log("playin oscillator")
-
               if (schema.oscillators) {             
                 schema.oscillators.forEach(function(oscillatorDefinition) {
                     var oscillator = context.createOscillator();
@@ -109,12 +107,10 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
                     var gain = audioContext.createGain();
                     gain.connect(audioContext.destination);
 
-                    oscillator.frequency.value = +frequency +bend;
-
                     gain.gain.value = 0;
                     gain.gain.linearRampToValueAtTime(volume,now + envelope.timeIn / 1000,true);
-                    // gain.gain.setValueAtTime(volume,context.currentTime + envelope.timeIn / 10000,true);
-
+                    
+                    oscillator.frequency.value = +frequency +bend;
                     oscillator.noteOn(1);
                     oscillator.gain = gain;
                     oscillator.connect(gain);
@@ -125,15 +121,9 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               willStop = false;
               willPlay = false;
               playing = false;
-              console.log("stoppin oscillators");
               var fadingOscillators = [];
               playingOscillators.forEach(function(oscillator) {
-                // console.log("fading oscillator...",oscillator,envelope);
-                  // oscillator.gain.gain.cancelScheduledValues(context.currentTime);;
-                  // oscillator.gain.gain.setValueAtTime(0,context.currentTime + envelope.timeOut / 10000,true);
-                  // oscillator.gain.gain.setValueAtTime(0,context.currentTime + envelope.timeOut / 1000,true);
                   oscillator.gain.gain.linearRampToValueAtTime(0,context.currentTime + envelope.timeOut / 1000);
-                  // oscillator.gain.gain.value = 0;
               });
               while (playingOscillators[0]) {
                   fadingOscillators.push(playingOscillators.pop());
