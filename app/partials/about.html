@@ -1,61 +1,69 @@
 <article>
-	
-<h2>Getting Started with Jukebox.js and the Web Audio API</h2>
-<h3>What is Jukebox.js?</h3>
-<p>
-	Jukebox.js is a Javascript library for playing sounds, generally music, using the Web Audio API. Jukebox.js borrows a lot from the design of actual, real life synthesizers.
-</p>
-<p>
-	Using Jukebox.js you can:
-	<ul>
-		<li>
-			Generate electronic versions of your of your favorite tunes. This is similar to <code>Midi,</code> and the file size can be extremely small.
-		</li>
-		<li>
-			Generate the sound track for your game in real time. Using music and sounds generated with Jukebox.js can reduce the size of your game by 10mbs or more.
-		</li>
-		<li>
-			Compose different Jukebox elements in an infinite number of layers and in an infinite number of ways
-		</li>
-		<li>
-			Turn handheld devices like phones and tablets into musical instruments
-		</li>
-	</ul>
-</p>
 
-<h3>
-	How to Use Jukebox.js
-</h3>
-<div class="row">
-<div class="col-md-6">
-	
-	
-<p>
-	The Jukebox library is relatively simple, having only two main classes - Modulators and Synthesizers, which are both explained in detail in the documentation.
-</p>
-<p>
-	Synthesizers and Modulators both use Javascript objects called <code>schema</code> to change the way they behave. Jukebox.js comes packaged with lots of different schema, so there's no need to make your own until you want even greater custom control.
-</p>
-<h3>
-	Synthesizers
-</h3>
-<p>
-	<strong>Synthesizers</strong> are used for making musical instruments, like the pad in this demo.
-	<div synthesizer-pad-visualizer synth=harmonica>
+    <h2>Getting Started with Jukebox.js and the Web Audio API</h2>
+    <h3>What is Jukebox.js?</h3>
+    <p>
+        Jukebox.js is a Javascript library for playing sounds, generally music, using the Web Audio API. Jukebox.js borrows a lot from the design of actual, real life synthesizers.
+    </p>
+    <p>
+        Using Jukebox.js you can:
+        <ul>
+            <li>
+                Generate electronic versions of your of your favorite tunes. This is similar to <code>Midi,</code> and the file size can be extremely small.
+            </li>
+            <li>
+                Generate the sound track for your game in real time. Using music and sounds generated with Jukebox.js can reduce the size of your game by 10mbs or more.
+            </li>
+            <li>
+                Compose different Jukebox elements in an infinite number of layers and in an infinite number of ways
+            </li>
+            <li>
+                Turn handheld devices like phones and tablets into musical instruments
+            </li>
+        </ul>
+    </p>
 
-	</div>
-</p>
-<p>
-	<h4>
-		Modulators
-	</h4>
-	<strong>Modulators</strong> are used to generate custom tones of a specific frequency. They can be composed into synthesizers, or used on their own to generate cool sound effects.
-	 <div class="" modulator=modulator1 modulator-basic-view>
+    <h3>
+		How to Use Jukebox.js
+	</h3>
+    <div class="row">
+        <div class="col-md-6">
+
+            <p>
+                The Jukebox library is relatively simple, having only two main classes - Modulators and Synthesizers, which are both explained in detail in the documentation.
+            </p>
+            <p>
+                Synthesizers and Modulators both use Javascript objects called <code>schema</code> to change the way they behave. Jukebox.js comes packaged with lots of different schema, so there's no need to make your own until you want even greater custom control.
+            </p>
+            <h4>
+				Synthesizers
+			</h4>
+            <section>
+
+                <p>
+                    <strong>Synthesizers</strong> are used for making musical instruments, like the pad in this demo.
+                    <div synthesizer-pad-visualizer synth=harmonica>
+
+                    </div>
+                </p>
+            </section>
+            <section>
+            	
+            <h4>
+				Modulators
+			</h4>
+            <strong>Modulators</strong> are used to generate custom tones of a specific frequency. They can be composed into synthesizers, or used on their own to generate cool sound effects.
+            <div class="" modulator=modulator1 modulator-basic-view>
+            </div>
+            </section>
+            <section>
+            	<h3>
+            		Using the Library
+            	</h4>
+            </section>
         </div>
-</p>
-</div>
-<div class="hidden-xs col-md-6">
-	 <img src="images/synthesizer-2.svg" alt="">
-</div>
-</div>
+        <div class="hidden-sm col-md-6">
+            <img src="images/synthesizer-2.svg" alt="">
+        </div>
+    </div>
 </article>
