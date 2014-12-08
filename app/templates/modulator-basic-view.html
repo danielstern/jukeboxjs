@@ -1,15 +1,31 @@
 <div class=modulator-basic-view>
+<div class="row">
+    
+<div class="col-xs-6">
+    
     <h6>{{modulator.name}}</h6>
-    <button class="btn btn-default" ng-click="modulator.play()">On</button>
-    <button class="btn btn-default" ng-click="modulator.stop()">Off</button>
+    <div modulator=modulator modulator-visualizer>
+    </div>
+
+        
+</div>
+<div class="col-xs-6">
+    <button class="" ng-click="modulator.play()">On</button>
+    <button class="" ng-click="modulator.stop()">Off</button>
+    <div>
     <label for="">
         Frequency
         <input type="range" min=20 max=660 step=1 ng-model=modulator.frequency>
     </label>
+    </div>
+    <div>
     <label for="">
         Volume
         <input type="range" min=0 max=1 step=0.01 ng-model=modulator.volume>
     </label>
-    <div modulator=modulator modulator-visualizer>
     </div>
+
+</div>
+</div>
+<div class="clearfix"></div>
 </div>

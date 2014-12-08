@@ -4,6 +4,93 @@ body {
   padding-bottom: 20px;
 }
 
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: -5px 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 32px;
+  cursor: pointer;
+  box-shadow: 0.1px 0.1px 0px #005900, 0px 0px 0.1px #007200;
+  background: #414fa7;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px rgba(0, 0, 62, 0.67), 0px 0px 0px rgba(0, 0, 88, 0.67);
+  border: 0.4px solid rgba(0, 30, 0, 0.57);
+  height: 22px;
+  width: 17px;
+  border-radius: 0px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: 5px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #5866be;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 32px;
+  cursor: pointer;
+  box-shadow: 0.1px 0.1px 0px #005900, 0px 0px 0.1px #007200;
+  background: #414fa7;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0px 0px 0px rgba(0, 0, 62, 0.67), 0px 0px 0px rgba(0, 0, 88, 0.67);
+  border: 0.4px solid rgba(0, 30, 0, 0.57);
+  height: 22px;
+  width: 17px;
+  border-radius: 0px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 32px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #343f86;
+  border: 0px solid #010101;
+  border-radius: 0px;
+  box-shadow: 0.1px 0.1px 0px #005900, 0px 0px 0.1px #007200;
+}
+input[type=range]::-ms-fill-upper {
+  background: #414fa7;
+  border: 0px solid #010101;
+  border-radius: 0px;
+  box-shadow: 0.1px 0.1px 0px #005900, 0px 0px 0.1px #007200;
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 0px 0px 0px rgba(0, 0, 62, 0.67), 0px 0px 0px rgba(0, 0, 88, 0.67);
+  border: 0.4px solid rgba(0, 30, 0, 0.57);
+  width: 17px;
+  border-radius: 0px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  height: 22px;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #414fa7;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #5866be;
+}
+
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -215,14 +302,20 @@ section {
 
 .modulator-visualizer {
   width: 96px;
+  /*width:100%;*/
   height: 96px;
-  background-color: blue;
-  margin: 12px;
+  /*background-color: #414fa7;*/
+  background: linear-gradient(to top, #414fa7 0%,#5e74f2 100%);
+  margin: auto;
+  border: 1px solid rgba(0,0,0,0.83);
+  /*margin: 12px;*/
   position: relative;
+
 }
 
 .modulator-visualizer .inner {
-  background-color: red;
+  background-color: #54c146;
+  opacity: 0.83;
   /*height: 100%;*/
   margin: auto;
   position: absolute;
@@ -236,6 +329,24 @@ section {
   /*width: 100%;*/
 }
 
+.modulator-basic-view {
+  border: 1px solid rgba(0,0,0,0.23);
+  border-radius: 3px;
+  padding: 1rem;
+}
+
+.modulator-basic-view button {
+  width: 48%;
+  margin: 0px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+}
+
+input[type=range] {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 .drum {
   width: 96px;
   height: 96px;

@@ -8,7 +8,7 @@ modulator2.volume = 0.2;
 
 modulator1.frequency = 440;
 
-// var keys = new jukebox.getSynth(JBSCHEMA.synthesizers["Borg Assimilator"]);
+var keys = new jukebox.getSynth(JBSCHEMA.synthesizers["Borg Assimilator"]);
 var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
 
 angular.module("Demo", ['ui.router'])

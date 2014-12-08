@@ -181,18 +181,22 @@ var modulators = {
     },
     "Roofhausen Classic Sine": {
         name: "Roofhausen Classic Sine",
+        adjustor: getPhaseAdjustor(10,1/32,10,0),
         oscillators: [SINE],
     },
     "Roofhausen Classic Sawtooth": {
         name: "Roofhausen Classic Sawtooth",
+        adjustor: getPhaseAdjustor(10,1/32,10,5),
         oscillators: [SAW],
     },
     "Roofhausen Classic Square": {
         name: "Roofhausen Classic Square",
+        adjustor: getPhaseAdjustor(10,1/32,10,4),
         oscillators: [SQUARE],
     },
     "Roofhausen Classic Triangle": {
         name: "Roofhausen Classic Triangle",
+        adjustor: getPhaseAdjustor(10,1/28,10,10),
         oscillators: [TRIANGLE],
     },
     "Oberon 650-SSS": {
