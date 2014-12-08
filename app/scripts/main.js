@@ -82,8 +82,6 @@ angular.module("Demo", ['ui.router'])
 
 
 
-
-
         $rootScope.drumNotes = [0, 1, 2, 3]
 
         $rootScope.$watch('modulator1Settings', function(modulator1Settings) {
@@ -99,18 +97,30 @@ angular.module("Demo", ['ui.router'])
     })
     .controller("ModulatorDemo", function($scope) {
 
+        var config = {
+
+        };
+
+
         var modulators = [];
         for (key in JBSCHEMA.modulators) {
             modulators.push(Jukebox.getModulator(JBSCHEMA.modulators[key]));
         }
-        $scope.modulators = modulators;
 
-        $scope.$watch('modulator', function() {
+        modulators.forEach(function(mod) {
+                mod.volume = 0.15;
+            })
+
+        $scope.$watch('config.modulator', function() {
             modulators.forEach(function(mod) {
                 mod.stop();
             })
-        })
+        });
 
+        config.modulator = modulators[5];
+
+        $scope.config = config;
+        $scope.modulators = modulators;
         $scope.modulator = $scope.modulators[0];
 
     })
