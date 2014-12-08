@@ -356,12 +356,17 @@ input[type=range] {
   margin: 10px;
 }
 
+.pad {
+  line-height: 0px;
+}
+
 .pad .key {
   /*width: 96px;*/
-  width: 32%;
+  width: 33%;
   display: inline-block;
   height: 96px;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
+  border: none;
   background-color: sandybrown;
       -webkit-user-select: none;
 }

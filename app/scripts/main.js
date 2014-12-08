@@ -75,6 +75,7 @@ angular.module("Demo", ['ui.router'])
         $rootScope.modulator2 = modulator2;
         $rootScope.keys = Jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
         $rootScope.harmonica = Jukebox.getSynth(JBSCHEMA.synthesizers['Harmoniks Vibraphone']);
+        $rootScope.harmonica.volume = 0.1;
         $rootScope.drums = drums;
 
         $rootScope.keys.volume = 0.1;
