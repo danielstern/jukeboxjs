@@ -25,6 +25,11 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             willStop = false,
             frequency = schema.frequency || 440;
 
+        envelope = schema.envelope || {
+          timeIn: 100,
+          timeOut: 100
+        }
+
         function refreshOscillatorFrequencies() {
 
           playingOscillators.forEach(function(oscillator) {
@@ -114,6 +119,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               playing = false;
               var fadingOscillators = [];
               playingOscillators.forEach(function(oscillator) {
+                console.log("fading oscillator...",oscillator);
                   oscillator.gain.gain.linearRampToValueAtTime(0,context.currentTime + envelope.timeOut / 1000);
               });
               while (playingOscillators[0]) {

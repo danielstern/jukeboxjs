@@ -1,0 +1,22 @@
+<section>
+	
+<h2>
+	Oscillators	
+</h2>
+<h3>
+	About Oscillators
+</h3>
+<p>
+	Oscillators are part of the Web Audio API, and you never need to create one directly when using Jukebox.js. This section is a quick summary of how they work.
+</p>
+<p>
+	Oscillators have two states, <code>on</code> and <code>off</code>. When an oscillator is <code>on,</code> it produces sound. When an oscillator is <code>off,</code> it doesn't produce sound.
+</p>
+<p>
+	Additionally, Oscillators have two properties &ndash; <code>frequency</code> and <code>type.</code> The higher an ocsillator's frequency, the higher-pitched a noise it will make. An oscillator's <code>type</code> affects the shape of its wave, which is best explained by example.
+</p>
+<div class="demo" ng-controller=OscillatorDemo>
+	<h5>Sine Wave</h5>
+	<div modulator-basic-view modulator=sine></div>
+</div>
+</section>

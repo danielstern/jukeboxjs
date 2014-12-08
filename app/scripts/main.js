@@ -12,23 +12,52 @@ modulator1.frequency = 440;
 var drums = new jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
 
 angular.module("Demo", ['ui.router'])
-.config(function($stateProvider,$urlRouterProvider){
-     $stateProvider
-       .state('docs',{
-        url:'/documentation',
-        templateUrl:"partials/documentation.html"
-       })
-       .state('home',{
-        url:'/',
-        templateUrl:"partials/home.html",
-        controller:function(){
-          console.log("It's hoem time");
-        }
-       })
-     $urlRouterProvider.otherwise('/');
+    .config(function($stateProvider, $urlRouterProvider) {
+        $stateProvider
+            .state('docs', {
+                url: '/documentation',
+                templateUrl: "partials/documentation.html"
+            })
+            .state('examples', {
+                url: '/examples',
+                templateUrl: "partials/examples.html"
+            })
+            .state('all', {
+                url: '/all',
+                templateUrl: "partials/all.html"
+            })
+            .state('home', {
+                url: '/',
+                templateUrl: "partials/home.html",
+            })
+            .state('about', {
+                url: '/about',
+                templateUrl: "partials/about.html",
+            })
+            .state('demo', {
+                url: '/demo',
+                templateUrl: "partials/demos.html",
+            })
+            .state('modulator', {
+                url: '/modulator',
+                templateUrl: "partials/modulator.html",
+            })
+            .state('synthesizer', {
+                url: '/synthesizer',
+                templateUrl: "partials/synthesizer.html",
+            })
+            .state('oscillator', {
+                url: '/oscillator',
+                templateUrl: "partials/oscillators.html",
+            })
+            .state('jukebox', {
+                url: '/jukebox',
+                templateUrl: "partials/jukebox.html",
+            })
+        $urlRouterProvider.otherwise('/');
 
-})
-.run(function($rootScope) {
+    })
+    .run(function($rootScope) {
         $rootScope.playNote = function(modulator, tone, duration) {
             modulator1.setFrequency(tone);
             modulator1.play();
@@ -83,6 +112,25 @@ angular.module("Demo", ['ui.router'])
         $scope.modulator = $scope.modulators[0];
 
     })
+    .controller("OscillatorDemo", function($scope) {
+
+        // var modulators = [];
+        // for (key in JBSCHEMA.modulators) {
+        //     modulators.push(Jukebox.getModulator(JBSCHEMA.modulators[key]));
+        // }
+        // $scope.modulators = modulators;
+
+        // $scope.$watch('modulator', function() {
+        //     modulators.forEach(function(mod) {
+        //         mod.stop();
+        //     })
+        // })
+
+        // $scope.modulator = $scope.modulators[0];
+
+        $scope.sine = Jukebox.getModulator(JBSCHEMA.modulators["Roofhausen Classic Sine"]);
+
+    })
     .controller("SynthDemo", function($scope) {
 
         var synthesizers = [];
@@ -129,6 +177,18 @@ angular.module("Demo", ['ui.router'])
 
                 })
             }
+        }
+    })
+    .directive('modulatorBasicView', function() {
+        return {
+            restrict: "AE",
+            scope: {
+                modulator: "=",
+            },
+            link: function(scope) {
+
+            },
+            templateUrl: "templates/modulator-basic-view.html"
         }
     })
     .directive('modulatorVisualizer', function() {

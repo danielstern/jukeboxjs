@@ -147,6 +147,8 @@ var tabernackle = {
     adjustor: getPhaseAdjustor(10,1/25,50,0)
 }
 
+
+
 var modulators = {
     "Grigsby 2260": grigsby,
     "Tabernackle T4": tabernackle,
@@ -176,6 +178,10 @@ var modulators = {
             timeIn: 10,
             timeOut: 1500,
         }
+    },
+    "Roofhausen Classic Sine": {
+        name: "Roofhausen Classic Sine",
+        oscillators: [SINE],
     },
     "Oberon 650-SSS": {
         name: "Oberon 650-SSS",
