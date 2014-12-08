@@ -77,8 +77,8 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             }
 
             if (volume !== modulator.volume && !willStop) {
-              // console.log("adjust volume...")
               playingOscillators.forEach(function(oscillator){
+                oscillator.gain.gain.cancelScheduledValues(now);;
                 oscillator.gain.gain.linearRampToValueAtTime(modulator.volume,context.currentTime + 0.001);
               })
               volume = modulator.volume;
@@ -112,7 +112,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
                     oscillator.frequency.value = +frequency +bend;
 
                     gain.gain.value = 0;
-                    gain.gain.linearRampToValueAtTime(volume,context.currentTime + envelope.timeIn / 10000,true);
+                    gain.gain.linearRampToValueAtTime(volume,now + envelope.timeIn / 10000,true);
                     // gain.gain.setValueAtTime(volume,context.currentTime + envelope.timeIn / 10000,true);
 
                     oscillator.noteOn(1);
@@ -129,9 +129,9 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               var fadingOscillators = [];
               playingOscillators.forEach(function(oscillator) {
                 // console.log("fading oscillator...",oscillator,envelope);
-                  oscillator.gain.gain.cancelScheduledValues(context.currentTime);;
+                  // oscillator.gain.gain.cancelScheduledValues(context.currentTime);;
                   // oscillator.gain.gain.setValueAtTime(0,context.currentTime + envelope.timeOut / 10000,true);
-                  oscillator.gain.gain.setValueAtTime(0,context.currentTime + envelope.timeOut / 1000,true);
+                  // oscillator.gain.gain.setValueAtTime(0,context.currentTime + envelope.timeOut / 1000,true);
                   oscillator.gain.gain.linearRampToValueAtTime(0,context.currentTime + envelope.timeOut / 100);
                   // oscillator.gain.gain.value = 0;
               });

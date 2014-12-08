@@ -130,8 +130,8 @@ var grigsby = {
     phase: 25,
     adjustor: getPhaseAdjustor(4,13,1,0),
     envelope: {
-        timeIn: 200,
-        timeOut: 500,
+        timeIn: 100,
+        timeOut: 100,
     }
 }
 
@@ -176,7 +176,7 @@ var modulators = {
         oscillators: [SINE],
         envelope: {
             timeIn: 10,
-            timeOut: 1500,
+            timeOut: 200,
         }
     },
     "Roofhausen Classic Sine": {
@@ -219,6 +219,11 @@ var synthesizers = {
     "Bellator 7575": {
         name: "Bellator 7575",
         modulators: [modulators['Grigsby 2260'],modulators['Angel 36-B']],
+        toneMap: toneMaps["Keyboard"]
+    },
+    "Quincy 275": {
+        name: "Quincy 275",
+        modulators: [modulators['Roofhausen Classic Sine'],modulators['Roofhausen Classic Sine']],
         toneMap: toneMaps["Keyboard"]
     },
     "Phoster P52 Drum Unit": {
