@@ -72,7 +72,9 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
-        open: true,
+        open: {
+            target: 'http://localhost:9000' // target url to open
+        },
         livereload: 35729,
         // Change this to '0.0.0.0' to access the server from outside
         hostname: '0.0.0.0'
@@ -176,7 +178,7 @@ module.exports = function (grunt) {
                 sourceMapRootpath: '/', // adds this path onto the sourcemap filename and less file paths
             },
             files: {
-                '.tmp/styles/main.css': 'app/less/main.less',
+                '.tmp/styles/main.css': 'app/less/*.less',
             }
         }
     },

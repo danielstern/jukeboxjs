@@ -1,0 +1,45 @@
+.measure {
+    border: 5px solid white;
+    float: left;
+}
+.measure.active {
+    border: 5px solid blue;
+}
+.beat {
+    float: left;
+    background-color: orange;
+    border: 5px solid white;
+}
+.measure.active .beat.active {
+    border: 5px solid green;
+}
+section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.22);
+}
+.tone {
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    border: 2px solid white;
+}
+.tone.active {
+    background-color: blue;
+}
+.tone input:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    /*pointer-events: non;*/
+    
+    cursor: pointer;
+}
+.tone.active input:before {
+    background-color: #bada55;
+}
