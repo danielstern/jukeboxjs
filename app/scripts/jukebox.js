@@ -112,7 +112,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
                     oscillator.frequency.value = +frequency +bend;
 
                     gain.gain.value = 0;
-                    gain.gain.linearRampToValueAtTime(volume,now + envelope.timeIn / 10000,true);
+                    gain.gain.linearRampToValueAtTime(volume,now + envelope.timeIn / 1000,true);
                     // gain.gain.setValueAtTime(volume,context.currentTime + envelope.timeIn / 10000,true);
 
                     oscillator.noteOn(1);
@@ -132,7 +132,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
                   // oscillator.gain.gain.cancelScheduledValues(context.currentTime);;
                   // oscillator.gain.gain.setValueAtTime(0,context.currentTime + envelope.timeOut / 10000,true);
                   // oscillator.gain.gain.setValueAtTime(0,context.currentTime + envelope.timeOut / 1000,true);
-                  oscillator.gain.gain.linearRampToValueAtTime(0,context.currentTime + envelope.timeOut / 100);
+                  oscillator.gain.gain.linearRampToValueAtTime(0,context.currentTime + envelope.timeOut / 1000);
                   // oscillator.gain.gain.value = 0;
               });
               while (playingOscillators[0]) {

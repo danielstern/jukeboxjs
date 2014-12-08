@@ -130,8 +130,8 @@ var grigsby = {
     phase: 25,
     adjustor: getPhaseAdjustor(4,13,1,0),
     envelope: {
-        timeIn: 100,
-        timeOut: 100,
+        timeIn: 10,
+        timeOut: 10,
     }
 }
 
@@ -159,14 +159,14 @@ var modulators = {
             adjustor: getPhaseAdjustor(10,1/25,50,0),
             envelope:{
                 timeIn:10,
-                timeOut:111,
+                timeOut:50,
             }
         },{
             oscillators:[SAW],
             adjustor: getPhaseAdjustor(10,1/25,50,60),
             envelope:{
                 timeIn:10,
-                timeOut:111,
+                timeOut:50,
             }
         }]
     },
