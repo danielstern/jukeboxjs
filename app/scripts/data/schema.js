@@ -183,6 +183,18 @@ var modulators = {
         name: "Roofhausen Classic Sine",
         oscillators: [SINE],
     },
+    "Roofhausen Classic Sawtooth": {
+        name: "Roofhausen Classic Sawtooth",
+        oscillators: [SAW],
+    },
+    "Roofhausen Classic Square": {
+        name: "Roofhausen Classic Square",
+        oscillators: [SQUARE],
+    },
+    "Roofhausen Classic Triangle": {
+        name: "Roofhausen Classic Triangle",
+        oscillators: [TRIANGLE],
+    },
     "Oberon 650-SSS": {
         name: "Oberon 650-SSS",
         oscillators: [SINE, SINE, SAW],

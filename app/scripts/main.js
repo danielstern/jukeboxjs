@@ -114,21 +114,18 @@ angular.module("Demo", ['ui.router'])
     })
     .controller("OscillatorDemo", function($scope) {
 
-        // var modulators = [];
-        // for (key in JBSCHEMA.modulators) {
-        //     modulators.push(Jukebox.getModulator(JBSCHEMA.modulators[key]));
-        // }
-        // $scope.modulators = modulators;
-
-        // $scope.$watch('modulator', function() {
-        //     modulators.forEach(function(mod) {
-        //         mod.stop();
-        //     })
-        // })
-
-        // $scope.modulator = $scope.modulators[0];
-
         $scope.sine = Jukebox.getModulator(JBSCHEMA.modulators["Roofhausen Classic Sine"]);
+        $scope.sawtooth = Jukebox.getModulator(JBSCHEMA.modulators["Roofhausen Classic Sawtooth"]);
+        $scope.square = Jukebox.getModulator(JBSCHEMA.modulators["Roofhausen Classic Square"]);
+        $scope.triangle = Jukebox.getModulator(JBSCHEMA.modulators["Roofhausen Classic Triangle"]);
+
+        $scope.sine.volume = 0.2;
+        $scope.sine.frequency = 554.365;
+        $scope.sawtooth.volume = 0.1;
+        $scope.sawtooth.frequency = 659.255;
+        $scope.square.volume = 0.1;
+        $scope.triangle.volume = 0.2;
+        $scope.triangle.frequency = 830.609;
 
     })
     .controller("SynthDemo", function($scope) {
@@ -200,7 +197,7 @@ angular.module("Demo", ['ui.router'])
             link: function(scope) {
 
                 scope.getModulatorTotalFrequency = function() {
-                    return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 5;
+                    return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 10;
                 }
             },
             templateUrl: "templates/modulator-visualizer.html"

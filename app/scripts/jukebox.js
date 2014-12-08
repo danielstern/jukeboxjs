@@ -106,6 +106,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
                     oscillator.frequency.value = +frequency +bend;
 
+                    gain.gain.value = 0;
                     gain.gain.linearRampToValueAtTime(volume,context.currentTime + envelope.timeIn / 1000);
 
                     oscillator.noteOn(1);
