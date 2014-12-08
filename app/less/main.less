@@ -2,24 +2,57 @@
 @color2: #b6424d;
 @color3: #54c146;
 @color4: #5dc94f;
+@sq: 48px;
 
+.classic-background(@color){
+    background: linear-gradient(to top, @color 0%, lighten(@color,23%) 100%);
+}
+.radial-background(@color){
+    background: radial-gradient(ellipse at center, lighten(@color,23%) 0%, @color 100%);
+}
+
+.synthesizer-keyboard-visualizer,.synthesizer-pad-visualizer,.modulator-basic-view {
+    .radial-background(darken(@color2,36%));
+    padding: @sq / 2;
+
+    h5 {
+        text-transform: uppercase;
+        font-family:monospace;
+        font-size: 24px;
+        .classic-background(@color1);
+        color: rgba(255,255,255,0.83);
+        display: inline;
+        padding: @sq/8 @sq/4;
+        margin-bottom: 25px;
+    }
+
+}
+
+.synthesizer-keyboard-visualizer,.synthesizer-pad-visualizer {
+    input {
+        margin: @sq / 2 0;
+    }
+}
 
 .keyboard {
     width: 100%;
-    /*overflow: hidden;*/
-    /*height: 128px;*/
-    
+    // overflow: hidden;
     position: relative;
+    @key-width: 64px;
+    line-height: 96px;
+
     .key {
         height: 128px;
-        width: 64px;
+        width: @key-width;
+        // width:10%;
+        // min-width:64px;
+        .classic-background(rgba(255,255,255,0.83));
+
         background-color: white;
         -webkit-user-select: none;
         &:hover {
         	background-color: lemonchiffon !important;
         }
-
-        @x:3;
 
         &:nth-child(12n-1),
         &:nth-child(12n-3),
@@ -27,8 +60,10 @@
         &:nth-child(12n-8),
         &:nth-child(12n-10) {
     		height: 84px;
-    		width: 48px;
-    		margin-left: -24px;
+    		width: @key-width * 3/4;
+            margin-left: -@key-width * 3 / 4 / 2;
+    		// margin-left: -@key-width - @key-width * 3 / 4 / 2;
+            .classic-background(rgba(0,0,0,0.83));
     		background-color: black;
     		z-index: 10;
     		position: absolute;
@@ -39,12 +74,7 @@
 
 }
 
-.classic-background(@color){
-    background: linear-gradient(to top, @color 0%, lighten(@color,23%) 100%);
-}
-.radial-background(@color){
-    background: radial-gradient(ellipse at center, lighten(@color,23%) 0%, @color 100%);
-}
+
 .modulator-visualizer {
     width: 96px;
     height: 96px;
@@ -72,17 +102,90 @@
     }
 }
 .modulator-basic-view {
-    // border: 1px solid rgba(0, 0, 0, 0.23);
-    border-radius: 3px;
-    padding: 1rem;
+    position: relative;
+    padding: 0px;
+    max-width: @sq * 10;
     .radial-background(lighten(@color3,36%));
     button {
-        width: 48%;
+
+        width: 49%;
         margin: 0px;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+
+        // margin-top: 1rem;
+        // margin-bottom: 1rem;
+    }
+    h5 {
+        // margin-bottom: @sq;
+        display: block;
+        margin-top:0px;
+        margin-bottom:0px;
+        height: 50px;
+    }
+
+    .modulator-visualizer {
+        width: 100%;
+        height: 150px;
+        // position
+        margin: none;
+        border: 1px solid rgba(0, 0, 0, 0.83);
+        
+        position: relative;
+        .inner {
+            background-color: #54c146;
+            opacity: 0.83;
+            /*height: 100%;*/
+            
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 100%;
+            max-height: 100%;
+            min-width: 0px;
+            /*width: 100%;*/
+        }
+    }
+
+    .label-group {
+        position: relative;
+        overflow: hidden;
+        // height: 48px;
+        span {
+            position: absolute;
+            top: 0px;
+            height:@sq * 3 / 4;
+
+
+            text-transform: uppercase;
+            font-family:monospace;
+            font-size: 16px;
+            width: 100%;
+            .classic-background(@color2);
+            color: rgba(255,255,255,0.83);
+            display: block;
+            padding: @sq/8 @sq/4;
+            // margin-bottom: 25px;
+        }
+
+        input {
+            margin-top: @sq * 3 /4;
+            // input {
+                // margin: @sq * 3 /4 0 0 0;
+            // }
+        }
+    }
+
+
+    .left-side,.right-side {
+        width:50%;
+        // height: 200px;
+        // display: inline-block;
+        float: left;
     }
 }
+
 
 .logo {
 	width: 175px;
@@ -103,16 +206,20 @@
     .key {
 
     	.radial-background(@color2);
-        /*width: 96px;*/
         
         width: 33.3%;
         display: inline-block;
+        transition: 0.2s all;
         height: 96px;
         // border: 1px solid black;
         
         border: none;
         background-color: sandybrown;
         -webkit-user-select: none;
+
+        &.active {
+            .radial-background(lighten(@color2,10));
+        }
     }
 }
 

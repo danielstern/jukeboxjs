@@ -164,21 +164,25 @@ angular.module("Demo", ['ui.router'])
                 elem.on("touchstart touchenter mousedown", function(event) {
                     event.preventDefault();
                     scope.synth.play(scope.note);
+                    elem.addClass('active');
                 })
                 elem.on("mouseup", function(event) {
                     scope.synth.stop(scope.note);
+                    elem.removeClass('active');
                 })
                 elem.on("touchend touchcancel mouseup mouseout", function() {
                     scope.synth.stop(scope.note);
+                    elem.removeClass('active');
                 })
                 elem.on('touchcancel', function() {
-                    alert("touchcancel");
+                    // alert("touchcancel");
                 })
                 elem.on('touchmove mousemove mouseout', function(event) {
                     if (event.changedTouches) {
                         var currentHover = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
                         if (currentHover != elem[0]) {
                             scope.synth.stop(scope.note);
+                            elem.removeClass('active');
                         } else {
                             event.preventDefault();
                         }
@@ -227,7 +231,7 @@ angular.module("Demo", ['ui.router'])
             link: function(scope) {
 
                 scope.notes = [];
-                for (var i = 0; i < 22; i++) {
+                for (var i = 0; i < 17; i++) {
                     scope.notes.push(i);
                 }
             },
