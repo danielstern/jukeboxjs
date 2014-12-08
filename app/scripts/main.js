@@ -161,12 +161,85 @@ angular.module("Demo", ['ui.router'])
             },
             link: function(scope, elem, attr) {
 
-                elem.on("touchstart touchenter mousedown", function(event) {
-                    event.preventDefault();
+                var playing = false;
+
+                function play() {
+                    if (playing) return;
                     scope.synth.play(scope.note);
+                    playing = true;
                     elem.addClass('active');
+                }
+
+                function stop() {
+                    if (!playing) return;
+                    playing = false;
+                    scope.synth.stop(scope.note);
+                    elem.removeClass('active');
+
+                }
+
+                elem.on("touchstart touchenter", function(event) {
+                    play();
+
+                });
+
+                elem.on("touchmove",function(event){
+                    event.preventDefault();
+
                 })
+
+                elem.on("touchend",function(){
+                    stop();
+                })
+                    // console.log("event?",event);
+                    // event.preventDefault();
+                    // console.log("play note");
+                    // scope.synth.play(scope.note);
+                    // elem.addClass('active');
+                //     console.log('event...',event);
+                //     // if (event.originalEvent && event.originalEvent.touches) {
+                //         var touches = event.originalEvent.touches;
+                //         var changedTouches = event.originalEvent.touches;
+                //         var touchArray = [];
+
+                //         if (event.originalEvent && event.originalEvent.touches) {
+                //             for (var i = 0; i < event.originalEvent.touches.length; i++) {
+                //                 touchArray.push(event.originalEvent.touches[i]);
+                //             }
+                //         }
+
+                //         if (event.originalEvent && event.originalEvent.targetTouches) {
+                //             for (var i = 0; i < event.originalEvent.targetTouches.length; i++) {
+                //                 touchArray.push(event.originalEvent.targetTouches[i]);
+                //             }
+                //         }
+
+
+
+                //         if (touchArray.filter(function isTouching(touch){
+                //             var currentHover = document.elementFromPoint(touch.clientX, touch.clientY);
+                //             if (currentHover === elem[0]) {
+                //                 return true;
+                //             }
+                //         })[0]) {
+                //             event.preventDefault();
+                //             play();
+                //         }
+
+                //         if (touchArray.every(function isNotTouching(touch){
+                //             var currentHover = document.elementFromPoint(touch.clientX, touch.clientY);
+                //             if (currentHover !== elem[0]) {
+                //                 return true;
+                //             }
+                //         })) {
+                //            // stop();
+                //         }
+
+
+                //     // }
+                // })
                 elem.on("mouseup", function(event) {
+                    console.log("stop note");
                     scope.synth.stop(scope.note);
                     elem.removeClass('active');
                 })

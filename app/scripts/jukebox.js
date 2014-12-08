@@ -257,9 +257,22 @@
 
             function play(tone,duration) {
 
-                if (keyModulatorMap[tone]) {
-                    keyModulatorMap[tone].release();
-                }
+                // if (keyModulatorMap[tone]) {
+                //     keyModulatorMap[tone].release();
+                // }
+
+                stop(tone);
+
+                    // modulatorSets.filter(function(set) {
+                    //     return set.currentTone === tone;
+                    // })
+                    // .forEach(function(set) {
+                    //     set.modulators.forEach(function(modulator) {
+                    //         modulator.stop();
+                    //     })
+                    //     set.playing = false;
+                    //     set.currentTone = undefined;
+                    // })
 
                 var processor;
                 if (typeof map.processor === "function") {
