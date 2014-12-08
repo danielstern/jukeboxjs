@@ -1,4 +1,4 @@
-// Generated on 2014-11-23 using
+// Generated on 2014-12-02 using
 // generator-webapp 0.5.1
 'use strict';
 
@@ -41,6 +41,10 @@ module.exports = function (grunt) {
           livereload: true
         }
       },
+      less: {
+          files: ['<%= config.app %>/less/*.less'],
+          tasks: ['less']
+      },
       jstest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['test:watch']
@@ -68,12 +72,9 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
-        open: {
-            target: 'http://localhost:9000' // target url to open
-        },
+        open: true,
         livereload: 35729,
         // Change this to '0.0.0.0' to access the server from outside
-        // hostname: 'localhost'
         hostname: '0.0.0.0'
       },
       livereload: {
@@ -163,12 +164,28 @@ module.exports = function (grunt) {
       }
     },
 
+
+    less: {
+        dev: {
+            options: {
+                compress: true,
+                sourceMap: true,
+                sourceMapFilename: '.tmp/styles/main.css.map', // where file is generated and located
+                sourceMapURL: '/styles/main.css.map', // the complete url and filename put in the compiled css file
+                sourceMapBasepath: 'app', // Sets sourcemap base path, defaults to current working directory.
+                sourceMapRootpath: '/', // adds this path onto the sourcemap filename and less file paths
+            },
+            files: {
+                '.tmp/styles/main.css': 'app/less/main.less',
+            }
+        }
+    },
+
     // Automatically inject Bower components into the HTML file
     wiredep: {
       app: {
         ignorePath: /^\/|\.\.\//,
-        src: ['<%= config.app %>/index.html'],
-        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']
+        src: ['<%= config.app %>/index.html']
       }
     },
 
@@ -298,12 +315,6 @@ module.exports = function (grunt) {
         }, {
           src: 'node_modules/apache-server-configs/dist/.htaccess',
           dest: '<%= config.dist %>/.htaccess'
-        }, {
-          expand: true,
-          dot: true,
-          cwd: 'bower_components/bootstrap/dist',
-          src: 'fonts/*',
-          dest: '<%= config.dist %>'
         }]
       },
       styles: {
@@ -345,6 +356,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'autoprefixer',
+      'less',
       'connect:livereload',
       'watch'
     ]);
