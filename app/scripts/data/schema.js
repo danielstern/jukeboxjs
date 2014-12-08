@@ -83,7 +83,6 @@ var tones = {
     "keyboard1": function(modulators, tone, timer) {
 
         var released = false;
-
         var duration = 300;
         var baseFrequency = 146.832; // Low D
         var tonesPerOctave = 12;
@@ -93,6 +92,30 @@ var tones = {
         modulators.forEach(function(modulator) {
             var freq = baseFrequency * Math.pow(ratio,tone);
             // var freq = baseFrequency + (baseFrequency * tone / tonesPerOctave);
+            modulator.frequency = freq;
+            modulator.play();
+        })
+    },
+    "harmonica": function(modulators, tone, timer) {
+
+        var released = false;
+        var duration = 300;
+        var baseFrequency = 146.832; // Low D
+        var tonesPerOctave = 12;
+        var ratio = Math.pow(2,1/12);
+        var toneBank = [];
+        for (var i = 0; i < 1024; i++) {
+            var toneForBank = baseFrequency * Math.pow(ratio,i);
+            toneBank[i] = toneForBank;
+        }
+        var filterTones = toneBank.filter(function(tone,index){
+            var intervals = [4,9,13];
+            var position = index % 12;
+            return (intervals.indexOf(position) > -1);
+        })
+
+        modulators.forEach(function(modulator) {
+            var freq = filterTones[tone];
             modulator.frequency = freq;
             modulator.play();
         })
@@ -114,6 +137,11 @@ var toneMaps = {
         name: "Keyboard",
         type: "linear",
         processor: tones['keyboard1']
+    },
+    "Harmonica": {
+        name: "Keyboard",
+        type: "linear",
+        processor: tones['harmonica']
     }
 }
 
@@ -214,6 +242,11 @@ var synthesizers = {
         name: "Omaha DS6",
         modulators: [modulators['Grigsby 2260'], modulators['Oberon 650-SSS']],
         toneMap: toneMaps["Keyboard"]
+    },
+    "Harmoniks Vibraphone": {
+        name: "Harmoniks Vibraphone",
+        modulators: [modulators['Oberon 650-SSS']],
+        toneMap: toneMaps["Harmonica"]
     },
     "Borg Assimilator": {
         name: "Borg Assimilator",

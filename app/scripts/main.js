@@ -74,8 +74,10 @@ angular.module("Demo", ['ui.router'])
         $rootScope.modulator1 = modulator1;
         $rootScope.modulator2 = modulator2;
         $rootScope.keys = Jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']);
+        $rootScope.harmonica = Jukebox.getSynth(JBSCHEMA.synthesizers['Harmoniks Vibraphone']);
         $rootScope.drums = drums;
 
+        $rootScope.keys.volume = 0.1;
 
 
 
@@ -230,7 +232,7 @@ angular.module("Demo", ['ui.router'])
             link: function(scope) {
 
                 scope.notes = [];
-                for (var i = 0; i < 12; i++) {
+                for (var i = 0; i < 6; i++) {
                     scope.notes.push(i);
                 }
             },
