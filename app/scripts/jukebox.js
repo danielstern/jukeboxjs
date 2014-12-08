@@ -139,8 +139,8 @@
 
                 if (volume !== modulator.volume && !willStop) {
                     playingOscillators.forEach(function(oscillator) {
-                        oscillator.gain.gain.cancelScheduledValues(now);;
-                        oscillator.gain.gain.linearRampToValueAtTime(modulator.volume, context.currentTime + 0.001);
+                        // oscillator.gain.gain.cancelScheduledValues(now);;
+                        oscillator.gain.gain.setValueAtTime(modulator.volume, context.currentTime + 0.001);
                     })
                     volume = modulator.volume;
                 }
@@ -169,7 +169,8 @@
                             gain.connect(audioContext.destination);
 
                             gain.gain.value = 0;
-                            gain.gain.linearRampToValueAtTime(volume, now + envelope.timeIn / 1000, true);
+                            gain.gain.setValueAtTime(volume, now + envelope.timeIn / 1000, true);
+                            // gain.gain.linearRampToValueAtTime(volume, now + envelope.timeIn / 1000, true);
 
                             oscillator.frequency.value = +frequency + bend;
                             oscillator.noteOn(1);
@@ -184,7 +185,8 @@
                     playing = false;
                     var fadingOscillators = [];
                     playingOscillators.forEach(function(oscillator) {
-                        oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + envelope.timeOut / 1000);
+                        oscillator.gain.gain.setValueAtTime(0, context.currentTime);
+                        // oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + envelope.timeOut / 1000);
                     });
                     while (playingOscillators[0]) {
                         fadingOscillators.push(playingOscillators.pop());
@@ -257,22 +259,7 @@
 
             function play(tone,duration) {
 
-                // if (keyModulatorMap[tone]) {
-                //     keyModulatorMap[tone].release();
-                // }
-
                 stop(tone);
-
-                    // modulatorSets.filter(function(set) {
-                    //     return set.currentTone === tone;
-                    // })
-                    // .forEach(function(set) {
-                    //     set.modulators.forEach(function(modulator) {
-                    //         modulator.stop();
-                    //     })
-                    //     set.playing = false;
-                    //     set.currentTone = undefined;
-                    // })
 
                 var processor;
                 if (typeof map.processor === "function") {
