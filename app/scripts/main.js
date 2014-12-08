@@ -178,90 +178,44 @@ angular.module("Demo", ['ui.router'])
 
                 }
 
-                elem.on("touchstart touchenter", function(event) {
-                    play();
+                // elem.on("touchstart touchenter", function(event) {
+                //     play();
 
-                });
+                // });
 
-                elem.on("touchmove",function(event){
-                    event.preventDefault();
+                // elem.on("touchmove",function(event){
+                //     event.preventDefault();
 
-                })
-
-                elem.on("touchend",function(){
-                    stop();
-                })
-                    // console.log("event?",event);
-                    // event.preventDefault();
-                    // console.log("play note");
-                    // scope.synth.play(scope.note);
-                    // elem.addClass('active');
-                //     console.log('event...',event);
-                //     // if (event.originalEvent && event.originalEvent.touches) {
-                //         var touches = event.originalEvent.touches;
-                //         var changedTouches = event.originalEvent.touches;
-                //         var touchArray = [];
-
-                //         if (event.originalEvent && event.originalEvent.touches) {
-                //             for (var i = 0; i < event.originalEvent.touches.length; i++) {
-                //                 touchArray.push(event.originalEvent.touches[i]);
-                //             }
-                //         }
-
-                //         if (event.originalEvent && event.originalEvent.targetTouches) {
-                //             for (var i = 0; i < event.originalEvent.targetTouches.length; i++) {
-                //                 touchArray.push(event.originalEvent.targetTouches[i]);
-                //             }
-                //         }
-
-
-
-                //         if (touchArray.filter(function isTouching(touch){
-                //             var currentHover = document.elementFromPoint(touch.clientX, touch.clientY);
-                //             if (currentHover === elem[0]) {
-                //                 return true;
-                //             }
-                //         })[0]) {
-                //             event.preventDefault();
-                //             play();
-                //         }
-
-                //         if (touchArray.every(function isNotTouching(touch){
-                //             var currentHover = document.elementFromPoint(touch.clientX, touch.clientY);
-                //             if (currentHover !== elem[0]) {
-                //                 return true;
-                //             }
-                //         })) {
-                //            // stop();
-                //         }
-
-
-                //     // }
                 // })
-                elem.on("mouseup", function(event) {
-                    console.log("stop note");
-                    scope.synth.stop(scope.note);
-                    elem.removeClass('active');
-                })
-                elem.on("touchend touchcancel mouseup mouseout", function() {
-                    scope.synth.stop(scope.note);
-                    elem.removeClass('active');
-                })
-                elem.on('touchcancel', function() {
-                    // alert("touchcancel");
-                })
-                elem.on('touchmove mousemove mouseout', function(event) {
-                    if (event.changedTouches) {
-                        var currentHover = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
-                        if (currentHover != elem[0]) {
-                            scope.synth.stop(scope.note);
-                            elem.removeClass('active');
-                        } else {
-                            event.preventDefault();
-                        }
-                    }
 
-                })
+                // // elem.on("touchend",function(){
+                // //     stop();
+                // // })
+
+                // elem.on("mouseup", function(event) {
+                //     console.log("stop note");
+                //     scope.synth.stop(scope.note);
+                //     elem.removeClass('active');
+                // })
+                // elem.on("touchend touchcancel mouseup mouseout", function() {
+                //     scope.synth.stop(scope.note);
+                //     elem.removeClass('active');
+                // })
+                // elem.on('touchcancel', function() {
+                //     // alert("touchcancel");
+                // })
+                // elem.on('touchmove mousemove mouseout', function(event) {
+                //     if (event.changedTouches) {
+                //         var currentHover = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+                //         if (currentHover != elem[0]) {
+                //             scope.synth.stop(scope.note);
+                //             elem.removeClass('active');
+                //         } else {
+                //             event.preventDefault();
+                //         }
+                //     }
+
+                // })
             }
         }
     })
