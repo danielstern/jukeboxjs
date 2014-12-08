@@ -78,7 +78,6 @@ angular.module("Demo", ['ui.router'])
 
 
 
-        $rootScope.parseFloat = parseFloat;
 
 
 
@@ -195,6 +194,9 @@ angular.module("Demo", ['ui.router'])
                 modulator: "=",
             },
             link: function(scope) {
+
+
+                scope.parseFloat = parseFloat;
 
                 scope.getModulatorTotalFrequency = function() {
                     return (parseFloat(scope.modulator.frequency) + parseFloat(scope.modulator.bend)) / 10;

@@ -39,6 +39,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
 
 
         function play() {
+          if (playing) return;
            willPlay = true;
            submodulators.forEach(function(submod){
               submod.play();
@@ -46,6 +47,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
         }
 
         function stop() {
+          // if (!playing) return;
           willStop = true;
           submodulators.forEach(function(submod){
              submod.stop();
@@ -57,6 +59,7 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
             modulator.frequency = +modulator.frequency;
             modulator.volume = +modulator.volume;
             modulator.bend = +modulator.bend;
+            var now = context.currentTime;
 
             if (schema.adjustor) {
                 schema.adjustor(modulator, phase);
@@ -96,6 +99,8 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               willPlay = false;
               playing = true;
 
+              console.log("playin oscillator")
+
               if (schema.oscillators) {             
                 schema.oscillators.forEach(function(oscillatorDefinition) {
                     var oscillator = context.createOscillator();
@@ -107,7 +112,8 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
                     oscillator.frequency.value = +frequency +bend;
 
                     gain.gain.value = 0;
-                    gain.gain.linearRampToValueAtTime(volume,context.currentTime + envelope.timeIn / 1000);
+                    gain.gain.linearRampToValueAtTime(volume,context.currentTime + envelope.timeIn / 10000,true);
+                    // gain.gain.setValueAtTime(volume,context.currentTime + envelope.timeIn / 10000,true);
 
                     oscillator.noteOn(1);
                     oscillator.gain = gain;
@@ -117,11 +123,17 @@ var JukeboxConstructor = function(ActionTimer, transforms) {
               }
             } else if (willStop) {
               willStop = false;
+              willPlay = false;
               playing = false;
+              console.log("stoppin oscillators");
               var fadingOscillators = [];
               playingOscillators.forEach(function(oscillator) {
-                console.log("fading oscillator...",oscillator);
-                  oscillator.gain.gain.linearRampToValueAtTime(0,context.currentTime + envelope.timeOut / 1000);
+                // console.log("fading oscillator...",oscillator,envelope);
+                  oscillator.gain.gain.cancelScheduledValues(context.currentTime);;
+                  // oscillator.gain.gain.setValueAtTime(0,context.currentTime + envelope.timeOut / 10000,true);
+                  oscillator.gain.gain.setValueAtTime(0,context.currentTime + envelope.timeOut / 1000,true);
+                  oscillator.gain.gain.linearRampToValueAtTime(0,context.currentTime + envelope.timeOut / 100);
+                  // oscillator.gain.gain.value = 0;
               });
               while (playingOscillators[0]) {
                   fadingOscillators.push(playingOscillators.pop());
