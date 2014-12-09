@@ -113,6 +113,10 @@ angular.module("Demo")
         function exportJSON() {
             var exportJSON = {
                 config: config,
+                tracks: tracks,
+                meta: {
+                	date: new Date().getTime()
+                }
             }
         }
 

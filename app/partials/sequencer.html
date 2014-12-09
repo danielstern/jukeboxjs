@@ -35,7 +35,7 @@
 
 
                 <button class="btn btn-default" ng-click='track.numMeasures=track.numMeasures+1'>+measure</button>
-                <button class="btn btn-default"  ng-click='track.numMeasures=track.numMeasures-1'>-measure</button>
+                <button class="btn btn-default"  ng-click='track.numMeasures=track.numMeasures-1 || 1'>-measure</button>
                 <button  class="btn btn-default" ng-click='track.repeat = !track.repeat;'>{{track.repeat ? 'repeat on' : 'repeat off'}}</button>
                 
             </div>  
