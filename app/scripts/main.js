@@ -50,6 +50,40 @@ angular.module("Demo", ['ui.router','ngTouch'])
                 url: '/oscillator',
                 templateUrl: "partials/oscillators.html",
             })
+            .state('keyboard', {
+                url: '/keyboard',
+                templateUrl: "partials/fullscreen-keys.html",
+                controller:function($scope){
+
+                    var notes = [];
+                    for (var i = 0; i < 36; i++) {
+                        notes.push(i);
+                    }
+
+                    $scope.notes = notes;
+
+                    var sets = [];
+                    while(notes[0] !== undefined) {
+                         sets.push(notes.splice(notes.length-12,12));
+                    }
+
+                    var synthesizers = [];
+                    for (key in JBSCHEMA.synthesizers) {
+                        var schema = JBSCHEMA.synthesizers[key];
+                        console.log("Schema?",schema);
+                        if (schema.toneMap.name === "Keyboard") {
+                            synthesizers.push(Jukebox.getSynth(schema));
+                        }
+                    }
+
+                    $scope.synthesizers = synthesizers;
+                    $scope.sets = sets;
+
+                    $scope.config = {
+                        synthesizer:synthesizers[3]
+                    };
+                }
+            })
             .state('jukebox', {
                 url: '/jukebox',
                 templateUrl: "partials/jukebox.html",
@@ -223,8 +257,6 @@ angular.module("Demo", ['ui.router','ngTouch'])
     .controller("SynthDemo", function($scope) {
 
         var synthesizers = [];
-        console.log("snyhdemo...",JBSCHEMA.synthesizers);
-        // var schemas = 
         for (key in JBSCHEMA.synthesizers) {
             var schema = JBSCHEMA.synthesizers[key];
             console.log("Schema?",schema);

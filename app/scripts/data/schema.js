@@ -84,7 +84,9 @@ var tones = {
 
         var released = false;
         var duration = 300;
-        var baseFrequency = 146.832; // Low D
+        // var baseFrequency = 146.832; // Low D
+        var baseFrequency = 130.813; // Low Low C
+        // var baseFrequency = 146.832; // Low D
         var tonesPerOctave = 12;
         var ratio = Math.pow(2, 1 / 12);
 
