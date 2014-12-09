@@ -59,18 +59,16 @@ angular.module("Demo", ['ui.router'])
                 templateUrl: "partials/tuner.html",
                 controller:function($scope){
                     $scope.modulator = new jukebox.getModulator(JBSCHEMA.modulators["Dookus Basic Square"]);
-                    // $scope.keys = new jukebox.getSynth(JBSCHEMA.synthesizers["Duke Straight Up"]);
                     $scope.base = 12;
                     $scope.tone = 12;
-                    // var baseFrequency = 329.628; // Low  E
                     var baseFrequency = 30.8677; // Low Low Low B
-                    // var baseFrequency = 146.832; // Low D
                     var letters = ["B","C","Db",'D','Eb','E','F','Gb','G','Ab',"A","Bb"];
                     var ratio = Math.pow(2, 1 / 12);
                     
                     $scope.config = {
 
                     };
+                    
                     var scale = [];
                     for (var i = 0; i < 70; i++) {
                         scale.push({
@@ -95,10 +93,15 @@ angular.module("Demo", ['ui.router'])
 
                     $scope.$watch("config.selected",function(newval,oldval){
                         console.log("stopping oldval...",oldval);
-                        $scope.keys.stop(oldval.index);
+                        $scope.modulator.frequency = newval.frequency;
+                        // $scope.keys.stop(oldval.index);
                     })
 
-                    $scope.scale = scale;
+                    $scope.$watch("scale",function(scale){
+                        $scope.config.selected = scale[0];
+                    })
+
+                    $scope.scale = $scope.guitar;
 
 
 
