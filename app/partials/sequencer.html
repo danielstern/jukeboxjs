@@ -6,7 +6,7 @@
 
         <div class="track" ng-repeat='track in tracks | limitTo:2'>
             <!-- track -->
-            <div class="measure" ng-repeat='measure in track.measures | limitTo:1'>
+            <div class="measure" ng-repeat='measure in track.measures | limitTo:5'>
             	<div class="beat" ng-repeat='beat in config.beatsPerMeasure track by $index'>
 
 	                <div class=tone ng-repeat='tone in config.tones' studio-tone ng-click='track.play(tone.frequency,100)'>
