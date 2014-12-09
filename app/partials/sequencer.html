@@ -2,12 +2,15 @@
     <h2>
 		Sequencing Studio
 	</h2>
-    <!-- <div class="col-xs-10"> -->
-
         <div class="track" ng-repeat='track in tracks | limitTo:2'>
-            <!-- track -->
-            <div class="measure" ng-repeat='measure in track.measures | limitTo:5'>
+            <div class="measure" ng-repeat='measure in track.measures | limitTo:12'>
+            <div>	
+            	{{$index+1}}
+            </div>
             	<div class="beat" ng-repeat='beat in config.beatsPerMeasure track by $index'>
+            	<div>	
+            		{{$index+1}}
+            	</div>
 
 	                <div class=tone ng-repeat='tone in config.tones' studio-tone ng-click='track.play(tone.frequency,100)'>
 
