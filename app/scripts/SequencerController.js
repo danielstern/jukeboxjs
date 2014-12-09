@@ -9,36 +9,24 @@ angular.module("Demo")
         var maxMeasures = 512;
         var maxTracks = 16;
         var maxBeatsPerMeasure = 8;
-
+        var timer;
         var letters = ['E','F','Gb','G','Ab',"A","Bb","B","C","Db",'D','Eb'];
-        var ratio = Math.pow(2, 1 / 12);
+        var tracks = [];
+        var scale;
+        var position = 0;
         
-        $scope.config = {
+        $scope.config = config;
 
-        };
-
-        var scale = [];
+        scale = [];
         for (var i = 0; i < 70; i++) {
             scale.push({
                 name:letters[i % letters.length],
                 index:i,
-                // frequency: baseFrequency * Math.pow(ratio, i)
             })
         }
+        config.tones = scale.slice(0,12);
 
-        var timer;
-
-
-        var chromatic = scale;
-        var guitarBase = 17;
-        var guitar = [scale[guitarBase],scale[guitarBase+5],scale[guitarBase+10],scale[guitarBase+15],scale[guitarBase+19],scale[guitarBase+24]];
-
-        var bassBase = 0;
-        var bass = [scale[bassBase],scale[bassBase+5],scale[bassBase+10],scale[bassBase+15],scale[bassBase+20]];
-
-
-        // var 
-        $scope.enable = function(trackIndex,measureIndex,beatIndex,tone) {
+        function enable(trackIndex,measureIndex,beatIndex,tone) {
         	var track = tracks[trackIndex];
         	var measure = track.measures[measureIndex];
         	var beat = measure.beats[beatIndex];
@@ -49,90 +37,62 @@ angular.module("Demo")
         		beat.tones.push(tone);
         		track.instrument.play(tone.index,100);		
         	}
-
-        	console.log("Generated: ",tracks);
         }
 
-        $scope.playSequence = function(){
-        	var currentPosition = 0;
+        function handleEnterBeat(intervalLength){
 
-        	var currentBeat = 1;
+        	var currentBeat = position % config.beatsPerMeasure;
+        	var currentMeasure = Math.floor(position / config.beatsPerMeasure);
+
+        	tracks.forEach(function(track){
+        		var measure;
+        		if (track.repeat) {
+        			var repeatIndex = currentMeasure % track.numMeasures;
+        			measure = track.measures[repeatIndex];
+        		} else {
+        			measure = track.measures[currentMeasure];
+        		}
+
+        		var beat = measure.beats[currentBeat]; 
+        		beat.tones.forEach(function(tone){
+        			track.instrument.play(tone.index);
+        			Jukebox.timer.setTimeout(track.instrument.stop, intervalLength-1,tone.index);
+        		});
+        	})
+
+        	position += 1;
+        }
+
+        function playSequence (){
+        	
+        	position = 0;
         	if (timer) {
         		clearInterval(timer);
+        		return;
         	}
-        	var currentMeasure = 1;
+
         	var intervalLength = 1 / config.bpm * 60 * 1000;
 
-        	timer = Jukebox.timer.setInterval(handleEnterBeat,intervalLength);
+        	timer = Jukebox.timer.setInterval(handleEnterBeat,intervalLength,intervalLength); 
+        	handleEnterBeat(intervalLength);
 
-        	function handleEnterBeat(){
-        		if (currentBeat > config.beatsPerMeasure) {
-        			currentBeat = 1;
-        			currentMeasure+=1;
-        		}
-        		if (currentMeasure > config.maxMeasures) {
-        			clearInterval(timer);
-        		}
-        		currentPosition += 1;
-        		// console.log("sequence!",currentPosition);
-
-
-        		tracks.forEach(function(track){
-        			var measure;
-        			if (track.repeat) {
-        				measure = track.measures[(currentMeasure - 1) % track.numMeasures];
-        				console.log("measure?",measure);
-        			} else {
-        				measure = track.measures[currentMeasure-1];
-        			}
-
-        			// console.log("current measure...",measure);
-        			// for (var i = 0; i < track.measures.length; i++) {
-        			// 	var _measure = track.measures[i];
-        			// }
-        			var beat = measure.beats[currentBeat-1]; 
-        			beat.tones.forEach(function(tone){
-        				console.log("playing tone..",tone.index);
-        				track.instrument.play(tone.index);
-        				Jukebox.timer.setTimeout(track.instrument.stop, intervalLength-1,tone.index);
-        			});
-        		})
-
-        		currentBeat++;
-        	}
-
-        	handleEnterBeat();
         }
 
-        $scope.isEnabled = function(trackIndex,measureIndex,beatIndex,tone) {
+        function isEnabled(trackIndex,measureIndex,beatIndex,tone) {
         	var track = tracks[trackIndex];
         	var measure = track.measures[measureIndex]
         	var beat = measure.beats[beatIndex];
         	return (beat.tones.indexOf(tone) !== -1);
-        }
+        };
 
-        // config.tones = guitar;
-        // config.tones = scale.slice(25,40);
-        config.tones = scale.slice(0,12);
 
-        $scope.config = config;
-
-        var tracks = [];
 
         for (var j = 0; j < maxTracks; j++) {
         	var track = {
         		measures:[],
         		index:j,
         		numMeasures:config.numMeasures,
-        		// instrument:Jukebox.getModulator(JBSCHEMA.modulators["Dookus Basic Square"]),
-        		// instrument:Jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']),
         		instrument:Jukebox.getSynth(JBSCHEMA.synthesizers['Duke Straight Up']),
-        		// instrument:Jukebox.getModulator(JBSCHEMA.modulators["Dookus Basic Square"]),
-        		play:function(tone) {
-        			
-        		}
-
-        		// instrument:Jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6'])
         	};
         	tracks.push(track);
             for (var i = 0; i < maxMeasures; i++) {
@@ -156,8 +116,9 @@ angular.module("Demo")
 
         $scope.tracks = tracks;
         $scope.tones = tones;
+        $scope.isEnabled = isEnabled;
+        $scope.enable = enable;
+        $scope.playSequence = playSequence;
 
-        // $scope.$watch('tracks',function(tracks){
-        // 	// console.log("Generated: ",tracks);
-        // },true);
+        
     })
