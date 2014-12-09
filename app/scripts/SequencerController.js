@@ -23,7 +23,7 @@ angular.module("Demo")
             scale.push({
                 name:letters[i % letters.length],
                 index:i,
-                frequency: baseFrequency * Math.pow(ratio, i)
+                // frequency: baseFrequency * Math.pow(ratio, i)
             })
         }
 
@@ -66,27 +66,27 @@ angular.module("Demo")
         	timer = Jukebox.timer.setInterval(handleEnterBeat,config.bpm / 120 * 1000);
 
         	function handleEnterBeat(){
-        		console.log("sequence!");
-        		currentBeat++;
         		if (currentBeat > config.beatsPerMeasure) {
-        			beat = 1;
+        			currentBeat = 1;
         			currentMeasure+=1;
         		}
         		if (currentMeasure > config.maxMeasures) {
         			clearInterval(timer);
         		}
         		currentPosition += 1;
+        		console.log("sequence!",currentMeasure,currentBeat,currentPosition);;
 
 
         		tracks.forEach(function(track){
         			var measure = track.measures[currentMeasure-1];
-        			var beat = measure.beats[currentBeat]; 
+        			var beat = measure.beats[currentBeat-1]; 
         			beat.tones.forEach(function(tone){
         				track.instrument.play(tone.index);
         				Jukebox.timer.setTimeout(track.instrument.stop, 100,tone.index);
         			});
         		})
 
+        		currentBeat++;
         	}
 
         	handleEnterBeat();
@@ -100,7 +100,8 @@ angular.module("Demo")
         }
 
         // config.tones = guitar;
-        config.tones = scale.slice(25,40);
+        // config.tones = scale.slice(25,40);
+        config.tones = scale.slice(0,12);
 
         $scope.config = config;
 
