@@ -201,9 +201,13 @@
 
             function stop(tone) {
                 modulatorSets.filter(function(set) {
+                    if (tone === undefined) {
+                        return true;
+                    } else {
                         return set.currentTone === tone;
-                    })
-                    .forEach(stopModulatorSet);
+                    }
+                })
+                .forEach(stopModulatorSet);
             }
 
             function stopModulatorSet(set) {

@@ -33,6 +33,10 @@ angular.module("Demo")
             synthesizer:synthesizers[1]
         };
 
+        // synthesizers.forEach(function(synth){
+
+        // })
+
 
 
 
@@ -66,15 +70,15 @@ angular.module("Demo")
         		}
 
         		measure.playing = true;
-        		Jukebox.timer.setTimeout(function(){
-        			measure.playing = false;
-        		}, intervalLength*4-1);
         		
         		var beat = measure.beats[currentBeat]; 
+        		Jukebox.timer.setTimeout(function(){
+        			beat.playing = false;
+        		}, intervalLength-1);
+        		beat.playing = true;
         		beat.tones.forEach(function(tone){
         			track.instrument.play(tone.index);
         			Jukebox.timer.setTimeout(function(){
-        				// measure.playing = false;
         				track.instrument.stop(tone.index);
         			}, intervalLength-1);
         		});
@@ -114,7 +118,12 @@ angular.module("Demo")
         		index:j,
         		numMeasures:config.numMeasures,
         		instrument:Jukebox.getSynth(JBSCHEMA.synthesizers['Duke Straight Up']),
+        		changeInstrument:function(instrument){
+        			this.instrument.stop();
+        			this.instrument = instrument;
+        		}
         	};
+        	// $scope.$watch()
         	tracks.push(track);
             for (var i = 0; i < maxMeasures; i++) {
             	var measure = {
@@ -134,6 +143,8 @@ angular.module("Demo")
                 };
             };
         }
+
+
 
         $scope.tracks = tracks;
         $scope.tones = tones;
