@@ -3,30 +3,32 @@
 		Sequencing Studio
 		<!-- {{config}} -->
 	</h2>
-        <div class="track" ng-repeat='track in tracks | limitTo:1'>
-            <div class="measure" ng-repeat='measure in track.measures | limitTo:4'>
-            <div>	
-            	{{$index+1}}
+    <div class="track" ng-repeat='track in tracks | limitTo:1'>
+        <div class="measure" ng-repeat='measure in track.measures | limitTo:4'>
+            <div>
+                {{$index+1}}
             </div>
-            	<div class="beat" ng-repeat='beat in measure.beats | limitTo:config.beatsPerMeasure'>
-            	<div>	
-            		{{$index+1}}
-            	</div>
+            <div class="beat" ng-repeat='beat in measure.beats | limitTo:config.beatsPerMeasure'>
+                <div>
+                    {{$index+1}}
+                </div>
 
-	                <div class=tone ng-repeat='tone in config.tones' studio-tone ng-click='enable(track.index,measure.index,beat.index,tone)'>
-	                <!-- <div class=tone ng-repeat='tone in config.tones' studio-tone ng-click='track.play(tone.frequency,100)'> -->
-	                <!-- {{beat.tones}} -->
-	                {{isEnabled(track.index,measure.index,beat.index,tone)}}
+                <div class=tone ng-repeat='tone in config.tones' studio-tone ng-click='enable(track.index,measure.index,beat.index,tone)' ng-class="{'active':isEnabled(track.index,measure.index,beat.index,tone)}">
+                    <!-- <div class=tone ng-repeat='tone in config.tones' studio-tone ng-click='track.play(tone.frequency,100)'> -->
+                    <!-- {{beat.tones}} -->
+                    {{}}
 
+                    <div class="tone-name">
 
-	                    {{tone.name}}
-	                    <!-- {{tone.frequency}} -->
-	                    <!-- measure -->
-	                </div>
-	                </div>
-                <!-- measure -->
+                        {{tone.name}}
+                    </div>
+                    <!-- {{tone.frequency}} -->
+                    <!-- measure -->
+                </div>
             </div>
+            <!-- measure -->
         </div>
+    </div>
     <!-- </div> -->
     <!-- <div class="clearfix"></div> -->
 </section>

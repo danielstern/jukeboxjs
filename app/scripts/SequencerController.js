@@ -40,6 +40,7 @@ angular.module("Demo")
         	var track = tracks[trackIndex];
         	var measure = track.measures[measureIndex];
         	measure.beats[beatIndex].tones.push(tone);
+        	track.instrument.play(tone.index,100);
         }
 
         $scope.isEnabled = function(trackIndex,measureIndex,beatIndex,tone) {
@@ -60,7 +61,9 @@ angular.module("Demo")
         	var track = {
         		measures:[],
         		index:j,
-        		instrument:Jukebox.getModulator(JBSCHEMA.modulators["Dookus Basic Square"]),
+        		// instrument:Jukebox.getModulator(JBSCHEMA.modulators["Dookus Basic Square"]),
+        		instrument:Jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']),
+        		// instrument:Jukebox.getModulator(JBSCHEMA.modulators["Dookus Basic Square"]),
         		enable:function(tone) {
         			this.instrument.frequency = tone;
         			this.instrument.play();

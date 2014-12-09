@@ -329,6 +329,13 @@
     .beat {
         width: 48px;
     }
+
+    .tone-name {
+        transition: 0.2s all;
+        opacity: 0;
+    }
+
+   
     .measure {
         // width: auto;
         // overflow: scroll-x;
@@ -340,5 +347,18 @@
         height: 48px;
         border: 1px solid red;
         .classic-background(@color2);
+
+        &.active {
+            .classic-background(@color3);
+        }
+
+        &:hover {
+            .tone-name {
+                opacity: 1;
+            }
+
+        }
     }
+
+
 }
