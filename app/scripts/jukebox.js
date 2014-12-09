@@ -29,6 +29,14 @@
                 willStop = false,
                 modulator = this;
 
+            if (schema.submodulators) {
+                schema.submodulators.forEach(function(schema) {
+                    var submodulator = new Modulator(schema);
+                    submodulators.push(submodulator);
+                })
+            }
+
+
             function refreshOscillatorFrequencies() {
                 oscillators.forEach(function(oscillator) {
                     oscillator.frequency.value = +frequency + +bend;
@@ -36,6 +44,7 @@
             }
 
             function play() {
+                handleStateUpdate();
                 if (playing) return;
                 submodulators.forEach(function(submod) {
                     submod.play();
@@ -51,6 +60,7 @@
                     // gain.gain.setValueAtTime(volume, timer.getTimeNow() + envelope.timeIn / 1000, true);
 
                     gain.gain.linearRampToValueAtTime(volume, timer.getTimeNow() + envelope.timeIn / 1000, true);
+                    // console.log("setting osc frequency",frequency);
 
                     oscillator.frequency.value = frequency;
                     oscillator.noteOn(0);
@@ -63,30 +73,36 @@
             }
 
             function stop() {
+                handleStateUpdate();
                 submodulators.forEach(function(submod) {
                     submod.stop();
                 });
-                var fadingOscillators = [];
+                // var fadingOscillators = [];
                 oscillators.forEach(function(oscillator) {
-                    oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + envelope.timeOut / 1000);
+                    oscillator.noteOff(1);
+                    oscillator.disconnect(oscillator.gain);
                 });
 
-                while (oscillators[0]) {
-                    var oscillator = oscillators[oscillators.length - 1];
-                    oscillator.gain.gain.setValueAtTime(0, context.currentTime);
-                    fadingOscillators.push(oscillators.pop());
-                };
+                oscillators.length = 0;
 
-                timer.setTimeout(function(fadingOscillators) {
-                    fadingOscillators.forEach(function(oscillator, index) {
-                        oscillator.noteOff(1);
-                        oscillator.disconnect(oscillator.gain);
-                    });
 
-                    while (fadingOscillators[0]) {
-                        fadingOscillators.pop();
-                    }
-                }, 1000, fadingOscillators);
+
+                // while (oscillators[0]) {
+                //     var oscillator = oscillators[oscillators.length - 1];
+                //     oscillator.gain.gain.setValueAtTime(0, context.currentTime);
+                //     fadingOscillators.push(oscillators.pop());
+                // };
+
+                // timer.setTimeout(function(fadingOscillators) {
+                //     fadingOscillators.forEach(function(oscillator, index) {
+                //         oscillator.noteOff(1);
+                //         oscillator.disconnect(oscillator.gain);
+                //     });
+
+                //     while (fadingOscillators[0]) {
+                //         fadingOscillators.pop();
+                //     }
+                // }, 1000, fadingOscillators);
             }
 
             function handleStateUpdate() {
@@ -139,12 +155,6 @@
             timer.setInterval(handleStateUpdate, 1);
 
 
-            if (schema.submodulators) {
-                schema.submodulators.forEach(function(schema) {
-                    var submodulator = new Modulator(schema);
-                    submodulators.push(submodulator);
-                })
-            }
 
             this.play = play;
             this.stop = stop;
@@ -163,7 +173,7 @@
                 synthesizer = this,
                 volume = 1,
                 // polyphony = schema.polyphony || [0, 0, 0, 0, 0, 0, 0, 0];
-            polyphony = schema.polyphony || [0,0];
+            polyphony = schema.polyphony || [0,0,0,0];
 
 
             function getAllModulators() {

@@ -166,7 +166,7 @@ angular.module("Demo", ['ui.router'])
                 function play() {
                     // if (playing) return;
                     // playing = true;
-                    console.log("playing",scope.note);
+                    // console.log("playing",scope.note);
                     scope.synth.play(scope.note);
                     elem.addClass('active');
                 }
@@ -174,8 +174,8 @@ angular.module("Demo", ['ui.router'])
                 function stop() {
                     // if (!playing) return;
                     // playing = false;
-                    // scope.synth.stop(scope.note);
-                    // elem.removeClass('active');
+                    scope.synth.stop(scope.note);
+                    elem.removeClass('active');
 
                 }
 
@@ -206,7 +206,7 @@ angular.module("Demo", ['ui.router'])
                     event.preventDefault();
                 })
 
-                elem.on('touchend mouseup touchleave',function(){
+                elem.on('touchend mouseup touchleave mouseleave',function(){
                     stop();
                 })
 
