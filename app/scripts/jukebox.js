@@ -47,22 +47,24 @@
                 submodulators.forEach(function(submod) {
                     submod.play();
                 })
-                schema.oscillators.forEach(function(oscillatorDefinition) {
-                    var oscillator = context.createOscillator();
-                    oscillator.type = oscillatorDefinition;
+                if (schema.oscillators) { // in case a modulator has only submodulators                        
+                    schema.oscillators.forEach(function(oscillatorDefinition) {
+                        var oscillator = context.createOscillator();
+                        oscillator.type = oscillatorDefinition;
 
-                    var gain = audioContext.createGain();
+                        var gain = audioContext.createGain();
 
-                    gain.connect(audioContext.destination);
-                    gain.gain.linearRampToValueAtTime(volume, timer.getTimeNow() + envelope.timeIn / 1000, true);
+                        gain.connect(audioContext.destination);
+                        gain.gain.linearRampToValueAtTime(volume, timer.getTimeNow() + envelope.timeIn / 1000, true);
 
-                    oscillator.frequency.value = frequency;
-                    oscillator.noteOn(0);
-                    oscillator.gain = gain;
-                    oscillator.connect(gain);
+                        oscillator.frequency.value = frequency;
+                        oscillator.noteOn(0);
+                        oscillator.gain = gain;
+                        oscillator.connect(gain);
 
-                    oscillators.push(oscillator);
-                });
+                        oscillators.push(oscillator);
+                    });
+                }
             }
 
             function stop() {

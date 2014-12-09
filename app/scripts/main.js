@@ -58,6 +58,14 @@ angular.module("Demo", ['ui.router'])
 
     })
     .run(function($rootScope) {
+        $rootScope.$on('$viewContentLoaded', function(event, toState, toParams, fromState, fromParams){
+        // $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+            console.log("success");
+            setTimeout(function(){
+
+            Prism.highlightAll();
+            },50)
+         });
         $rootScope.playNote = function(modulator, tone, duration) {
             modulator1.setFrequency(tone);
             modulator1.play();
