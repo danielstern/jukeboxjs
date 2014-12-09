@@ -81,8 +81,9 @@ angular.module("Demo")
         			var measure = track.measures[currentMeasure-1];
         			var beat = measure.beats[currentBeat-1]; 
         			beat.tones.forEach(function(tone){
+        				console.log("playing tone..",tone.index);
         				track.instrument.play(tone.index);
-        				Jukebox.timer.setTimeout(track.instrument.stop, 100,tone.index);
+        				Jukebox.timer.setTimeout(track.instrument.stop, 350,tone.index);
         			});
         		})
 
@@ -112,7 +113,8 @@ angular.module("Demo")
         		measures:[],
         		index:j,
         		// instrument:Jukebox.getModulator(JBSCHEMA.modulators["Dookus Basic Square"]),
-        		instrument:Jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']),
+        		// instrument:Jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']),
+        		instrument:Jukebox.getSynth(JBSCHEMA.synthesizers['Duke Straight Up']),
         		// instrument:Jukebox.getModulator(JBSCHEMA.modulators["Dookus Basic Square"]),
         		play:function(tone) {
         			

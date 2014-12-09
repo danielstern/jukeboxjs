@@ -4,7 +4,7 @@
 		<!-- {{config}} -->
 		<button class="btn-lg btn btn-primary" ng-click=playSequence()>Play</button>
 	</h2>
-    <div class="track" ng-repeat='track in tracks | limitTo:1'>
+    <div class="track" ng-repeat='track in tracks | limitTo:2'>
         <div class="measure" ng-repeat='measure in track.measures | limitTo:4'>
             <div>
                 {{$index+1}}
