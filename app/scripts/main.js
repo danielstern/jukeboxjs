@@ -164,42 +164,15 @@ angular.module("Demo", ['ui.router'])
                 var playing = false;
 
                 function play() {
-                    // if (playing) return;
-                    // playing = true;
-                    // console.log("playing",scope.note);
                     scope.synth.play(scope.note);
                     elem.addClass('active');
                 }
 
                 function stop() {
-                    // if (!playing) return;
-                    // playing = false;
                     scope.synth.stop(scope.note);
                     elem.removeClass('active');
 
                 }
-
-                // $(window).on('touchstart', function(event) {
-                //     if (event.originalEvent.touches) {
-
-                //         var touches = event.originalEvent.touches;
-                //         var touchArray = [];
-
-                //         for (var i = 0; i < event.originalEvent.touches.length; i++) {
-                //             touchArray.push(event.originalEvent.touches[i]);
-                //         }
-
-                //         if (touchArray.filter(function isTouching(touch) {
-                //                 var currentHover = document.elementFromPoint(touch.clientX, touch.clientY);
-                //                 if (currentHover === elem[0]) {
-                //                     return true;
-                //                 }
-                //             })[0]) {
-                //             // event.preventDefault();
-                //             play();
-                //         }
-                //     }
-                // });
 
                 elem.on("touchstart mousedown",function(event){
                     play();
@@ -210,78 +183,8 @@ angular.module("Demo", ['ui.router'])
                     stop();
                 })
 
-                elem.on("touchmove", function(event) {
-                    // event.preventDefault();
-                })
-
                 elem.on("touchmove",function(event){
-                    // event.preventDefault();
                 })
-
-                // $(window).on('touchmove', function(event) {
-                //     console.log("touchmove...", event.originalEvent)
-                //     var touches = event.originalEvent.changedTouches;
-                //     var touchArray = [];
-                //     if (event.originalEvent.changedTouches) {
-                //         for (var i = 0; i < event.originalEvent.changedTouches.length; i++) {
-                //             touchArray.push(event.originalEvent.changedTouches[i]);
-                //         }
-                //     }
-
-                //     if (event.originalEvent.targetTouches) {
-                //         for (var i = 0; i < event.originalEvent.targetTouches.length; i++) {
-                //             touchArray.push(event.originalEvent.targetTouches[i]);
-                //         }
-                //     }
-
-                //     if (touchArray.filter(function isTouching(touch) {
-                //             var currentHover = document.elementFromPoint(touch.clientX, touch.clientY);
-                //             if (currentHover === elem[0]) {
-                //                 return true;
-                //             }
-                //         })[0]) {
-                //         // event.preventDefault();
-                //         play();
-                //     }
-
-                //     if (touchArray.every(function isNotTouching(touch) {
-                //             var currentHover = document.elementFromPoint(touch.clientX, touch.clientY);
-                //             if (currentHover !== elem[0]) {
-                //                 return true;
-                //             }
-                //         })) {
-                //         // event.preventDefault();
-                //         stop();
-                //         // play();
-                //     }
-                // })
-
-                // elem.on("touchstart touchenter", function(event) {
-                //     play();
-
-                // });
-
-
-              
-                // elem.on("touchend touchcancel mouseup mouseout", function() {
-                //     scope.synth.stop(scope.note);
-                //     elem.removeClass('active');
-                // })
-                // elem.on('touchcancel', function() {
-                //     // alert("touchcancel");
-                // })
-                // elem.on('touchmove mousemove mouseout', function(event) {
-                //     if (event.changedTouches) {
-                //         var currentHover = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
-                //         if (currentHover != elem[0]) {
-                //             scope.synth.stop(scope.note);
-                //             elem.removeClass('active');
-                //         } else {
-                //             event.preventDefault();
-                //         }
-                //     }
-
-                // })
             }
         }
     })
@@ -384,11 +287,7 @@ function playNote(modulator, tone, duration) {
 };
 
 
-var bpm = 80;
-var bps = bpm / 60;
 
-var drumsPlaying = false;
-var drumsInterval;
 var seq;
 
 var marioPlaying = false;

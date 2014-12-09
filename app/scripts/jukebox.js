@@ -25,8 +25,6 @@
                 oscillators = [],
                 phase = 0,
                 bend = 0,
-                willPlay = false,
-                willStop = false,
                 modulator = this;
 
             if (schema.submodulators) {
@@ -54,13 +52,9 @@
                     oscillator.type = oscillatorDefinition;
 
                     var gain = audioContext.createGain();
+
                     gain.connect(audioContext.destination);
-
-                    // gain.gain.value = 0;
-                    // gain.gain.setValueAtTime(volume, timer.getTimeNow() + envelope.timeIn / 1000, true);
-
                     gain.gain.linearRampToValueAtTime(volume, timer.getTimeNow() + envelope.timeIn / 1000, true);
-                    // console.log("setting osc frequency",frequency);
 
                     oscillator.frequency.value = frequency;
                     oscillator.noteOn(0);
@@ -69,7 +63,6 @@
 
                     oscillators.push(oscillator);
                 });
-                // handleStateUpdate();
             }
 
             function stop() {
@@ -77,7 +70,6 @@
                 submodulators.forEach(function(submod) {
                     submod.stop();
                 });
-                // var fadingOscillators = [];
                 oscillators.forEach(function(oscillator) {
                     oscillator.noteOff(1);
                     oscillator.disconnect(oscillator.gain);
@@ -85,32 +77,10 @@
 
                 oscillators.length = 0;
 
-
-
-                // while (oscillators[0]) {
-                //     var oscillator = oscillators[oscillators.length - 1];
-                //     oscillator.gain.gain.setValueAtTime(0, context.currentTime);
-                //     fadingOscillators.push(oscillators.pop());
-                // };
-
-                // timer.setTimeout(function(fadingOscillators) {
-                //     fadingOscillators.forEach(function(oscillator, index) {
-                //         oscillator.noteOff(1);
-                //         oscillator.disconnect(oscillator.gain);
-                //     });
-
-                //     while (fadingOscillators[0]) {
-                //         fadingOscillators.pop();
-                //     }
-                // }, 1000, fadingOscillators);
             }
 
             function handleStateUpdate() {
-                if (willPlay && willStop) {
-                    throw new Error("Cant play and stop at same time");
-                    // willPlay = false;
-                    // willStop = false;
-                }
+
                 phase++;
                 modulator.frequency = +modulator.frequency;
                 modulator.volume = +modulator.volume;
@@ -127,14 +97,13 @@
                 }
 
 
-                if (frequency !== modulator.frequency && !willStop) {
+                if (frequency !== modulator.frequency) {
                     frequency = modulator.frequency;
                     refreshOscillatorFrequencies();
                 }
 
-                if (volume !== modulator.volume && !willStop) {
+                if (volume !== modulator.volume) {
                     oscillators.forEach(function(oscillator) {
-                        // oscillator.gain.gain.cancelScheduledValues(now);;
                         oscillator.gain.gain.setValueAtTime(modulator.volume, now + 0.001);
                     })
                     volume = modulator.volume;
@@ -154,8 +123,6 @@
 
             timer.setInterval(handleStateUpdate, 1);
 
-
-
             this.play = play;
             this.stop = stop;
             this.envelope = envelope;
@@ -168,12 +135,10 @@
         var Synthesizer = function(schema) {
 
             var modulatorSets = [],
-                keyModulatorMap = [],
                 map = schema.toneMap,
                 synthesizer = this,
                 volume = 1,
-                // polyphony = schema.polyphony || [0, 0, 0, 0, 0, 0, 0, 0];
-            polyphony = schema.polyphony || [0,0,0,0];
+                polyphony = schema.polyphony || [0, 0, 0, 0];
 
 
             function getAllModulators() {
@@ -240,7 +205,6 @@
             }
 
             function stopModulatorSet(set) {
-                // console.log("stop")
                 set.modulators.forEach(function(modulator) {
                     modulator.stop();
                 })
