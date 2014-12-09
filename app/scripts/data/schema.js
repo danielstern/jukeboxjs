@@ -86,11 +86,11 @@ var tones = {
         var duration = 300;
         var baseFrequency = 146.832; // Low D
         var tonesPerOctave = 12;
-        var ratio = Math.pow(2,1/12);
+        var ratio = Math.pow(2, 1 / 12);
 
         // console.log("playing key...",baseFrequency+ baseFrequency * tone / tonesPerOctave)
         modulators.forEach(function(modulator) {
-            var freq = baseFrequency * Math.pow(ratio,tone);
+            var freq = baseFrequency * Math.pow(ratio, tone);
             // var freq = baseFrequency + (baseFrequency * tone / tonesPerOctave);
             modulator.frequency = freq;
             modulator.play();
@@ -102,14 +102,14 @@ var tones = {
         var duration = 300;
         var baseFrequency = 146.832; // Low D
         var tonesPerOctave = 12;
-        var ratio = Math.pow(2,1/12);
+        var ratio = Math.pow(2, 1 / 12);
         var toneBank = [];
         for (var i = 0; i < 1024; i++) {
-            var toneForBank = baseFrequency * Math.pow(ratio,i);
+            var toneForBank = baseFrequency * Math.pow(ratio, i);
             toneBank[i] = toneForBank;
         }
-        var filterTones = toneBank.filter(function(tone,index){
-            var intervals = [4,9,13];
+        var filterTones = toneBank.filter(function(tone, index) {
+            var intervals = [4, 9, 13];
             var position = index % 12;
             return (intervals.indexOf(position) > -1);
         })
@@ -145,10 +145,10 @@ var toneMaps = {
     }
 }
 
-function getPhaseAdjustor(phaseShift,frequency,amplitude,shift) {
-    return function(modulator,phase){
+function getPhaseAdjustor(phaseShift, frequency, amplitude, shift) {
+    return function(modulator, phase) {
 
-         modulator.bend = Math.sin((phase + shift + phaseShift) * frequency) * amplitude - amplitude * 0.5;
+        modulator.bend = Math.sin((phase + shift + phaseShift) * frequency) * amplitude - amplitude * 0.5;
     }
 };
 
@@ -156,7 +156,7 @@ var grigsby = {
     name: "Grigsby 2260",
     oscillators: [SINE, SAW],
     phase: 25,
-    adjustor: getPhaseAdjustor(4,13,1,0),
+    adjustor: getPhaseAdjustor(4, 13, 1, 0),
     envelope: {
         timeIn: 10,
         timeOut: 10,
@@ -167,12 +167,12 @@ var tabernackle = {
     name: "Tabernackle T4",
     oscillators: [SAW, SAW, TRIANGLE],
     modulators: [],
-    adjustor: getPhaseAdjustor(4,50,5,0),
+    adjustor: getPhaseAdjustor(4, 50, 5, 0),
     envelope: {
         timeIn: 10,
         timeOut: 50,
     },
-    adjustor: getPhaseAdjustor(10,1/25,50,0)
+    adjustor: getPhaseAdjustor(10, 1 / 25, 50, 0)
 }
 
 
@@ -182,25 +182,25 @@ var modulators = {
     "Tabernackle T4": tabernackle,
     "Sylvester Triple Series": {
         name: "Sylvester Triple Series",
-        submodulators:[{
-            oscillators:[SAW],
-            adjustor: getPhaseAdjustor(10,1/25,50,0),
-            envelope:{
-                timeIn:10,
-                timeOut:50,
+        submodulators: [{
+            oscillators: [SAW],
+            adjustor: getPhaseAdjustor(10, 1 / 25, 50, 0),
+            envelope: {
+                timeIn: 10,
+                timeOut: 50,
             }
-        },{
-            oscillators:[SAW],
-            adjustor: getPhaseAdjustor(10,1/25,50,60),
-            envelope:{
-                timeIn:10,
-                timeOut:50,
+        }, {
+            oscillators: [SAW],
+            adjustor: getPhaseAdjustor(10, 1 / 25, 50, 60),
+            envelope: {
+                timeIn: 10,
+                timeOut: 50,
             }
         }]
     },
     "Angel 36-B": {
         name: "Angel 36-B",
-        adjustor: getPhaseAdjustor(10,1/25,5,60),
+        adjustor: getPhaseAdjustor(10, 1 / 25, 5, 60),
         oscillators: [SINE],
         envelope: {
             timeIn: 10,
@@ -209,23 +209,27 @@ var modulators = {
     },
     "Roofhausen Classic Sine": {
         name: "Roofhausen Classic Sine",
-        adjustor: getPhaseAdjustor(10,1/32,10,0),
+        adjustor: getPhaseAdjustor(10, 1 / 32, 10, 0),
         oscillators: [SINE],
     },
     "Roofhausen Classic Sawtooth": {
         name: "Roofhausen Classic Sawtooth",
-        adjustor: getPhaseAdjustor(10,1/32,10,5),
+        adjustor: getPhaseAdjustor(10, 1 / 32, 10, 5),
         oscillators: [SAW],
     },
     "Roofhausen Classic Square": {
         name: "Roofhausen Classic Square",
-        adjustor: getPhaseAdjustor(10,1/32,10,4),
+        adjustor: getPhaseAdjustor(10, 1 / 32, 10, 4),
         oscillators: [SQUARE],
     },
     "Roofhausen Classic Triangle": {
         name: "Roofhausen Classic Triangle",
-        adjustor: getPhaseAdjustor(10,1/28,10,10),
+        adjustor: getPhaseAdjustor(10, 1 / 28, 10, 10),
         oscillators: [TRIANGLE],
+    },
+    "Dookus Basic Square": {
+        name: "Dookus Basic Square",
+        oscillators: [SQUARE],
     },
     "Oberon 650-SSS": {
         name: "Oberon 650-SSS",
@@ -255,12 +259,20 @@ var synthesizers = {
     },
     "Bellator 7575": {
         name: "Bellator 7575",
-        modulators: [modulators['Grigsby 2260'],modulators['Angel 36-B']],
+        modulators: [modulators['Grigsby 2260'], modulators['Angel 36-B']],
         toneMap: toneMaps["Keyboard"]
     },
     "Quincy 275": {
         name: "Quincy 275",
-        modulators: [modulators['Roofhausen Classic Sine'],modulators['Roofhausen Classic Sine']],
+        modulators: [modulators['Roofhausen Classic Sine'], modulators['Roofhausen Classic Sine']],
+        toneMap: toneMaps["Keyboard"]
+    },
+    "Duke Straight Up": {
+        name: "Duke Straight Up",
+        modulators: [{
+            name: "Dookus Basic Square`",
+            oscillators: [SQUARE],
+        }],
         toneMap: toneMaps["Keyboard"]
     },
     "Phoster P52 Drum Unit": {

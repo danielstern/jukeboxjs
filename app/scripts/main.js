@@ -54,9 +54,48 @@ angular.module("Demo", ['ui.router'])
                 url: '/jukebox',
                 templateUrl: "partials/jukebox.html",
             })
+            .state('tuner', {
+                url: '/tuner',
+                templateUrl: "partials/tuner.html",
+                controller:function($scope){
+                    $scope.keys = new jukebox.getSynth(JBSCHEMA.synthesizers["Duke Straight Up"]);
+                    $scope.base = 12;
+                    $scope.tone = 12;
+                    $scope.config = {
+
+                    };
+                    var scale = ["A","Bb","B","C","Db",'D','Eb','E','F','Gb','G','Ab'].map(function(note,index){
+                        return {
+                            name:note,
+                            index:index
+                        }
+                    })
+                    $scope.scale = scale;
+
+                    $scope.config.selected = scale[0];
+
+                    $scope.$watch("config.selected",function(newval,oldval){
+                        console.log("stopping oldval...",oldval);
+                        $scope.keys.stop(oldval.index + 7);
+                    })
+
+
+
+                    $scope.tunerKind = "chromatic";
+                }
+            })
         $urlRouterProvider.otherwise('/');
 
     })
+    // .filter("onlyGuitar",function(){
+    //     return function(s){
+    //         if ( s === "A" ||
+    //          s === "E" ||
+    //           s === "D" ) {
+    //             return s;
+    //         }
+    //     }
+    // })
     .run(function($rootScope) {
         $rootScope.$on('$viewContentLoaded', function(event, toState, toParams, fromState, fromParams){
         // $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){

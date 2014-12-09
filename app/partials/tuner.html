@@ -1,0 +1,29 @@
+<section>
+    <h2>
+		Jukebox.js Tuner
+	</h2>
+    <div class="row">
+
+        <div class="col-sm-6">
+		<button class="btn btn-default btn-lg" ng-click="tunerKind='chromatic'">Chromatic</button>
+		<button class="btn btn-default btn-lg" ng-click="tunerKind='guitar'">Guitar</button>
+        <div ng-if="tunerKind=='chromatic'">
+            <button class="btn btn-default" ng-repeat='note in scale track by $index' ng-click="config.selected = note">{{note.name}}</button>
+        </div>
+       <!--  <div ng-if="tunerKind=='guitar'">
+            <button class="btn btn-default" ng-repeat='note in scale track by $index | filter:onlyGuitar' ng-click="selected.note = note; selected.index = note.index">{{note.name}}</button>
+        </div> -->
+        </div>
+        <div class="col-sm-6">
+			{{config.selected.name}}
+			<!-- {{selected}} -->
+        </div>
+        <button class="btn btn-primary" ng-click="keys.play(config.selected.index + 7)">
+        	Play
+        </button>
+        <button class="btn btn-default" ng-click="keys.stop(config.selected.index + 7)">
+        	Stop
+        </button>
+    </div>
+    <div class="clearfix"></div>
+</section>
