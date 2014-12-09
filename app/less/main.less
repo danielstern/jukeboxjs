@@ -204,6 +204,24 @@
     }
 }
 
+.metronome-visualizer {
+    width: @sq * 6px;
+    height: @sq * 4px;
+    .classic-background(@color1);
+    
+    margin: auto;
+    border: 1px solid rgba(0, 0, 0, 0.83);
+    position: relative;
+    .inner {
+        height: @sq * 4 - 5px;
+        background-color:@color3;
+        width: 3px;
+        margin: auto;        
+        transform: rotate(10deg);
+        transform-origin: bottom center;
+    }
+}
+
 
 .logo {
 	width: 175px;
