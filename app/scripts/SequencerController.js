@@ -37,23 +37,62 @@ angular.module("Demo")
 
         // })
 
-
+		var activeTones = [];
 
 
         config.tones = scale.slice(0, 12);
 
-        function enable(trackIndex, measureIndex, beatIndex, tone) {
-            var track = tracks[trackIndex];
-            var measure = track.measures[measureIndex];
-            var beat = measure.beats[beatIndex];
+        function toggleTone(trackIndex, measureIndex, beatIndex, tone) {
+        	console.log("Toggle tone");
+        	activeTones.push({
+        		tone:tone,
+        		trackIndex:trackIndex,
+        		measureIndex:measureIndex,
+        		beatIndex:beatIndex,
+        	});
+            // var track = tracks[trackIndex];
+            // var measure = track.measures[measureIndex];
+            // var beat = measure.beats[beatIndex];
 
-            if ($scope.isEnabled(trackIndex, measureIndex, beatIndex, tone)) {
-                beat.tones.splice(beat.tones.indexOf(tone), 1);
-            } else {
-                beat.tones.push(tone);
-                track.instrument.play(tone.index, 100);
-            }
+            // if ($scope.isEnabled(trackIndex, measureIndex, beatIndex, tone)) {
+            //     beat.tones.splice(beat.tones.indexOf(tone), 1);
+            // } else {
+            // 	var ref = {
+            // 		tone:tone,
+            // 		trackIndex:trackIndex,
+            // 		measureIndex:measureIndex,
+            // 		beatIndex:beatIndex,
+            // 	}
+            //     beat.tones.push(ref);
+            //     track.instrument.play(tone.index, 100);
+            // }
         }
+
+        function disableTone(trackIndex, measureIndex, beatIndex, tone) {
+        	beat.tones.splice(beat.tones.indexOf(tone), 1);
+        }
+
+        function getTone(trackIndex, measureIndex, beatIndex, tone) {
+        	var object = {
+        		tone:tone,
+        		trackIndex:trackIndex,
+        		measureIndex:measureIndex,
+        		beatIndex:beatIndex,
+        	};
+        	return activeTones.filter(function(ref){
+        	// console.log("get tone",activeTones);
+        		// debugger;
+        		return angular.equals(ref,object);
+        	})[0];
+            // var track = tracks[trackIndex];
+            // var measure = track.measures[measureIndex]
+            // var beat = measure.beats[beatIndex];
+            // var map = beat.tones.map(function(tone){
+            // 	return tone.ref;
+            // })
+            // return (map.indexOf(tone) !== -1);
+        };
+
 
         function handleEnterBeat(intervalLength) {
 
@@ -77,9 +116,9 @@ angular.module("Demo")
                 }, intervalLength - 1);
                 beat.playing = true;
                 beat.tones.forEach(function(tone) {
-                    track.instrument.play(tone.index);
+                    track.instrument.play(tone.ref.index);
                     Jukebox.timer.setTimeout(function() {
-                        track.instrument.stop(tone.index);
+                        track.instrument.stop(tone.ref.index);
                     }, intervalLength - 5);
                 });
             })
@@ -103,21 +142,32 @@ angular.module("Demo")
 
         }
 
-        function isEnabled(trackIndex, measureIndex, beatIndex, tone) {
-            var track = tracks[trackIndex];
-            var measure = track.measures[measureIndex]
-            var beat = measure.beats[beatIndex];
-            return (beat.tones.indexOf(tone) !== -1);
-        };
 
-        function exportJSON() {
-            var exportJSON = {
-                config: config,
-                tracks: tracks,
-                meta: {
-                	date: new Date().getTime()
-                }
-            }
+        function exportTracks() {
+        	var tones = [];
+        	tracks.forEach(function(track){
+        		track.measures.forEach(function(measure){
+        			measure.beats.forEach(function(beat){
+        				beat.tones.forEach(function(tone){
+        					// if (tone.active) {
+        						console.log("An ative tone...",tone);
+        					// }
+        				})
+
+        			})
+        		})
+        	})
+            // var exportJSON = {
+            //     config: config,
+            //     tracks: tracks,
+            //     meta: {
+            //     	date: new Date().getTime()
+            //     }
+            // }
+
+            // console.log("export?",exportJSON);
+            // $scope.exportJSON = exportJSON;
+            // $("#modal").modal();
         }
 
         function changeInstrument(track,instrument) {
@@ -160,16 +210,19 @@ angular.module("Demo")
 
         tracks.forEach(function(track){
         	track.instrument = Jukebox.getSynth(JBSCHEMA.synthesizers[track.instrumentName]);
-        })
+        });
+
+
 
 
 
         $scope.tracks = tracks;
         $scope.tones = tones;
-        $scope.isEnabled = isEnabled;
-        $scope.enable = enable;
+        $scope.getTone = getTone;
+        $scope.toggleTone = toggleTone;
         $scope.playSequence = playSequence;
         $scope.config = config;
         $scope.synthesizers = synthesizers;
         $scope.changeInstrument = changeInstrument;
+        $scope.exportTracks = exportTracks;
     })

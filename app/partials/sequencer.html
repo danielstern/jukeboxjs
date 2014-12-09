@@ -27,6 +27,9 @@
             <button ng-click='config.numTracks = config.numTracks+1' class="btn btn-default">
                 instrument+
             </button>
+            <button ng-click='exportTracks()' class="btn btn-default">
+                export song
+            </button>
         </div>
     </div>
     <div class="track" ng-repeat='track in tracks | limitTo:config.numTracks'>
@@ -66,7 +69,7 @@
                     {{$index+1}}
                 </div>
 
-                <div class=tone ng-repeat='tone in config.tones' studio-tone ng-click='enable(track.index,measure.index,beat.index,tone)' ng-class="{'active':isEnabled(track.index,measure.index,beat.index,tone)}">
+                <div class=tone ng-repeat='tone in config.tones' studio-tone ng-click='toggleTone(track.index,measure.index,beat.index,tone)' ng-class="{'active':getTone(track.index,measure.index,beat.index,tone)}">
                     <div class="tone-name">
                         {{tone.name}}
                     </div>
