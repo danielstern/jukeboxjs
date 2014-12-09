@@ -62,9 +62,26 @@ var tones = {
             })
 
         },
+        "hihatclosed": function(modulators, tone, timer) {
+            var freq = 920,
+                timeIn = 10,
+                timeOut = 70,
+                duration = 40;
+
+            modulators.forEach(function(modulator) {
+                modulator.frequency = freq;
+                modulator.envelope = {
+                    timeIn: timeIn,
+                    timeOut: timeOut,
+                };
+                modulator.play();
+                timer.setTimeout(modulator.stop, duration);
+            })
+
+        },
         "crash": function(modulators, tone, timer) {
             var freq = 620,
-                timeIn = 10,
+                timeIn = 0,
                 timeOut = 70,
                 duration = 150;
 
@@ -153,6 +170,7 @@ var toneMaps = {
             tones["Thomson Ninja DK1500"]['snare'],
             tones["Thomson Ninja DK1500"]['hihat'],
             tones["Thomson Ninja DK1500"]['crash'],
+            tones["Thomson Ninja DK1500"]['hihatclosed'],
         ]
     },
     "Keyboard": {

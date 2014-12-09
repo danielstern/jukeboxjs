@@ -59,16 +59,48 @@ angular.module("Demo", ['ui.router','ngTouch'])
                     };
                     $scope.config = config;
 
+                    var interval;
+
                     var metronomeSounds = jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
+
+                    function updateTimerSpeed() {
+                        if ($scope.playing) {
+
+                            $scope.stop();
+                            $scope.play();
+                        }
+                    }
 
                     $scope.play = function() {
                         var bps = config.bpm / 60;
                         var msPerBeat = 1000 / bps;
-                        console.log("msPerBeat?",bps);
-                        Jukebox.timer.setInterval(function(){
-                            console.log("beat");
-                            metronomeSounds.play(2,1000);
-                        },msPerBeat);
+                        var phase = 0;
+                        interval = Jukebox.timer.setInterval(handleBeat,msPerBeat);
+
+                        function handleBeat() {
+                            metronomeSounds.play(2,100);
+                            if (phase === 0 || phase % 4 === 0) {
+                                metronomeSounds.play(4,100);
+                            }
+                            phase++;
+
+                        }
+
+                        $scope.playing = true;
+
+                        handleBeat();
+                    }
+
+                    $scope.$watch("config.bpm",function(){
+                        updateTimerSpeed();
+                    })
+
+
+                    $scope.stop = function(){
+                        if (interval) {
+                            clearInterval(interval);
+                        }
+                        $scope,playing = false;
                     }
                 }
             })
