@@ -43,7 +43,6 @@
 
             function play() {
                 handleStateUpdate();
-                if (playing) return;
                 submodulators.forEach(function(submod) {
                     submod.play();
                 })
@@ -55,7 +54,8 @@
                         var gain = audioContext.createGain();
 
                         gain.connect(audioContext.destination);
-                        gain.gain.linearRampToValueAtTime(volume, timer.getTimeNow() + envelope.timeIn / 1000, true);
+                        gain.gain.value = 0;
+                        gain.gain.setValueAtTime(volume, context.currentTime);
 
                         oscillator.frequency.value = frequency;
                         oscillator.noteOn(0);
@@ -65,6 +65,7 @@
                         oscillators.push(oscillator);
                     });
                 }
+                handleStateUpdate();
             }
 
             function stop() {
@@ -87,7 +88,6 @@
                 modulator.frequency = +modulator.frequency;
                 modulator.volume = +modulator.volume;
                 modulator.bend = +modulator.bend;
-                var now = context.currentTime;
 
                 if (schema.adjustor) {
                     schema.adjustor(modulator, phase);
@@ -106,7 +106,7 @@
 
                 if (volume !== modulator.volume) {
                     oscillators.forEach(function(oscillator) {
-                        oscillator.gain.gain.setValueAtTime(modulator.volume, now + 0.001);
+                        oscillator.gain.gain.setValueAtTime(modulator.volume, context.currentTime);
                     })
                     volume = modulator.volume;
                 }
@@ -226,6 +226,7 @@
             timer.setInterval(function() {
                 if (synthesizer.volume != volume) {
                     volume = synthesizer.volume;
+                    console.log("volume?",volume);
                     getAllModulators().forEach(function(modulator) {
                         modulator.volume = volume;
                     })

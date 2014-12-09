@@ -1,4 +1,4 @@
-   var ActionTimer = function() {
+   var ActionTimer = function(context) {
         var framebuffer = 0,
             msSinceInitialized = 0,
             timer = this;
