@@ -164,17 +164,18 @@ angular.module("Demo", ['ui.router'])
                 var playing = false;
 
                 function play() {
-                    if (playing) return;
+                    // if (playing) return;
+                    // playing = true;
+                    console.log("playing",scope.note);
                     scope.synth.play(scope.note);
-                    playing = true;
                     elem.addClass('active');
                 }
 
                 function stop() {
-                    if (!playing) return;
-                    playing = false;
-                    scope.synth.stop(scope.note);
-                    elem.removeClass('active');
+                    // if (!playing) return;
+                    // playing = false;
+                    // scope.synth.stop(scope.note);
+                    // elem.removeClass('active');
 
                 }
 

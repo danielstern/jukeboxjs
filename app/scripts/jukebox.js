@@ -1,65 +1,5 @@
 (function(window) {
     "use strict";
-    var ActionTimer = function() {
-        var framebuffer = 0,
-            msSinceInitialized = 0,
-            timer = this;
-
-        var timeAtLastInterval = new Date().getTime();
-
-        setInterval(function() {
-            var frametime = new Date().getTime();
-            var timeElapsed = frametime - timeAtLastInterval;
-            msSinceInitialized += timeElapsed;
-            timeAtLastInterval = frametime;
-        }, 1);
-
-        this.setInterval = function(callback, timeout, args) {
-            var timeStarted = msSinceInitialized;
-            var interval = setInterval(function() {
-                var totaltimepassed = msSinceInitialized - timeStarted;
-                if (totaltimepassed >= timeout) {
-                    callback(args);
-                    timeStarted = msSinceInitialized;
-                }
-            }, 1);
-
-            return interval;
-        }
-
-        this.getTimeNow = function() {
-            return new Date().getTime();
-        }
-
-        this.setSequence = function(actions) {
-
-            var sequenceQueuedActions = [];
-            var timeSoFar = 0;
-            actions.forEach(function(action) {
-                sequenceQueuedActions.push(timer.setTimeout(function() {
-                    action.callback()
-                }, timeSoFar));
-                timeSoFar += action.timeout;
-            });
-
-            return sequenceQueuedActions;
-        }
-
-        this.clearSequence = function(sequenceQueuedActions) {
-            sequenceQueuedActions.forEach(function(action, index) {
-                clearTimeout(action);
-            });
-        }
-
-        this.setTimeout = function(callback, timeout, args) {
-            var interval = this.setInterval(function() {
-                callback(args);
-                clearInterval(interval);
-            }, timeout);
-
-            return interval;
-        }
-    }
 
     var JukeboxConstructor = function(ActionTimer, transforms) {
         var audioContext = webkitAudioContext ? new webkitAudioContext() : null;
@@ -74,48 +14,86 @@
         var Modulator = function(schema) {
 
             var volume = schema.volume || 1,
-                modulator = this,
-                envelope = schema.envelope || {},
+                envelope = schema.envelope || {
+                    timeIn: 100,
+                    timeOut: 100
+                },
+                frequency = schema.frequency || 440,
                 context = audioContext,
+                submodulators = [],
                 playing = false,
-                playingOscillators = [],
+                oscillators = [],
                 phase = 0,
                 bend = 0,
-                submodulators = [],
                 willPlay = false,
                 willStop = false,
-                frequency = schema.frequency || 440;
-
-            envelope = schema.envelope || {
-                timeIn: 100,
-                timeOut: 100
-            }
+                modulator = this;
 
             function refreshOscillatorFrequencies() {
-
-                playingOscillators.forEach(function(oscillator) {
+                oscillators.forEach(function(oscillator) {
                     oscillator.frequency.value = +frequency + +bend;
                 })
             }
 
-
             function play() {
                 if (playing) return;
-                willPlay = true;
                 submodulators.forEach(function(submod) {
                     submod.play();
                 })
+                schema.oscillators.forEach(function(oscillatorDefinition) {
+                    var oscillator = context.createOscillator();
+                    oscillator.type = oscillatorDefinition;
+
+                    var gain = audioContext.createGain();
+                    gain.connect(audioContext.destination);
+
+                    // gain.gain.value = 0;
+                    gain.gain.setValueAtTime(volume, timer.getTimeNow() + envelope.timeIn / 1000, true);
+                    // gain.gain.linearRampToValueAtTime(volume, now + envelope.timeIn / 1000, true);
+
+                    oscillator.frequency.value = frequency;
+                    oscillator.noteOn(0);
+                    oscillator.gain = gain;
+                    oscillator.connect(gain);
+
+                    oscillators.push(oscillator);
+                });
+                // handleStateUpdate();
             }
 
             function stop() {
-                // if (!playing) return;
-                willStop = true;
                 submodulators.forEach(function(submod) {
                     submod.stop();
-                })
+                });
+                var fadingOscillators = [];
+                oscillators.forEach(function(oscillator) {
+                    // oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + envelope.timeOut / 1000);
+                });
+
+                while (oscillators[0]) {
+                    var oscillator = oscillators[oscillators.length - 1];
+                    oscillator.gain.gain.setValueAtTime(0, context.currentTime);
+                    fadingOscillators.push(oscillators.pop());
+                };
+
+                timer.setTimeout(function(fadingOscillators) {
+                    fadingOscillators.forEach(function(oscillator, index) {
+                        oscillator.noteOff(1);
+                        oscillator.disconnect(oscillator.gain);
+                    });
+
+                    while (fadingOscillators[0]) {
+                        fadingOscillators.pop();
+                    }
+                }, 1000, fadingOscillators);
             }
 
             function handleStateUpdate() {
+                if (willPlay && willStop) {
+                    throw new Error("Cant play and stop at same time");
+                    // willPlay = false;
+                    // willStop = false;
+                }
                 phase++;
                 modulator.frequency = +modulator.frequency;
                 modulator.volume = +modulator.volume;
@@ -138,15 +116,15 @@
                 }
 
                 if (volume !== modulator.volume && !willStop) {
-                    playingOscillators.forEach(function(oscillator) {
+                    oscillators.forEach(function(oscillator) {
                         // oscillator.gain.gain.cancelScheduledValues(now);;
-                        oscillator.gain.gain.setValueAtTime(modulator.volume, context.currentTime + 0.001);
+                        oscillator.gain.gain.setValueAtTime(modulator.volume, now + 0.001);
                     })
                     volume = modulator.volume;
                 }
 
 
-                if (modulator.envelope.timeIn !== envelope.timeIn || modulator.envelope.timeOut != envelope.timeOut) {
+                if (modulator.envelope) {
                     envelope = modulator.envelope;
                 }
 
@@ -155,55 +133,6 @@
                     submod.frequency = frequency;
                     submod.bend = bend;
                 })
-
-                if (willPlay && !playing) {
-                    willPlay = false;
-                    playing = true;
-
-                    if (schema.oscillators) {
-                        schema.oscillators.forEach(function(oscillatorDefinition) {
-                            var oscillator = context.createOscillator();
-                            oscillator.type = oscillatorDefinition;
-
-                            var gain = audioContext.createGain();
-                            gain.connect(audioContext.destination);
-
-                            gain.gain.value = 0;
-                            gain.gain.setValueAtTime(volume, now + envelope.timeIn / 1000, true);
-                            // gain.gain.linearRampToValueAtTime(volume, now + envelope.timeIn / 1000, true);
-
-                            oscillator.frequency.value = +frequency + bend;
-                            oscillator.noteOn(1);
-                            oscillator.gain = gain;
-                            oscillator.connect(gain);
-                            playingOscillators.push(oscillator);
-                        });
-                    }
-                } else if (willStop) {
-                    willStop = false;
-                    willPlay = false;
-                    playing = false;
-                    var fadingOscillators = [];
-                    playingOscillators.forEach(function(oscillator) {
-                        oscillator.gain.gain.setValueAtTime(0, context.currentTime);
-                        // oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + envelope.timeOut / 1000);
-                    });
-                    while (playingOscillators[0]) {
-                        fadingOscillators.push(playingOscillators.pop());
-                    };
-
-
-                    timer.setTimeout(function(fadingOscillators) {
-                        fadingOscillators.forEach(function(oscillator, index) {
-                            oscillator.noteOff(1);
-                            oscillator.disconnect(oscillator.gain);
-                        });
-
-                        while (fadingOscillators[0]) {
-                            fadingOscillators.pop();
-                        }
-                    }, 1000, fadingOscillators);
-                }
             }
 
             timer.setInterval(handleStateUpdate, 1);
@@ -233,6 +162,7 @@
                 synthesizer = this,
                 volume = 1,
                 polyphony = schema.polyphony || [0, 0, 0, 0, 0, 0, 0, 0];
+            polyphony = schema.polyphony || [0];
 
 
             function getAllModulators() {
@@ -244,6 +174,13 @@
                 return allModulators;
             }
 
+            function releaseModulatorSet() {
+                var oldestSet = modulatorSets.sort(function(a, b) {
+                    return a.timePressed - b.timePressed;
+                })[0];
+                stopModulatorSet(oldestSet);
+            }
+
 
             function getFreeModulatorSet() {
                 var freeSets = modulatorSets.filter(function(set) {
@@ -251,13 +188,13 @@
                 })
 
                 if (!freeSets[0]) {
-                    // return releaseModulator();
-                    return;
+                    releaseModulatorSet();
+                    return getFreeModulatorSet();
                 }
                 return freeSets[0];
             }
 
-            function play(tone,duration) {
+            function play(tone, duration) {
 
                 stop(tone);
 
@@ -278,9 +215,9 @@
                 modulatorSet.timePressed = timer.getTimeNow();
 
                 if (duration) {
-                  timer.setTimeout(function(){
-                    stop(tone);
-                  },duration);
+                    timer.setTimeout(function() {
+                        stop(tone);
+                    }, duration);
                 }
             }
 
@@ -288,13 +225,16 @@
                 modulatorSets.filter(function(set) {
                         return set.currentTone === tone;
                     })
-                    .forEach(function(set) {
-                        set.modulators.forEach(function(modulator) {
-                            modulator.stop();
-                        })
-                        set.playing = false;
-                        set.currentTone = undefined;
-                    })
+                    .forEach(stopModulatorSet);
+            }
+
+            function stopModulatorSet(set) {
+                // console.log("stop")
+                set.modulators.forEach(function(modulator) {
+                    modulator.stop();
+                })
+                set.playing = false;
+                set.currentTone = undefined;
             }
 
             polyphony.forEach(function() {
