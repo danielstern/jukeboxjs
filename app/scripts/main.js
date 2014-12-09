@@ -55,7 +55,8 @@ angular.module("Demo", ['ui.router','ngTouch'])
                 templateUrl: "partials/metronome.html",
                 controller:function($scope){
                     var config = {
-                        bpm:120
+                        bpm:120,
+                        beatsPerMeasure:4,
                     };
                     $scope.config = config;
 
@@ -79,7 +80,7 @@ angular.module("Demo", ['ui.router','ngTouch'])
 
                         function handleBeat() {
                             metronomeSounds.play(2,100);
-                            if (phase === 0 || phase % 4 === 0) {
+                            if (phase === 0 || phase % config.beatsPerMeasure === 0) {
                                 metronomeSounds.play(4,100);
                             }
                             phase++;
@@ -95,12 +96,16 @@ angular.module("Demo", ['ui.router','ngTouch'])
                         updateTimerSpeed();
                     })
 
+                    $scope.$watch("config.beatsPerMeasure",function(){
+                        updateTimerSpeed();
+                    })
+
 
                     $scope.stop = function(){
                         if (interval) {
                             clearInterval(interval);
                         }
-                        $scope,playing = false;
+                        $scope.playing = false;
                     }
                 }
             })
