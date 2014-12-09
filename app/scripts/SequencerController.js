@@ -3,15 +3,14 @@ angular.module("Demo")
         var config = {
             bpm: 120,
             beatsPerMeasure: 4,
-            numMeasures:12,
-            tones: ["A","B","C"],
+            numMeasures:1,
         };
+
         var maxMeasures = 512;
         var maxTracks = 16;
         var maxBeatsPerMeasure = 8;
 
-        var baseFrequency = 30.8677; // Low Low Low B
-        var letters = ["B","C","Db",'D','Eb','E','F','Gb','G','Ab',"A","Bb"];
+        var letters = ['E','F','Gb','G','Ab',"A","Bb","B","C","Db",'D','Eb'];
         var ratio = Math.pow(2, 1 / 12);
         
         $scope.config = {
@@ -62,8 +61,9 @@ angular.module("Demo")
         		clearInterval(timer);
         	}
         	var currentMeasure = 1;
+        	var intervalLength = 1 / config.bpm * 60 * 1000;
 
-        	timer = Jukebox.timer.setInterval(handleEnterBeat,1 / config.bpm * 60 * 1000);
+        	timer = Jukebox.timer.setInterval(handleEnterBeat,intervalLength);
 
         	function handleEnterBeat(){
         		if (currentBeat > config.beatsPerMeasure) {
@@ -74,16 +74,27 @@ angular.module("Demo")
         			clearInterval(timer);
         		}
         		currentPosition += 1;
-        		console.log("sequence!",currentMeasure,currentBeat,currentPosition);;
+        		// console.log("sequence!",currentPosition);
 
 
         		tracks.forEach(function(track){
-        			var measure = track.measures[currentMeasure-1];
+        			var measure;
+        			if (track.repeat) {
+        				measure = track.measures[(currentMeasure - 1) % track.numMeasures];
+        				console.log("measure?",measure);
+        			} else {
+        				measure = track.measures[currentMeasure-1];
+        			}
+
+        			// console.log("current measure...",measure);
+        			// for (var i = 0; i < track.measures.length; i++) {
+        			// 	var _measure = track.measures[i];
+        			// }
         			var beat = measure.beats[currentBeat-1]; 
         			beat.tones.forEach(function(tone){
         				console.log("playing tone..",tone.index);
         				track.instrument.play(tone.index);
-        				Jukebox.timer.setTimeout(track.instrument.stop, 350,tone.index);
+        				Jukebox.timer.setTimeout(track.instrument.stop, intervalLength-1,tone.index);
         			});
         		})
 
@@ -112,6 +123,7 @@ angular.module("Demo")
         	var track = {
         		measures:[],
         		index:j,
+        		numMeasures:config.numMeasures,
         		// instrument:Jukebox.getModulator(JBSCHEMA.modulators["Dookus Basic Square"]),
         		// instrument:Jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6']),
         		instrument:Jukebox.getSynth(JBSCHEMA.synthesizers['Duke Straight Up']),

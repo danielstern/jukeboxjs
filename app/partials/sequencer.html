@@ -3,10 +3,36 @@
 		Sequencing Studio
 		<!-- {{config}} -->
 		<button class="btn-lg btn btn-primary" ng-click=playSequence()>Play</button>
-		{{config.bpm}}
+		<div class="row">
+		    <div class="col-xs-6">
+		        <input class='form-control input-lg' type="text" ng-model=config.bpm>
+		        <input type="range" ng-model=config.bpm min=20 max=280>
+		        
+		    </div>
+		    <div class="col-xs-6">
+
+		    <div class="dropdown">
+		        <button class="btn btn-default dropdown-toggle btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+		            {{config.beatsPerMeasure}} / 4
+		            <span class="caret"></span>
+		        </button>
+		        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+		            <li ng-repeat="bpm in [1,2,3,4,5,6,7]" role="presentation"><a href ng-click="config.beatsPerMeasure = bpm">{{bpm}} / 4</a>
+		            </li>
+		        </ul>
+		    </div>
+
+		        
+		    </div>
+		</div>
 	</h2>
     <div class="track" ng-repeat='track in tracks | limitTo:2'>
-        <div class="measure" ng-repeat='measure in track.measures | limitTo:4'>
+    <div>
+    	<button ng-click='track.numMeasures=track.numMeasures+1'>+measure</button>
+    	<button ng-click='track.numMeasures=track.numMeasures-1'>-measure</button>
+    	<button ng-click='track.repeat = !track.repeat;'>{{track.repeat ? 'repeat on' : 'repeat off'}}</button>
+    </div>
+        <div class="measure" ng-repeat='measure in track.measures | limitTo:track.numMeasures'>
             <div>
                 {{$index+1}}
             </div>
