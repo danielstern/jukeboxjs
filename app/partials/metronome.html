@@ -6,20 +6,30 @@
 
         <div class="col-sm-6">
             BPM
-            <input class=form-control type="text" ng-model=config.bpm>
-            <input type="range" ng-model=config.bpm min=20 max=280>
+            <div class="row">
+                <div class="col-xs-6">
+                    <input class='form-control input-lg' type="text" ng-model=config.bpm>
+                    <input type="range" ng-model=config.bpm min=20 max=280>
+                    
+                </div>
+                <div class="col-xs-6">
 
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                    {{config.beatsPerMeasure}} / 4
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <li ng-repeat="bpm in [1,2,3,4,5,6,7]" role="presentation"><a href ng-click="config.beatsPerMeasure = bpm">{{bpm}} / 4</a>
-                    </li>
-                </ul>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        {{config.beatsPerMeasure}} / 4
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li ng-repeat="bpm in [1,2,3,4,5,6,7]" role="presentation"><a href ng-click="config.beatsPerMeasure = bpm">{{bpm}} / 4</a>
+                        </li>
+                    </ul>
+                </div>
+
+                    
+                </div>
             </div>
 
+           
             <button class="btn btn-default btn-lg" ng-class="{'btn-primary': !config.playing}" ng-click="play()">
                 Play
             </button>
@@ -36,7 +46,7 @@
             </h3>
             <h4>
                 
-                {{getPhaseModulus(config.beatsPerMeasure) || 4}} / {{config.beatsPerMeasure}}
+                {{getPhaseModulus(config.beatsPerMeasure) || config.beatsPerMeasure}} / {{config.beatsPerMeasure}}
             </h4>
         </div>
     </div>
