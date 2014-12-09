@@ -2,11 +2,12 @@ angular.module("Demo")
     .controller("SequencerController", function($scope) {
         var config = {
             bpm: 120,
-            beatsPerMeasure: [0,0,0,0],
+            beatsPerMeasure: 4,
             tones: ["A","B","C"],
         };
         var maxMeasures = 1024;
         var maxTracks = 128;
+        var maxBeatsPerMeasure = 16;
 
         var baseFrequency = 30.8677; // Low Low Low B
         var letters = ["B","C","Db",'D','Eb','E','F','Gb','G','Ab',"A","Bb"];
@@ -35,9 +36,21 @@ angular.module("Demo")
 
 
         // var 
+        $scope.enable = function(trackIndex,measureIndex,beatIndex,tone) {
+        	var track = tracks[trackIndex];
+        	var measure = track.measures[measureIndex];
+        	measure.beats[beatIndex].tones.push(tone);
+        }
+
+        $scope.isEnabled = function(trackIndex,measureIndex,beatIndex,tone) {
+        	var track = tracks[trackIndex];
+        	var measure = track.measures[measureIndex]
+        	var beat = measure.beats[beatIndex];
+        	return (beat.tones.indexOf(tone) !== -1);
+        }
 
         // config.tones = guitar;
-        config.tones = scale.slice(25,35);
+        config.tones = scale.slice(25,40);
 
         $scope.config = config;
 
@@ -46,20 +59,33 @@ angular.module("Demo")
         for (var j = 0; j < maxTracks; j++) {
         	var track = {
         		measures:[],
+        		index:j,
         		instrument:Jukebox.getModulator(JBSCHEMA.modulators["Dookus Basic Square"]),
-        		play:function(tone,duration) {
+        		enable:function(tone) {
         			this.instrument.frequency = tone;
         			this.instrument.play();
-        			Jukebox.timer.setTimeout(this.instrument.stop,duration || 100);
+        			Jukebox.timer.setTimeout(this.instrument.stop, 100);
         		}
 
         		// instrument:Jukebox.getSynth(JBSCHEMA.synthesizers['Omaha DS6'])
         	};
         	tracks.push(track);
             for (var i = 0; i < maxMeasures; i++) {
-                track.measures.push({
-                    tones: []
-                });
+            	var measure = {
+                	index:i,
+                	trackIndex:j,
+                    beats: []
+                };
+                track.measures.push(measure);
+
+                for (var k = 0; k < maxBeatsPerMeasure; k++) {
+                    measure.beats.push({
+                    	index:k,
+                    	measureIndex:k,
+                    	trackIndex:j,
+                        tones: []
+                    });
+                };
             };
         }
 
