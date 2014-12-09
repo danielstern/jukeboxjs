@@ -63,7 +63,7 @@ angular.module("Demo")
         	}
         	var currentMeasure = 1;
 
-        	timer = Jukebox.timer.setInterval(handleEnterBeat,config.bpm / 120 * 1000);
+        	timer = Jukebox.timer.setInterval(handleEnterBeat,1 / config.bpm * 60 * 1000);
 
         	function handleEnterBeat(){
         		if (currentBeat > config.beatsPerMeasure) {
