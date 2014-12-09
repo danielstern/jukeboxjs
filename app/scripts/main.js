@@ -65,17 +65,19 @@ angular.module("Demo", ['ui.router','ngTouch'])
                     var metronomeSounds = jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
 
                     function updateTimerSpeed() {
-                        if ($scope.playing) {
+                        if ($scope.config.playing) {
 
+                            phase = 0;
                             $scope.stop();
                             $scope.play();
                         }
+
                     }
 
+                    var phase = 0;
                     $scope.play = function() {
                         var bps = config.bpm / 60;
                         var msPerBeat = 1000 / bps;
-                        var phase = 0;
                         interval = Jukebox.timer.setInterval(handleBeat,msPerBeat);
 
                         function handleBeat() {
@@ -84,12 +86,17 @@ angular.module("Demo", ['ui.router','ngTouch'])
                                 metronomeSounds.play(4,100);
                             }
                             phase++;
+                            $scope.phase = phase;
 
                         }
 
-                        $scope.playing = true;
+                        $scope.config.playing = true;
 
                         handleBeat();
+                    }
+
+                    $scope.getPhaseModulus = function(mod) {
+                        return phase % mod;
                     }
 
                     $scope.$watch("config.bpm",function(){
@@ -105,7 +112,7 @@ angular.module("Demo", ['ui.router','ngTouch'])
                         if (interval) {
                             clearInterval(interval);
                         }
-                        $scope.playing = false;
+                        $scope.config.playing = false;
                     }
                 }
             })

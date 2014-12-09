@@ -1,4 +1,4 @@
-<section class=tuner>
+<section class=metronome>
     <h2>
         Jukebox.js Metronome
     </h2>
@@ -10,12 +10,12 @@
             <input type="range" ng-model=config.bpm min=20 max=280>
 
             <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                <button class="btn btn-default dropdown-toggle btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                     {{config.beatsPerMeasure}} / 4
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <li ng-repeat="bpm in [1,2,3,4,5,6,7]" role="presentation"><a href ng-click="config.beatsPerMeasure = bpm">{{bpm}}</a>
+                    <li ng-repeat="bpm in [1,2,3,4,5,6,7]" role="presentation"><a href ng-click="config.beatsPerMeasure = bpm">{{bpm}} / 4</a>
                     </li>
                 </ul>
             </div>
@@ -28,10 +28,16 @@
             </button>
         </div>
         <div class="col-sm-6 display">
-            <div class="metronome-visualizer">
-                <div class="inner"></div>
+            <div class="metronome-visualizer"  ng-class="{'active':getPhaseModulus(2) === 0}" >
+                <div class="inner" style="transition: {{60/config.bpm}}s all;"></div>
             </div>
-            (some sweet visualizer) {{config.bpm}} {{config.beatsPerMeasure}} / 4
+            <h3>
+                {{config.bpm}} 
+            </h3>
+            <h4>
+                
+                {{getPhaseModulus(config.beatsPerMeasure) || 4}} / {{config.beatsPerMeasure}}
+            </h4>
         </div>
     </div>
     <div class="clearfix"></div>
