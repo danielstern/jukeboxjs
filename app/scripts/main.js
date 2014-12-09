@@ -68,7 +68,7 @@ angular.module("Demo", ['ui.router'])
                     $scope.config = {
 
                     };
-                    
+
                     var scale = [];
                     for (var i = 0; i < 70; i++) {
                         scale.push({
@@ -100,6 +100,19 @@ angular.module("Demo", ['ui.router'])
                     $scope.$watch("scale",function(scale){
                         $scope.config.selected = scale[0];
                     })
+
+                    $scope.config.playing = false;
+
+                    $scope.play = function() {
+                        $scope.config.playing = true;
+                        $scope.modulator.play();
+                    }
+
+                    $scope.stop = function() {
+                        $scope.config.playing = false;
+                        $scope.modulator.stop();
+                    }
+
 
                     $scope.scale = $scope.guitar;
 

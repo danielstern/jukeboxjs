@@ -7,9 +7,9 @@
         <div class="col-sm-6">
         <div class="scales">
         	
-		<button class="btn btn-default btn-lg" ng-click="scale=guitar">Guitar</button>
-		<button class="btn btn-default btn-lg" ng-click="scale=bass">Bass</button>
-		<button class="btn btn-default btn-lg" ng-click="scale=chromatic">Chromatic</button>
+		<button class="btn btn-default btn-lg" ng-class="{'btn-success': scale==guitar}" ng-click="scale=guitar">Guitar</button>
+		<button class="btn btn-default btn-lg" ng-class="{'btn-success': scale==bass}" ng-click="scale=bass">Bass</button>
+		<button class="btn btn-default btn-lg" ng-class="{'btn-success': scale==chromatic}" ng-click="scale=chromatic">Chromatic</button>
         </div>
         <!-- <div ng-if="tunerKind=='chromatic'"> -->
         <div>
@@ -31,10 +31,10 @@
 			{{config.selected.frequency | number:2}}
         </h4>
 			<!-- {{selected}} -->
-        <button class="btn btn-primary btn-lg" ng-click="modulator.frequency = config.selected.frequency; modulator.play();">
+        <button class="btn btn-default btn-lg" ng-class="{'btn-primary': !config.playing}" ng-click="play()">
         	Play
         </button>
-        <button class="btn btn-default btn-lg" ng-click="modulator.stop()">
+        <button class="btn btn-default btn-lg" ng-class="{'btn-primary': config.playing}" ng-click="stop()">
         	Stop
         </button>
         </div>
