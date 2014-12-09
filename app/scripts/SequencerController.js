@@ -1,10 +1,5 @@
 angular.module("Demo")
     .controller("SequencerController", function($scope) {
-        var config = {
-            bpm: 120,
-            beatsPerMeasure: 4,
-            numMeasures:1,
-        };
 
         var maxMeasures = 512;
         var maxTracks = 16;
@@ -15,7 +10,7 @@ angular.module("Demo")
         var scale;
         var position = 0;
         
-        $scope.config = config;
+
 
         scale = [];
         for (var i = 0; i < 70; i++) {
@@ -24,6 +19,23 @@ angular.module("Demo")
                 index:i,
             })
         }
+
+        var synthesizers = [];
+        for (key in JBSCHEMA.synthesizers) {
+            var schema = JBSCHEMA.synthesizers[key];
+            synthesizers.push(Jukebox.getSynth(schema));
+        }
+
+        var config = {
+            bpm: 120,
+            beatsPerMeasure: 4,
+            numMeasures:2,
+            synthesizer:synthesizers[1]
+        };
+
+
+
+
         config.tones = scale.slice(0,12);
 
         function enable(trackIndex,measureIndex,beatIndex,tone) {
@@ -68,6 +80,7 @@ angular.module("Demo")
         	position = 0;
         	if (timer) {
         		clearInterval(timer);
+        		timer = undefined;
         		return;
         	}
 
@@ -119,6 +132,6 @@ angular.module("Demo")
         $scope.isEnabled = isEnabled;
         $scope.enable = enable;
         $scope.playSequence = playSequence;
-
-        
+        $scope.config = config;
+        $scope.synthesizers = synthesizers;        
     })

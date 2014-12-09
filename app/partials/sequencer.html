@@ -26,6 +26,16 @@
             <button ng-click='track.numMeasures=track.numMeasures+1'>+measure</button>
             <button ng-click='track.numMeasures=track.numMeasures-1'>-measure</button>
             <button ng-click='track.repeat = !track.repeat;'>{{track.repeat ? 'repeat on' : 'repeat off'}}</button>
+         <!--    <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                    Synthesizers
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li ng-repeat="synth in synthesizers" role="presentation"><a href ng-click="config.synthesizer = synth">{{synth.name}}</a>
+                    </li>
+                </ul>
+            </div> -->
         </div>
         <div class="measure" ng-repeat='measure in track.measures | limitTo:track.numMeasures'>
             <div>
