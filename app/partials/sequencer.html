@@ -1,12 +1,12 @@
 <section class=sequencing-studio>
     <h2>
-		Sequencing Studio
-    	<button class="btn-lg btn btn-primary" ng-click=playSequence()>Play</button>
-	</h2>
+        Sequencing Studio
+        <button class="btn-lg btn btn-primary" ng-click=playSequence()>Play</button>
+    </h2>
     <div class="row">
         <div class="col-xs-6">
             <input class='form-control input-lg' type="text" ng-model=config.bpm>
-            <input type="range" ng-model=config.bpm min=20 max=280>
+            <input type="range" ng-model=config.bpm min=20 max=560>
         </div>
         <div class="col-xs-6">
             <div class="dropdown">
@@ -22,20 +22,32 @@
         </div>
     </div>
     <div class="track" ng-repeat='track in tracks | limitTo:2'>
-        <div>
-            <button ng-click='track.numMeasures=track.numMeasures+1'>+measure</button>
-            <button ng-click='track.numMeasures=track.numMeasures-1'>-measure</button>
-            <button ng-click='track.repeat = !track.repeat;'>{{track.repeat ? 'repeat on' : 'repeat off'}}</button>
-         <!--    <div class="dropdown">
+        <div class=row>
+            <div class="col-xs-6">
+
+
+                <button class="btn btn-default" ng-click='track.numMeasures=track.numMeasures+1'>+measure</button>
+                <button class="btn btn-default"  ng-click='track.numMeasures=track.numMeasures-1'>-measure</button>
+                <button  class="btn btn-default" ng-click='track.repeat = !track.repeat;'>{{track.repeat ? 'repeat on' : 'repeat off'}}</button>
+                
+            </div>  
+            <div class="col-xs-2">
+            <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                    Synthesizers
+                    {{track.instrument.name}}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <li ng-repeat="synth in synthesizers" role="presentation"><a href ng-click="config.synthesizer = synth">{{synth.name}}</a>
+                    <li ng-repeat="synth in synthesizers" role="presentation"><a href ng-click="track.instrument = synth">{{synth.name}}</a>
                     </li>
                 </ul>
-            </div> -->
+            </div>
+                
+            </div>
+            <div class="col-xs-4">
+                <input type="range" ng-model=track.instrument.volume min=0 max=1 step=0.01 class='pull-right' width=96px>
+
+            </div>
         </div>
         <div class="measure" ng-repeat='measure in track.measures | limitTo:track.numMeasures'>
             <div>

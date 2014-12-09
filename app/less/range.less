@@ -1,3 +1,8 @@
+@color1: #414fa7;
+@color2: #b6424d;
+@color3: #54c146;
+@color4: #5dc94f;
+
 @thumb-color: #414fa7;
 @thumb-radius: 2px;
 @thumb-height: 48px;
@@ -11,7 +16,7 @@
 @thumb-border-color: white;
 
 @track-width: 100%;
-@track-color: lighten(#414fa7,23%);
+@track-color: darken(@color1,23%);
 @track-height: 48px;
 
 @track-shadow-size: 1px;
@@ -116,5 +121,9 @@ input[type=range] {
     }
     &:focus::-ms-fill-upper {
         background: lighten(@track-color, @contrast);
+    }
+
+    &.alt {
+
     }
 }
