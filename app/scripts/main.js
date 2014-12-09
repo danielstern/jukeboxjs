@@ -58,35 +58,44 @@ angular.module("Demo", ['ui.router'])
                 url: '/tuner',
                 templateUrl: "partials/tuner.html",
                 controller:function($scope){
-                    $scope.keys = new jukebox.getSynth(JBSCHEMA.synthesizers["Duke Straight Up"]);
+                    $scope.modulator = new jukebox.getModulator(JBSCHEMA.modulators["Dookus Basic Square"]);
+                    // $scope.keys = new jukebox.getSynth(JBSCHEMA.synthesizers["Duke Straight Up"]);
                     $scope.base = 12;
                     $scope.tone = 12;
+                    // var baseFrequency = 329.628; // Low  E
+                    var baseFrequency = 30.8677; // Low Low Low B
+                    // var baseFrequency = 146.832; // Low D
+                    var letters = ["B","C","Db",'D','Eb','E','F','Gb','G','Ab',"A","Bb"];
+                    var ratio = Math.pow(2, 1 / 12);
+                    
                     $scope.config = {
 
                     };
-                    var scale = ["A","Bb","B","C","Db",'D','Eb','E','F','Gb','G','Ab'].map(function(note,index){
-                        return {
-                            name:note,
-                            index:index
-                        }
-                    })
+                    var scale = [];
+                    for (var i = 0; i < 70; i++) {
+                        scale.push({
+                            name:letters[i % letters.length],
+                            index:i,
+                            frequency: baseFrequency * Math.pow(ratio, i)
+                        })
+                    }
+
+                   
+                    console.log("scale",scale);
+
+
                     $scope.chromatic = scale;
-                    $scope.guitar = scale.filter(function(note){
-                        if (note.name ==  "A" ||
-                            note.name ==  "B" ||
-                            note.name ==  "D" ||
-                            note.name ==  "G" ||
-                            note.name ==  "E" ) {
-                            return "true";
-                        }
-                        // return?
-                    })
+                    var guitarBase = 17;
+                    $scope.guitar = [scale[guitarBase],scale[guitarBase+5],scale[guitarBase+10],scale[guitarBase+15],scale[guitarBase+19],scale[guitarBase+24]];
+
+                    var bassBase = 0;
+                    $scope.bass = [scale[bassBase],scale[bassBase+5],scale[bassBase+10],scale[bassBase+15],scale[bassBase+20]];
 
                     $scope.config.selected = scale[0];
 
                     $scope.$watch("config.selected",function(newval,oldval){
                         console.log("stopping oldval...",oldval);
-                        $scope.keys.stop(oldval.index + 7);
+                        $scope.keys.stop(oldval.index);
                     })
 
                     $scope.scale = scale;

@@ -5,12 +5,13 @@
     <div class="row">
 
         <div class="col-sm-6">
-		<button class="btn btn-default btn-lg" ng-click="scale=chromatic">Chromatic</button>
 		<button class="btn btn-default btn-lg" ng-click="scale=guitar">Guitar</button>
+		<button class="btn btn-default btn-lg" ng-click="scale=bass">Bass</button>
+		<button class="btn btn-default btn-lg" ng-click="scale=chromatic">Chromatic</button>
         <!-- <div ng-if="tunerKind=='chromatic'"> -->
         <div>
         	
-            <button class="btn btn-default" ng-repeat='note in scale track by $index' ng-click="config.selected = note">{{note.name}}</button>
+            <button class="btn btn-default" ng-repeat='note in scale | limitTo:100 track by $index ' ng-click="config.selected = note">{{note.name}}</button>
         </div>
         <!-- </div> -->
        <!--  <div ng-if="tunerKind=='guitar'">
@@ -19,12 +20,13 @@
         </div>
         <div class="col-sm-6">
 			{{config.selected.name}}
+			{{config.selected.frequency}}
 			<!-- {{selected}} -->
         </div>
-        <button class="btn btn-primary" ng-click="keys.play(config.selected.index + 7)">
+        <button class="btn btn-primary" ng-click="modulator.frequency = config.selected.frequency; modulator.play();">
         	Play
         </button>
-        <button class="btn btn-default" ng-click="keys.stop(config.selected.index + 7)">
+        <button class="btn btn-default" ng-click="modulator.stop()">
         	Stop
         </button>
     </div>
