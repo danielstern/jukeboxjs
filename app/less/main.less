@@ -3,6 +3,10 @@
 @color3: #54c146;
 @color4: #5dc94f;
 @sq: 48px;
+
+* {
+    transition-timing-function: ease-in-out;
+}
 .classic-background(@color) {
     background: linear-gradient(to top, @color 0%, lighten(@color, 23%) 100%);
 }
@@ -253,6 +257,11 @@
     /* height: 24px; */
     
     margin-top: -16px;
+    transition: 0.2s all;
+
+    &:hover {
+        margin-top: -18px;
+    }
 }
 .tuner {
     .scales {
@@ -340,11 +349,6 @@
     }
 
    
-    .measure {
-        // width: auto;
-        // overflow: scroll-x;
-    }
-
     .tone {
         // width: 48px;
         // display: block;
@@ -363,6 +367,18 @@
 
         }
     }
+    .measure {
+        &.playing {
+            .classic-background(lighten(@color2,23%));
+
+            .tone { 
+                .classic-background(lighten(@color2,23%));
+            }
+        }
+        // width: auto;
+        // overflow: scroll-x;
+    }
+
 
 
 }

@@ -65,10 +65,18 @@ angular.module("Demo")
         			measure = track.measures[currentMeasure];
         		}
 
+        		measure.playing = true;
+        		Jukebox.timer.setTimeout(function(){
+        			measure.playing = false;
+        		}, intervalLength*4-1);
+        		
         		var beat = measure.beats[currentBeat]; 
         		beat.tones.forEach(function(tone){
         			track.instrument.play(tone.index);
-        			Jukebox.timer.setTimeout(track.instrument.stop, intervalLength-1,tone.index);
+        			Jukebox.timer.setTimeout(function(){
+        				// measure.playing = false;
+        				track.instrument.stop(tone.index);
+        			}, intervalLength-1);
         		});
         	})
 
