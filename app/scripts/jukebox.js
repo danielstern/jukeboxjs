@@ -48,8 +48,9 @@
                     gain.connect(audioContext.destination);
 
                     // gain.gain.value = 0;
-                    gain.gain.setValueAtTime(volume, timer.getTimeNow() + envelope.timeIn / 1000, true);
-                    // gain.gain.linearRampToValueAtTime(volume, now + envelope.timeIn / 1000, true);
+                    // gain.gain.setValueAtTime(volume, timer.getTimeNow() + envelope.timeIn / 1000, true);
+
+                    gain.gain.linearRampToValueAtTime(volume, timer.getTimeNow() + envelope.timeIn / 1000, true);
 
                     oscillator.frequency.value = frequency;
                     oscillator.noteOn(0);
@@ -67,7 +68,7 @@
                 });
                 var fadingOscillators = [];
                 oscillators.forEach(function(oscillator) {
-                    // oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + envelope.timeOut / 1000);
+                    oscillator.gain.gain.linearRampToValueAtTime(0, context.currentTime + envelope.timeOut / 1000);
                 });
 
                 while (oscillators[0]) {
@@ -161,8 +162,8 @@
                 map = schema.toneMap,
                 synthesizer = this,
                 volume = 1,
-                polyphony = schema.polyphony || [0, 0, 0, 0, 0, 0, 0, 0];
-            polyphony = schema.polyphony || [0];
+                // polyphony = schema.polyphony || [0, 0, 0, 0, 0, 0, 0, 0];
+            polyphony = schema.polyphony || [0,0];
 
 
             function getAllModulators() {
