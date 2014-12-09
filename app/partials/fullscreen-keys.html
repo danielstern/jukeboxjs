@@ -17,11 +17,12 @@
                         </ul>
                     </div>
                     <button class="btn btn-default pull-right" ui-sref='home'>
-                    	Back
+                        Back
                     </button>
                 </div>
 
                 <h5>{{config.synthesizer.name}}</h5>
+        <!-- {{synthesizers}} -->
                 <input type="range" min=0 max=1 step=0.01 ng-model='config.synthesizer.volume'>
                 <!-- {{sets}} -->
                 <div ng-repeat="set in sets" class=set>

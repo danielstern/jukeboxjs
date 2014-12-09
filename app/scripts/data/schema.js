@@ -98,6 +98,26 @@ var tones = {
             modulator.play();
         })
     },
+    "Bass": function(modulators, tone, timer) {
+
+        var released = false;
+        var duration = 300;
+        // var baseFrequency = 146.832; // Low D
+        // var baseFrequency = 130.813; // Low Low C
+        var baseFrequency = 30.8677; // Low Low Low B
+        // var baseFrequency = 130.813; // Low Low C
+        // var baseFrequency = 146.832; // Low D
+        var tonesPerOctave = 12;
+        var ratio = Math.pow(2, 1 / 12);
+
+        // console.log("playing key...",baseFrequency+ baseFrequency * tone / tonesPerOctave)
+        modulators.forEach(function(modulator) {
+            var freq = baseFrequency * Math.pow(ratio, tone);
+            // var freq = baseFrequency + (baseFrequency * tone / tonesPerOctave);
+            modulator.frequency = freq;
+            modulator.play();
+        })
+    },
     "harmonica": function(modulators, tone, timer) {
 
         var released = false;
@@ -139,6 +159,11 @@ var toneMaps = {
         name: "Keyboard",
         type: "linear",
         processor: tones['keyboard1']
+    },
+    "Bass": {
+        name: "Bass",
+        type: "linear",
+        processor: tones['Bass']
     },
     "Harmonica": {
         name: "Harmonica",
@@ -276,6 +301,14 @@ var synthesizers = {
             oscillators: [SQUARE],
         }],
         toneMap: toneMaps["Keyboard"]
+    },
+    "Blenderbart Bass Unit": {
+        name: "Blenderbart Bass Unit",
+        modulators: [{
+            name: "Dookus Basic Square",
+            oscillators: [SQUARE],
+        }],
+        toneMap: toneMaps["Bass"]
     },
     "Phoster P52 Drum Unit": {
         name: "Phoster P52 Drum Unit",

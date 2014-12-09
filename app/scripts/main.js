@@ -67,16 +67,20 @@ angular.module("Demo", ['ui.router','ngTouch'])
                          sets.push(notes.splice(notes.length-12,12));
                     }
 
-                    var synthesizers = [];
-                    for (key in JBSCHEMA.synthesizers) {
-                        var schema = JBSCHEMA.synthesizers[key];
-                        console.log("Schema?",schema);
-                        if (schema.toneMap.name === "Keyboard") {
-                            synthesizers.push(Jukebox.getSynth(schema));
-                        }
-                    }
+                    // var synthesizers = [];
+                    // for (key in JBSCHEMA.synthesizers) {
+                    //     var schema = JBSCHEMA.synthesizers[key];
+                    //     console.log("Schema?",schema);
+                    //     if (schema.toneMap.name === "Bass") {
+                    //     // if (schema.toneMap.name === "Keyboard" || schema.toneMap.name === "Bass") {
+                    //         console.log("Pushing");
+                    //         synthesizers.push(Jukebox.getSynth(schema));
+                    //     }
+                    // }
 
-                    $scope.synthesizers = synthesizers;
+                    // console.log("setting sythnes...",synthesizers);
+
+                    // $scope.synthesizers = synthesizers;
                     $scope.sets = sets;
 
                     $scope.config = {
@@ -260,7 +264,7 @@ angular.module("Demo", ['ui.router','ngTouch'])
         for (key in JBSCHEMA.synthesizers) {
             var schema = JBSCHEMA.synthesizers[key];
             console.log("Schema?",schema);
-            if (schema.toneMap.name === "Keyboard") {
+            if (schema.toneMap.name === "Keyboard" || schema.toneMap.name === "Bass") {
                 synthesizers.push(Jukebox.getSynth(schema));
             }
         }
