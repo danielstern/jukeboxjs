@@ -8,7 +8,7 @@
             <input class='form-control input-lg' type="text" ng-model=config.bpm>
             <input type="range" ng-model=config.bpm min=20 max=560>
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-3">
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                     {{config.beatsPerMeasure}} / 4
@@ -20,8 +20,16 @@
                 </ul>
             </div>
         </div>
+        <div class="col-xs-3">
+            <button ng-click='config.numTracks = config.numTracks-1' class="btn btn-default">
+                instrument-
+            </button>
+            <button ng-click='config.numTracks = config.numTracks+1' class="btn btn-default">
+                instrument+
+            </button>
+        </div>
     </div>
-    <div class="track" ng-repeat='track in tracks | limitTo:2'>
+    <div class="track" ng-repeat='track in tracks | limitTo:config.numTracks'>
         <div class=row>
             <div class="col-xs-6">
 
@@ -38,7 +46,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <li ng-repeat="synth in synthesizers" role="presentation"><a href ng-click="track.changeInstrument(synth)">{{synth.name}}</a>
+                    <li ng-repeat="synth in synthesizers" role="presentation"><a href ng-click="changeInstrument(track,synth)">{{synth.name}}</a>
                     </li>
                 </ul>
             </div>
