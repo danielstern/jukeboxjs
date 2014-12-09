@@ -143,13 +143,21 @@ angular.module("Demo", ['ui.router'])
     .controller("SynthDemo", function($scope) {
 
         var synthesizers = [];
+        console.log("snyhdemo...",JBSCHEMA.synthesizers);
+        // var schemas = 
         for (key in JBSCHEMA.synthesizers) {
-            synthesizers.push(Jukebox.getSynth(JBSCHEMA.synthesizers[key]));
+            var schema = JBSCHEMA.synthesizers[key];
+            console.log("Schema?",schema);
+            if (schema.toneMap.name === "Keyboard") {
+                synthesizers.push(Jukebox.getSynth(schema));
+            }
         }
 
         $scope.synthesizers = synthesizers;
 
-        $scope.synthesizer = synthesizers[1];
+        $scope.config = {
+            synthesizer:synthesizers[1]
+        };
 
     })
     .directive("key", function() {

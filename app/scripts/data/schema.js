@@ -139,7 +139,7 @@ var toneMaps = {
         processor: tones['keyboard1']
     },
     "Harmonica": {
-        name: "Keyboard",
+        name: "Harmonica",
         type: "linear",
         processor: tones['harmonica']
     }
