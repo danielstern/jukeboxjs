@@ -22,106 +22,19 @@
 
 <body>
     <!--[if IE]>
-      <h3>IE does not support the web audio API.</h3>
+    <script>
+        alert("IE does not support the web audio API.");
+    </script>
     <![endif]-->
 
 
     <div class="container">
-        <!-- <div class="header">
-            <ul class="nav nav-pills pull-right">
-                <li ui-sref-active="active"><a ui-sref=home>Home</a>
-                </li>
-                <li><a href="#">Getting Started</a>
-                </li>
-                <li ui-sref-active="active"><a ui-sref=docs>Documentation</a>
-                </li>
-                <li><a href="#">Examples</a>
-                </li>
-                <li><a href="#">Demos</a>
-                </li>
-            </ul>
-            <h3 class="text-muted">jukeboxjs</h3>
-        </div> -->
-         <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapse-me">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" ui-sref='home'>  <img src="images/logo.svg" class=navbar-logo  alt="Jukebox.js" title=Jukebox.js></a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="collapse-me">
-                    <ul class="nav navbar-nav">
-                        <!-- <li ui-sref='usage' ui-sref-active="active"><a href=''>about</a> -->
-                        </li>
-                        <li ui-sref='about' ui-sref-active="active"><a href=''>get started</a>
-                        <li ui-sref='demo' ui-sref-active="active"><a href=''>demos</a>
-                        <li ui-sref='examples' ui-sref-active="active"><a href=''>examples</a>
-                        <li ui-sref='docs' ui-sref-active="active"><a href=''>documentation</a>
-                        </li>
-                        <!-- <li ui-sref='features' ui-sref-active="active"><a href=''>hire me</a> -->
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-flash"></span>
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-
-                                <li ui-sref-active='active'><a ui-sref='synthesizer'>  <span class="glyphicon glyphicon-star"></span> Synthesizers</a>
-
-                                <li ui-sref-active='active'><a ui-sref='modulator'>  <span class="glyphicon glyphicon-asterisk"></span> Modulators</a>
-                                <li ui-sref-active='active'><a ui-sref='oscillator'>  <span class="glyphicon glyphicon-off"></span> Oscillators</a>
-                                </li>
-                                
-                                <li class="divider"></li>
-                                <li>
-                                   <li><a>  <span class="glyphicon glyphicon-star"></span> Sequencing Studio</a>
-                                   </li>
-                                   <li><a>  <span class="glyphicon glyphicon-star"></span> Modulator Design Studio</a>
-                                   <li><a>  <span class="glyphicon glyphicon-star"></span> Synthesizer Design Studio</a>
-                                   </li>
-                                   <li><a>  <span class="glyphicon glyphicon-star"></span> 
-                                   Tuner</a>
-                                   </li>
-                                   <li><a>  <span class="glyphicon glyphicon-star"></span> 
-                                   Metronome</a>
-                                   </li>
-
-                                <li class="divider"></li>
-                                <li>
-                                   <li><a>  <span class="glyphicon glyphicon-star"></span> Omaha DS6 Synthesizer</a>
-                                   </li>
-                                   <li><a>  <span class="glyphicon glyphicon-star"></span> Phoster P52 Drum Pad</a>
-                                   </li>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <li ui-sref-active='active'><a ui-sref='all'>  <span class="glyphicon glyphicon-star"></span> All Docs & Examples</a>
-                                   </li>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container-fluid -->
-        </nav>
+       
+       <div ng-include="'partials/navbar.html'"></div>
         
-
-        <div class="row marketing">
-          <div ui-view>
-            
-          </div>
-
+        <div ui-view>
         </div>
+
 
         <div class="footer">
             <p><span class="glyphicon glyphicon-heart"></span> danielstern</p>
