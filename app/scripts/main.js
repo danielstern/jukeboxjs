@@ -46,6 +46,11 @@ angular.module("Demo", ['ui.router','ngTouch'])
                 url: '/synthesizer',
                 templateUrl: "partials/synthesizer.html",
             })
+            .state('sequencer', {
+                url: '/sequencer',
+                templateUrl: "partials/sequencer.html",
+                controller:"SequencerController"
+            })
             .state('oscillator', {
                 url: '/oscillator',
                 templateUrl: "partials/oscillators.html",
