@@ -92,9 +92,7 @@ angular.module("Demo", ['ui.router'])
                     $scope.config.selected = scale[0];
 
                     $scope.$watch("config.selected",function(newval,oldval){
-                        console.log("stopping oldval...",oldval);
                         $scope.modulator.frequency = newval.frequency;
-                        // $scope.keys.stop(oldval.index);
                     })
 
                     $scope.$watch("scale",function(scale){
@@ -115,8 +113,6 @@ angular.module("Demo", ['ui.router'])
 
 
                     $scope.scale = $scope.guitar;
-
-
 
                     $scope.tunerKind = "chromatic";
                 }
