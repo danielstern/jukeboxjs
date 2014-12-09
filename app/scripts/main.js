@@ -50,6 +50,28 @@ angular.module("Demo", ['ui.router','ngTouch'])
                 url: '/oscillator',
                 templateUrl: "partials/oscillators.html",
             })
+            .state('metronome', {
+                url: '/metronome',
+                templateUrl: "partials/metronome.html",
+                controller:function($scope){
+                    var config = {
+                        bpm:120
+                    };
+                    $scope.config = config;
+
+                    var metronomeSounds = jukebox.getSynth(JBSCHEMA.synthesizers['Phoster P52 Drum Unit']);
+
+                    $scope.play = function() {
+                        var bps = config.bpm / 60;
+                        var msPerBeat = 1000 / bps;
+                        console.log("msPerBeat?",bps);
+                        Jukebox.timer.setInterval(function(){
+                            console.log("beat");
+                            metronomeSounds.play(2,1000);
+                        },msPerBeat);
+                    }
+                }
+            })
             .state('keyboard', {
                 url: '/keyboard',
                 templateUrl: "partials/fullscreen-keys.html",
@@ -67,20 +89,6 @@ angular.module("Demo", ['ui.router','ngTouch'])
                          sets.push(notes.splice(notes.length-12,12));
                     }
 
-                    // var synthesizers = [];
-                    // for (key in JBSCHEMA.synthesizers) {
-                    //     var schema = JBSCHEMA.synthesizers[key];
-                    //     console.log("Schema?",schema);
-                    //     if (schema.toneMap.name === "Bass") {
-                    //     // if (schema.toneMap.name === "Keyboard" || schema.toneMap.name === "Bass") {
-                    //         console.log("Pushing");
-                    //         synthesizers.push(Jukebox.getSynth(schema));
-                    //     }
-                    // }
-
-                    // console.log("setting sythnes...",synthesizers);
-
-                    // $scope.synthesizers = synthesizers;
                     $scope.sets = sets;
 
                     $scope.config = {
@@ -115,9 +123,6 @@ angular.module("Demo", ['ui.router','ngTouch'])
                             frequency: baseFrequency * Math.pow(ratio, i)
                         })
                     }
-
-                   
-                    console.log("scale",scale);
 
 
                     $scope.chromatic = scale;
@@ -158,15 +163,6 @@ angular.module("Demo", ['ui.router','ngTouch'])
         $urlRouterProvider.otherwise('/');
 
     })
-    // .filter("onlyGuitar",function(){
-    //     return function(s){
-    //         if ( s === "A" ||
-    //          s === "E" ||
-    //           s === "D" ) {
-    //             return s;
-    //         }
-    //     }
-    // })
     .run(function($rootScope) {
         $rootScope.$on('$viewContentLoaded', function(event, toState, toParams, fromState, fromParams){
         // $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
