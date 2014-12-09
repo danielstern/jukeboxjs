@@ -70,7 +70,17 @@ angular.module("Demo", ['ui.router'])
                             index:index
                         }
                     })
-                    $scope.scale = scale;
+                    $scope.chromatic = scale;
+                    $scope.guitar = scale.filter(function(note){
+                        if (note.name ==  "A" ||
+                            note.name ==  "B" ||
+                            note.name ==  "D" ||
+                            note.name ==  "G" ||
+                            note.name ==  "E" ) {
+                            return "true";
+                        }
+                        // return?
+                    })
 
                     $scope.config.selected = scale[0];
 
@@ -78,6 +88,8 @@ angular.module("Demo", ['ui.router'])
                         console.log("stopping oldval...",oldval);
                         $scope.keys.stop(oldval.index + 7);
                     })
+
+                    $scope.scale = scale;
 
 
 
