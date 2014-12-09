@@ -1,9 +1,9 @@
 (function(window) {
     "use strict";
 
-    var JukeboxConstructor = function(ActionTimer, transforms) {
+    var JukeboxConstructor = function() {
         var audioContext = webkitAudioContext ? new webkitAudioContext() : null;
-        var timer = new ActionTimer();
+        var timer = new MusicTimer(audioContext);
 
         window.addEventListener("touchstart", function twiddle() {
             var _oscillator = audioContext.createOscillator().noteOn(0.1);
@@ -254,5 +254,5 @@
         }
     }
 
-    window.Jukebox = new JukeboxConstructor(ActionTimer);
+    window.Jukebox = new JukeboxConstructor();
 })(window);

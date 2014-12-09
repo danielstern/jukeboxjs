@@ -1,4 +1,4 @@
-   var ActionTimer = function(context) {
+   var MusicTimer = function(context) {
         var framebuffer = 0,
             msSinceInitialized = 0,
             timer = this;
@@ -26,7 +26,7 @@
         }
 
         this.getTimeNow = function() {
-            return new Date().getTime();
+            return context.currentTime;
         }
 
         this.setSequence = function(actions) {
