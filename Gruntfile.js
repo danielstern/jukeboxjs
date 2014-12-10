@@ -328,6 +328,15 @@ module.exports = function (grunt) {
         cwd: '<%= config.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      prod: {
+        expand: true,
+        dot: true,
+        cwd: '.tmp/concat/scripts',
+        dest: '',
+        src: [
+          'jukebox.js',
+        ]
       }
     },
 
@@ -427,6 +436,7 @@ module.exports = function (grunt) {
     // 'rev',
     // related to usemin prepare. has some thing to do with use min blocks
     'usemin',
+    'copy:prod',
     // minifies html. we are not using this because want html to be legible.
     // 'htmlmin'
   ]);
