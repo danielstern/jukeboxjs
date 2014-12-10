@@ -60,7 +60,7 @@
 
             </div>
         </div>
-        <div class="measure" ng-class="{'playing':measure.playing}" ng-repeat='measure in track.measures | limitTo:track.numMeasures'>
+        <div class="measure" ng-class="{'playing':isMeasureActive(measure)}" ng-repeat='measure in track.measures | limitTo:track.numMeasures'>
             <div>
                 {{$index+1}}
             </div>

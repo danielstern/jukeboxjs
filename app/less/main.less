@@ -351,6 +351,20 @@
         
     }
 
+    .measure {
+        &.playing {
+            .classic-background(lighten(@color2,18%));
+
+            .tone { 
+                .classic-background(lighten(@color2,18%));
+
+                &.active {
+                    .classic-background(lighten(@color3,18%));
+                }
+            }
+        }
+    }
+
    
     .tone {
         // width: 48px;
