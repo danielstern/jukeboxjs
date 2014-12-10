@@ -88,20 +88,6 @@ module.exports = function (grunt) {
           }
         }
       },
-      // test: {
-      //   options: {
-      //     open: false,
-      //     port: 9001,
-      //     middleware: function(connect) {
-      //       return [
-      //         connect.static('.tmp'),
-      //         connect.static('test'),
-      //         connect().use('/bower_components', connect.static('./bower_components')),
-      //         connect.static(config.app)
-      //       ];
-      //     }
-      //   }
-      // },
       // this makes somethign special when i call grunt serve:dist
       // it makes the base the dist directory. dist is defined here but where is the usual directory, app, defined?
       dist: {
@@ -141,16 +127,6 @@ module.exports = function (grunt) {
       ]
     },
 
-    // Mocha testing framework configuration options
-    // mocha: {
-    //   all: {
-    //     options: {
-    //       run: true,
-    //       urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
-    //     }
-    //   }
-    // },
-
     // Add vendor prefixed styles
     autoprefixer: {
       options: {
@@ -166,7 +142,7 @@ module.exports = function (grunt) {
       }
     },
 
-
+    // turns less files into css files
     less: {
         dev: {
             options: {
@@ -183,7 +159,6 @@ module.exports = function (grunt) {
         }
     },
 
-    // my fave
     // Automatically inject Bower components into the HTML file
     wiredep: {
       app: {
@@ -226,7 +201,8 @@ module.exports = function (grunt) {
         assetsDirs: [
           '<%= config.dist %>',
           '<%= config.dist %>/images',
-          '<%= config.dist %>/styles'
+          '<%= config.dist %>/styles',
+          '<%= config.dist %>/scripts'
         ]
       },
       html: ['<%= config.dist %>/{,*/}*.html'],
@@ -326,6 +302,8 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             'images/{,*/}*.webp',
+            // 'scripts',
+            'scripts/{,*/}*.js',
             '{,*/}*.html',
             'styles/fonts/{,*/}*.*'
           ]
@@ -431,11 +409,12 @@ module.exports = function (grunt) {
     // minifies css. we dont want to be minifying the css for this. may be crucial in build process
     'cssmin',
     // mangles js files but also copies them. not needed for this project
+    // use copy instead of uglify. no need for uglify.
     'uglify',
     // copies lots of things. dist is the only copy command. a general place to put your build stuff.
     'copy:dist',
     // adds confusion revision info to your files to mess with you and others
-    'rev',
+    // 'rev',
     // related to usemin prepare. has some thing to do with use min blocks
     'usemin',
     // minifies html. we are not using this because want html to be legible.
@@ -444,8 +423,8 @@ module.exports = function (grunt) {
 
   // default task. useless.
   grunt.registerTask('default', [
-    'newer:jshint',
-    'test',
+    // 'newer:jshint',
+    // 'test',
     'build'
   ]);
 };

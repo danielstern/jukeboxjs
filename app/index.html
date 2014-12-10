@@ -7,15 +7,13 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
     <!-- build:css(.) styles/vendor.css -->
+    <link rel="stylesheet" href="styles/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/vendor/prism.css" />
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/prismjs/prism.css" />
     <!-- endbower -->
-    <!-- <link rel="stylesheet" href="styles/custom-bootstrap.css" /> -->
     <!-- endbuild -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -66,15 +64,14 @@
 
 
     <!-- build:js(.) scripts/vendor.js -->
-    <script src="bower_components/angular/angular.js"></script>
+    <script src="scripts/vendor/angular.js"></script>
+    <script src="scripts/vendor/jquery.js"></script>
+    <script src="scripts/vendor/angular-ui-router.js"></script>
+    <script src="scripts/vendor/bootstrap.js"></script>
+    <script src="scripts/vendor/prism.js"></script>
+    <script src="scripts/vendor/angular-touch.js"></script>
+    <script src="scripts/vendor/angular-local-storage.js"></script>
     <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/prismjs/prism.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <!-- endbower -->
-    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <!-- endbuild -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -94,13 +91,11 @@
     <!-- endbuild -->
 
     <!-- build:js({app,.tmp}) scripts/main.js -->
-    <script src="scripts/data/mario.js"></script>
     <script src="scripts/data/schema.js"></script>
 
     <script src="scripts/web-audio-shim.js"></script>
     <script src="scripts/actionTimer.js"></script>
     <script src="scripts/jukebox.js"></script>
-    <script src="scripts/Drums.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/SequencerController.js"></script>
     <!-- endbuild -->
