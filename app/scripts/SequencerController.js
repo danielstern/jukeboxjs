@@ -173,9 +173,17 @@ angular.module("Demo")
 
             var exportJSON = {
                 config: config,
-                tracks: tracks,
+                tracks: [],
                 activeTones: activeTones
             }
+
+            tracks.forEach(function(track){
+            	exportJSON.tracks.push({
+            		instrumentName:track.instrumentName,
+            		index:track.index,
+            		numMeasures:track.numMeasures,
+            	})
+            })
 
             console.log("export?", exportJSON);
         }
