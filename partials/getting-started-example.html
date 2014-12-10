@@ -1,0 +1,22 @@
+<section>
+    <h4>Getting Started Example</h4>
+    <p>
+        This example will create a synthesizer and play it.
+    </p>
+    <p>
+        This example uses two optional but recommended dependencies, the schema pack and the shim.
+    </p>
+
+<pre><code class=language-xml>&lt;script src=&quot;scripts/schema.js&quot;&gt;&lt;/script&gt; &lt;!-- Include the schema packs for fast configuration --&gt;
+&lt;script src=&quot;scripts/web-audio-shim.js&quot;&gt;&lt;/script&gt; &lt;!-- Improve compatibility --&gt;
+&lt;script src=&quot;scripts/jukebox.js&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  var schema = JBSchema.synthesizers[&quot;Omaha DS6&quot;]; // The schema pack adds a global object.
+  var synth = Jukebox.getSynth(schema); 
+
+  synth.play(10,1000) // bing;
+&lt;/script&gt;</code></pre>
+
+    <button class="btn btn-default btn-block" ng-click=keys.play(12,1000)>Try it!</button>
+</section>

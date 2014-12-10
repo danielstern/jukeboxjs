@@ -1,236 +1,81 @@
 <!doctype html>
-<html class="no-js">
-  <head>
+<html class="no-js" ng-app=Demo>
+
+<head>
     <meta charset="utf-8">
-    <title>jukeboxjs</title>
+    <title>jukebox.js - audio in your browser</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bootstrap.css" />
-    <!-- endbower -->
-    <!-- <link rel="stylesheet" href="styles/custom-bootstrap.css" /> -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-  </head>
-  <body>
-    <!--[if lt IE 10]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+
+    <link rel="stylesheet" href="styles/vendor.css"/>
+    <link rel="stylesheet" href="styles/main.css"/>
+
+    <meta property="og:locale" content="en_CA" />
+    <!-- <meta property="og:type" content="article" /> -->
+    <meta property="og:title" content="jukebox.js - Custom Audio with the Web Audio API" />
+    <meta property="og:description" content="Jukebox.js makes cool music with your browser. Works on mobile device." />
+    <meta property="og:url" content="http://danielstern.github.io/jukeboxjs/" />
+    <meta property="og:site_name" content="jukebox.js" />
+    <!-- <meta property="article:publisher" content="https://www.facebook.com/range.css" /> -->
+    <!-- <meta property="og:image" content="http://danielstern.ca/img.png" /> -->
+    <meta property="og:image" content="http://danielstern.github.io/jukeboxjs/images/logo notext.svg" />
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@danieljackstern"/>
+    <meta name="twitter:domain" content="danieljackstern"/>
+    <meta name="twitter:creator" content="@danieljackstern"/>
+
+</head>
+
+<body>
+    <!--[if IE]>
+    <script>
+        alert("IE does not support the web audio API.");
+    </script>
     <![endif]-->
 
 
     <div class="container">
-     <!--  <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="text-muted">jukeboxjs</h3>
-      </div> -->
+       
+       <div ng-include="'partials/navbar.html'"></div>
+       <a href="https://twitter.com/danieljackstern" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @danieljackstern</a>
+       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-      <div class="jumbotron">
-        <h1>jukebox.js</h1>
-        <!-- <p class="lead">Always a pleasure scaffolding your apps.</p> -->
-        <p><a class="btn btn-lg btn-special" href="#" onclick=playMario()>?<!-- <span class="glyphicon glyphicon-ok"></span> --></a></p>
-      </div>
+       <iframe src="http://ghbtns.com/github-btn.html?user=danielstern&repo=jukeboxjs&type=watch&count=true&size=large"
+         allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
+        
+        <div ui-view>
+        </div>
 
-      <div class="row marketing">
-        <!-- <div class="col-lg-12"> -->
-          <h2>API</h2>
-          <p>Linking to the script creates a global <code>Jukebox class</code></p>
-          <h3>
-            Jukebox
-          </h3>
-          <table class='table table-striped'>
-          <tr>
-            <td>
-            <code>
-              Jukebox():Jukebox
-            </code>
-            </td>
-            <td>Returns a new Jukebox instance. Each jukebox has its own audio context. Create a new jukebox instance to begin.</td>
-          </tr>
-            <tr>
-              <td>
-              <code>
-                jukebox.Synth():Synthesizer
-              </code>
-              </td>
-              <td>Returns a new synthesizer object.</td>
-            </tr>
-            <tr>
-              <td>
-              <code>
-                jukebox.Drums():Drums
-              </code>
-              </td>
-              <td>Returns a new drum object.</td>
-            </tr>
-          </table>
 
-          <h3>
-            Synthesizer
-          </h3>
-          <table class='table table-striped'>
-            <tr>
-              <td>
-              <code>
-                synthesizer.tone(frequency:Number,duration:Number):null
-              </code>
-              </td>
-              <td><p>
-                Plays a tone of the specified frequency for the specified duration of time.
-                </p>
-                <p>
-                  A synthesizer can play only one tone at a time. To play multiple tones at once, create more than one synthesizer.
-                </p>
-                </td> 
-            </tr>
-            <tr>
-              <td>
-              <code>
-                synthesizer.sequence([{ frequency:Number , duration:Number }...])
-              </code>
-              </td>
-              <td><p>
-                  Plays a sequence of tones one after the other. 
-                </p>
-                </td> 
-            </tr>
-          </table>
 
-          <h4>Example</h4>
-          <h5>
-            Create a synthesizer
-          </h5>
-<pre><code>var jukebox = new Jukebox();
-var moog = new jukebox.Synth();</pre></code>
-
-          <h5>
-            Play a tone
-            <button class="btn btn-primary" onclick=synth.tone(440,300)>
-              Try it!
-            </button>
-          </h5>
-<pre><code>moog.tone(440,300);</pre></code>
-
-          <h5>
-            Play a harmony
-            <button class="btn btn-primary" onclick=synth.tone(392,300);synth2.tone(262,300);>
-              Try it!
-            </button>
-          </h5>
-<pre><code>var moog = new jukebox.Synth();
-var korg = new jukebox.Synth();
-moog.tone(392,300);
-korg.tone(262,300);
-</pre></code>
-
-          <h5>
-            Play a sequence
-            <button class="btn btn-primary" onclick=theme()>
-              Try it!
-            </button>
-          </h5>
-<pre><code>moog.sequence([{
-  frequency:294,
-  duration:500,
-},{
-  frequency:330,
-  duration:500,
-},{
-  frequency:262,
-  duration:500,
-},{
-  frequency:131,
-  duration:500,
-},{
-  frequency:196,
-  duration:500,
-}]);
-</pre></code>
-
-      <h3>
-        Drums
-      </h3>
-      <p>
-        Creates an instrument that creates percussive noises.
-      </p>
-      <table class='table table-striped'>
-        <tr>
-          <td>
-          <code>
-            drum.tone(tone:int):null
-          </code>
-          </td>
-          <td><p>
-            Plays a tone corresponding to the specified integer as configured by the individual drum set.
-            </p>
-            <p>
-              Recommended values are as follows - 0: kick drum, 1: snare, 2: hi-hat, 3: cymbal
-            </p>
-            </td> 
-        </tr>
-      </table>
-
-      <button class="btn btn-default" onclick=drums.tone(0)>Kickdrum</button>
-      <button class="btn btn-default" onclick=drums.tone(1)>Snare</button>
-      <button class="btn btn-default" onclick=drums.cymbal()>cymbal</button>
-      <button class="btn btn-default" onclick=drums.hihat()>hihat</button>
-      <button class="btn btn-default" onclick=playDrums()>Drum Machine</button>
-
-        <!-- </div> -->
-      </div>
-
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> danielstern</p>
-      </div>
+        <div class="footer">
+            <p><span class="glyphicon glyphicon-heart"></span> danielstern</p>
+        </div>
 
     </div>
 
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="jquery.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+    <script src="scripts/vendor.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='//www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
-    </script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <!-- build:js(.) scripts/plugins.js -->
-        <script src="bower_components/bootstrap/js/affix.js"></script>
-        <script src="bower_components/bootstrap/js/alert.js"></script>
-        <script src="bower_components/bootstrap/js/dropdown.js"></script>
-        <script src="bower_components/bootstrap/js/tooltip.js"></script>
-        <script src="bower_components/bootstrap/js/modal.js"></script>
-        <script src="bower_components/bootstrap/js/transition.js"></script>
-        <script src="bower_components/bootstrap/js/button.js"></script>
-        <script src="bower_components/bootstrap/js/popover.js"></script>
-        <script src="bower_components/bootstrap/js/carousel.js"></script>
-        <script src="bower_components/bootstrap/js/scrollspy.js"></script>
-        <script src="bower_components/bootstrap/js/collapse.js"></script>
-        <script src="bower_components/bootstrap/js/tab.js"></script>
-        <!-- endbuild -->
+  ga('create', 'UA-40501021-6', 'auto');
+  ga('send', 'pageview');
 
-        <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="scripts/web-audio-shim.js"></script>
-        <script src="scripts/actionTimer.js"></script>
-        <script src="scripts/webAudioFilterPack.js"></script>
-        <script src="scripts/jukebox.js"></script>
-        <script src="scripts/main.js"></script>
-        <!-- endbuild -->
+</script>
+
+
+
+    <script src="scripts/jukebox.js"></script>
+
+    <script src="scripts/main.js"></script>
+    
 </body>
+
 </html>
