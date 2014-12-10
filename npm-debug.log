@@ -2,85 +2,87 @@
 1 verbose cli [ 'c:\\Program Files\\nodejs\\node.exe',
 1 verbose cli   'c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
 1 verbose cli   'install',
-1 verbose cli   '-g',
-1 verbose cli   'eshint' ]
+1 verbose cli   '--save',
+1 verbose cli   'grunt-versioncontrol' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.33
-4 verbose cache add [ 'eshint', null ]
-5 verbose cache add name=undefined spec="eshint" args=["eshint",null]
-6 verbose parsed url { protocol: null,
-6 verbose parsed url   slashes: null,
-6 verbose parsed url   auth: null,
-6 verbose parsed url   host: null,
-6 verbose parsed url   port: null,
-6 verbose parsed url   hostname: null,
-6 verbose parsed url   hash: null,
-6 verbose parsed url   search: null,
-6 verbose parsed url   query: null,
-6 verbose parsed url   pathname: 'eshint',
-6 verbose parsed url   path: 'eshint',
-6 verbose parsed url   href: 'eshint' }
-7 silly lockFile 204c1135-eshint eshint
-8 verbose lock eshint C:\Users\Admin\AppData\Roaming\npm-cache\204c1135-eshint.lock
-9 silly lockFile 204c1135-eshint eshint
-10 silly lockFile 204c1135-eshint eshint
-11 verbose addNamed [ 'eshint', '' ]
-12 verbose addNamed [ null, '*' ]
-13 silly lockFile 5ac12e7a-eshint eshint@
-14 verbose lock eshint@ C:\Users\Admin\AppData\Roaming\npm-cache\5ac12e7a-eshint.lock
-15 silly addNameRange { name: 'eshint', range: '*', hasData: false }
-16 verbose request where is /eshint
-17 verbose request registry https://registry.npmjs.org/
-18 verbose request id 874c77f914008cb4
-19 verbose url raw /eshint
-20 verbose url resolving [ 'https://registry.npmjs.org/', './eshint' ]
-21 verbose url resolved https://registry.npmjs.org/eshint
-22 verbose request where is https://registry.npmjs.org/eshint
-23 info trying registry request attempt 1 at 11:39:25
-24 http GET https://registry.npmjs.org/eshint
-25 http 404 https://registry.npmjs.org/eshint
-26 verbose headers { date: 'Sat, 06 Dec 2014 16:39:27 GMT',
-26 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R14B04)',
-26 verbose headers   'content-type': 'application/json',
-26 verbose headers   'cache-control': 'max-age=0',
-26 verbose headers   'content-length': '52',
-26 verbose headers   'accept-ranges': 'bytes',
-26 verbose headers   via: '1.1 varnish',
-26 verbose headers   age: '0',
-26 verbose headers   'x-served-by': 'cache-ord1727-ORD',
-26 verbose headers   'x-cache': 'MISS',
-26 verbose headers   'x-cache-hits': '0',
-26 verbose headers   'x-timer': 'S1417883967.182362,VS0,VE146',
-26 verbose headers   'keep-alive': 'timeout=10, max=50',
-26 verbose headers   connection: 'Keep-Alive' }
-27 silly registry.get cb [ 404,
-27 silly registry.get   { date: 'Sat, 06 Dec 2014 16:39:27 GMT',
-27 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R14B04)',
-27 silly registry.get     'content-type': 'application/json',
-27 silly registry.get     'cache-control': 'max-age=0',
-27 silly registry.get     'content-length': '52',
-27 silly registry.get     'accept-ranges': 'bytes',
-27 silly registry.get     via: '1.1 varnish',
-27 silly registry.get     age: '0',
-27 silly registry.get     'x-served-by': 'cache-ord1727-ORD',
-27 silly registry.get     'x-cache': 'MISS',
-27 silly registry.get     'x-cache-hits': '0',
-27 silly registry.get     'x-timer': 'S1417883967.182362,VS0,VE146',
-27 silly registry.get     'keep-alive': 'timeout=10, max=50',
-27 silly registry.get     connection: 'Keep-Alive' } ]
-28 silly lockFile 5ac12e7a-eshint eshint@
-29 silly lockFile 5ac12e7a-eshint eshint@
-30 error 404 404 Not Found: eshint
-30 error 404
-30 error 404 'eshint' is not in the npm registry.
-30 error 404 You should bug the author to publish it
-30 error 404
-30 error 404 Note that you can also install from a
-30 error 404 tarball, folder, or http url, or git url.
-31 error System Windows_NT 6.2.9200
-32 error command "c:\\Program Files\\nodejs\\node.exe" "c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "eshint"
-33 error cwd D:\Projects\jukeboxjs
-34 error node -v v0.10.33
-35 error npm -v 1.4.28
-36 error code E404
-37 verbose exit [ 1, true ]
+4 verbose readDependencies using package.json deps
+5 verbose cache add [ 'grunt-versioncontrol', null ]
+6 verbose cache add name=undefined spec="grunt-versioncontrol" args=["grunt-versioncontrol",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'grunt-versioncontrol',
+7 verbose parsed url   path: 'grunt-versioncontrol',
+7 verbose parsed url   href: 'grunt-versioncontrol' }
+8 silly lockFile 31021359-grunt-versioncontrol grunt-versioncontrol
+9 verbose lock grunt-versioncontrol C:\Users\Admin\AppData\Roaming\npm-cache\31021359-grunt-versioncontrol.lock
+10 silly lockFile 31021359-grunt-versioncontrol grunt-versioncontrol
+11 silly lockFile 31021359-grunt-versioncontrol grunt-versioncontrol
+12 verbose addNamed [ 'grunt-versioncontrol', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile 339915a6-grunt-versioncontrol grunt-versioncontrol@
+15 verbose lock grunt-versioncontrol@ C:\Users\Admin\AppData\Roaming\npm-cache\339915a6-grunt-versioncontrol.lock
+16 silly addNameRange { name: 'grunt-versioncontrol', range: '*', hasData: false }
+17 verbose request where is /grunt-versioncontrol
+18 verbose request registry https://registry.npmjs.org/
+19 verbose request id 1457afbb0f89c78e
+20 verbose url raw /grunt-versioncontrol
+21 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-versioncontrol' ]
+22 verbose url resolved https://registry.npmjs.org/grunt-versioncontrol
+23 verbose request where is https://registry.npmjs.org/grunt-versioncontrol
+24 info trying registry request attempt 1 at 18:03:01
+25 http GET https://registry.npmjs.org/grunt-versioncontrol
+26 http 404 https://registry.npmjs.org/grunt-versioncontrol
+27 verbose headers { date: 'Wed, 10 Dec 2014 23:03:13 GMT',
+27 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+27 verbose headers   'content-type': 'application/json',
+27 verbose headers   'cache-control': 'max-age=0',
+27 verbose headers   'content-length': '52',
+27 verbose headers   'accept-ranges': 'bytes',
+27 verbose headers   via: '1.1 varnish',
+27 verbose headers   age: '0',
+27 verbose headers   'x-served-by': 'cache-dfw1829-DFW',
+27 verbose headers   'x-cache': 'MISS',
+27 verbose headers   'x-cache-hits': '0',
+27 verbose headers   'x-timer': 'S1418252592.845640,VS0,VE262',
+27 verbose headers   'keep-alive': 'timeout=10, max=50',
+27 verbose headers   connection: 'Keep-Alive' }
+28 silly registry.get cb [ 404,
+28 silly registry.get   { date: 'Wed, 10 Dec 2014 23:03:13 GMT',
+28 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+28 silly registry.get     'content-type': 'application/json',
+28 silly registry.get     'cache-control': 'max-age=0',
+28 silly registry.get     'content-length': '52',
+28 silly registry.get     'accept-ranges': 'bytes',
+28 silly registry.get     via: '1.1 varnish',
+28 silly registry.get     age: '0',
+28 silly registry.get     'x-served-by': 'cache-dfw1829-DFW',
+28 silly registry.get     'x-cache': 'MISS',
+28 silly registry.get     'x-cache-hits': '0',
+28 silly registry.get     'x-timer': 'S1418252592.845640,VS0,VE262',
+28 silly registry.get     'keep-alive': 'timeout=10, max=50',
+28 silly registry.get     connection: 'Keep-Alive' } ]
+29 silly lockFile 339915a6-grunt-versioncontrol grunt-versioncontrol@
+30 silly lockFile 339915a6-grunt-versioncontrol grunt-versioncontrol@
+31 error 404 404 Not Found: grunt-versioncontrol
+31 error 404
+31 error 404 'grunt-versioncontrol' is not in the npm registry.
+31 error 404 You should bug the author to publish it
+31 error 404 It was specified as a dependency of 'modern-webapp'
+31 error 404
+31 error 404 Note that you can also install from a
+31 error 404 tarball, folder, or http url, or git url.
+32 error System Windows_NT 6.2.9200
+33 error command "c:\\Program Files\\nodejs\\node.exe" "c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "--save" "grunt-versioncontrol"
+34 error cwd D:\Projects\jukeboxjs
+35 error node -v v0.10.33
+36 error npm -v 1.4.28
+37 error code E404
+38 verbose exit [ 1, true ]

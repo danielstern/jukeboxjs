@@ -288,6 +288,35 @@ module.exports = function (grunt) {
     //   dist: {}
     // },
 
+    // auto pushes to gh pages for pure jokes
+    buildcontrol: {
+      options: {
+        dir: 'dist',
+        commit: true,
+        push: true,
+        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+      },
+      pages: {
+        options: {
+          remote: 'git@github.com:danielstern/jukeboxjs.git',
+          branch: 'gh-pages'
+        }
+      },
+      // heroku: {
+      //   options: {
+      //     remote: 'git@heroku.com:example-heroku-webapp-1988.git',
+      //     branch: 'master',
+      //     tag: pkg.version
+      //   }
+      // },
+      // local: {
+      //   options: {
+      //     remote: '../',
+      //     branch: 'build'
+      //   }
+      // }
+    },
+
     // copies files. it's easy to understand, but its relationship to the other tasks,
     // their folders, and the order in which they come is confusing and important
     // Copies remaining files to places other tasks can use
@@ -446,5 +475,11 @@ module.exports = function (grunt) {
     // 'newer:jshint',
     // 'test',
     'build'
+  ]);
+
+  grunt.registerTask('deploy', [
+    // 'newer:jshint',
+    // 'test',
+    'buildcontrol'
   ]);
 };
