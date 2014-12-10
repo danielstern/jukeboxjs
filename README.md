@@ -1,9 +1,11 @@
 jukebox.js
 =========
 <!-- ![jukebox.js logo](http://danielstern.github.io/jukeboxjs/images/logo.svg) -->
+<h2>
 <a href="http://danielstern.github.io/jukeboxjs/#/">
-<h2>Visit the Web Page for Jukebox.js (with Examples)</h2>
+Visit the Web Page for Jukebox.js (with Examples)
 </a>
+</h2>
 <img src="http://danielstern.github.io/jukeboxjs/images/logo.svg" width=250px alt="">
 
 
