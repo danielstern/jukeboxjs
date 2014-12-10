@@ -1,11 +1,28 @@
 {
   "name": "jukeboxjs",
-  "private": true,
-  "dependencies": {
-    "angular": "~1.3.5",
-    "ui-router": "~0.2.13",
-    "bootstrap": "~3.3.1",
-    "prismjs": "*",
-    "angular-touch": "~1.3.6"
-  }
+  "version": "0.0.9",
+  "homepage": "https://github.com/danielstern/jukeboxjs",
+  "authors": [
+    "Daniel Stern <daniel@danielstern.ca>"
+  ],
+  "description": "Jukebox.js is a library for manipulating the web audio API with Javscript.",
+  "main": "jukebox.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "web",
+    "audio",
+    "oscillator",
+    "synthesizer",
+    "html5"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }

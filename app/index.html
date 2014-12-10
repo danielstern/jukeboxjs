@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
 
-    <!-- build:css(.) styles/vendor.css -->
+    <!-- build:css styles/vendor.css -->
     <link rel="stylesheet" href="styles/vendor/bootstrap.min.css" />
     <link rel="stylesheet" href="styles/vendor/prism.css" />
     <!-- bower:css -->
@@ -63,7 +63,7 @@
     </div>
 
 
-    <!-- build:js(.) scripts/vendor.js -->
+    <!-- build:js scripts/vendor.js -->
     <script src="scripts/vendor/angular.js"></script>
     <script src="scripts/vendor/jquery.js"></script>
     <script src="scripts/vendor/angular-ui-router.js"></script>
@@ -90,15 +90,18 @@
  
     <!-- endbuild -->
 
-    <!-- build:js({app,.tmp}) scripts/main.js -->
-    <script src="scripts/data/schema.js"></script>
+    <!-- build:js({app,.tmp}) scripts/jukebox.js -->
+        <script src="scripts/data/schema.js"></script>
+        <script src="scripts/web-audio-shim.js"></script>
+        <script src="scripts/actionTimer.js"></script>
+        <script src="scripts/jukebox.js"></script>
+    <!-- endbuild -->    
 
-    <script src="scripts/web-audio-shim.js"></script>
-    <script src="scripts/actionTimer.js"></script>
-    <script src="scripts/jukebox.js"></script>
+    <!-- build:js({app,.tmp}) scripts/main.js -->
     <script src="scripts/main.js"></script>
     <script src="scripts/SequencerController.js"></script>
     <!-- endbuild -->
+    
 </body>
 
 </html>

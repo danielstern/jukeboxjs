@@ -202,7 +202,6 @@ module.exports = function (grunt) {
           '<%= config.dist %>',
           '<%= config.dist %>/images',
           '<%= config.dist %>/styles',
-          '<%= config.dist %>/scripts'
         ]
       },
       html: ['<%= config.dist %>/{,*/}*.html'],
@@ -303,11 +302,22 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             'images/{,*/}*.webp',
             // 'scripts',
-            'scripts/{,*/}*.js',
+            'fonts/*.*',
+            // 'scripts/{,*/}*.js',
             '{,*/}*.html',
             'styles/fonts/{,*/}*.*'
           ]
-        }, {
+        },{
+          expand: true,
+          dot: true,
+          cwd: '.tmp/concat',
+          dest: '<%= config.dist %>',
+          src: [
+            'scripts/{,*/}*.js',
+            'styles/{,*/}*.css',
+            // 'styles/fonts/{,*/}*.*'
+          ]
+        },{
           src: 'node_modules/apache-server-configs/dist/.htaccess',
           dest: '<%= config.dist %>/.htaccess'
         }]
@@ -394,8 +404,7 @@ module.exports = function (grunt) {
     'clean:dist',
     // insert dependcines in index.htmk
     'wiredep',
-    // concatenates stuff and moves it to different files based on the stuff in
-    // index.html. i dont fully understand it.
+    // creates mysterious configurations used by rev, concat and usemin and others
     'useminPrepare',
     // copies styles and image mins
     // takes less files in less folder and turns them into tmp style folder
@@ -406,11 +415,12 @@ module.exports = function (grunt) {
     'autoprefixer',
     // there's no indication of what this does anywhere.
     'concat',
-    // minifies css. we dont want to be minifying the css for this. may be crucial in build process
+    // minifies css. approved
     'cssmin',
     // mangles js files but also copies them. not needed for this project
     // use copy instead of uglify. no need for uglify.
-    'uglify',
+    // 'uglify',
+    //
     // copies lots of things. dist is the only copy command. a general place to put your build stuff.
     'copy:dist',
     // adds confusion revision info to your files to mess with you and others

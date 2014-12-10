@@ -1,4 +1,3 @@
-(function(window) {
     "use strict";
 
     var JukeboxConstructor = function() {
@@ -259,4 +258,3 @@
     }
 
     window.Jukebox = new JukeboxConstructor();
-})(window);
