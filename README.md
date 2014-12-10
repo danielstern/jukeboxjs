@@ -1,6 +1,7 @@
 jukebox.js
 =========
-![jukebox.js logo](http://danielstern.github.io/jukeboxjs/images/logo%20notext.svg =250x)
+<!-- ![jukebox.js logo](http://danielstern.github.io/jukeboxjs/images/logo.svg) -->
+<img src="http://danielstern.github.io/jukeboxjs/images/logo%20notext.svg" width=250px alt="">
 
  <h2>Getting Started with Jukebox.js and the Web Audio API</h2>
     <h3>What is Jukebox.js?</h3>
