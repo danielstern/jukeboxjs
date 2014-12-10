@@ -1,5 +1,5 @@
 angular.module("Demo")
-    .controller("SequencerController", function($scope) {
+    .controller("SequencerController", function($scope, localStorageService) {
 
         var maxMeasures = 512;
         var maxTracks = 8;
@@ -33,8 +33,92 @@ angular.module("Demo")
 
         var activeTones = [];
 
-
         config.tones = scale.slice(0, 12);
+
+        var data = localStorageService.get("data");
+
+        // if (localStorageService.get("data")) {
+        // var data = localStorageService.get("data")
+        console.log("Load:", data);
+        if (data.activeTones) activeTones = data.activeTones;
+        if (data.config) config = data.config;
+        if (data.tracks) {
+            tracks = data.tracks
+        } else {
+
+            for (var j = 0; j < maxTracks; j++) {
+                var track = {
+                    measures: [],
+                    index: j,
+                    numMeasures: config.numMeasures,
+                    instrumentName: "Duke Straight Up",
+                };
+                tracks.push(track);
+            }
+
+        }
+        populateTracks();
+        // }
+
+
+        // if (localStorageService.get("config")) {
+        // 	config = localStorageService.get("config");
+        // }
+
+        function populateTracks() {
+            tracks.forEach(function(track, j) {
+                track.instrument = Jukebox.getSynth(JBSCHEMA.synthesizers[track.instrumentName]);
+                track.measures = [];
+                for (var i = 0; i < maxMeasures; i++) {
+                    // console.log("pop track",track);
+                    var measure = {
+                        index: i,
+                        trackIndex: j,
+                        beats: []
+                    };
+                    track.measures.push(measure);
+
+                    for (var k = 0; k < maxBeatsPerMeasure; k++) {
+                        measure.beats.push({
+                            index: k,
+                            measureIndex: k,
+                            trackIndex: j,
+                            tones: []
+                        });
+                    };
+                };
+            });
+
+            console.log("Populated tracks...", tracks);
+
+
+        }
+
+
+
+
+        populateTracks();
+
+        function save() {
+            var data = exportTracks();
+            localStorageService.set('data', data);
+            // localStorageService.set("activeTones",tones);
+            // localStorageService.set("config",config);
+        }
+
+
+
+        $scope.$watch('activeTones', function(tones) {
+            save();
+        }, true);
+
+        $scope.$watch('config', function(config) {
+            save();
+        }, true);
+
+        // $scope.$watch('tracks',function(tracks){
+        // 	console.log("tracks changed");
+        // },true)
 
         function toggleTone(trackIndex, measureIndex, beatIndex, tone) {
             var object = {
@@ -91,23 +175,22 @@ angular.module("Demo")
             var cyclical = tracks[measureObject.trackIndex].repeat;
 
             if (cyclical) {
-            	if (measureObject.index % currentMeasure === trackCurrentMeasure
-            		|| measureObject.index === trackCurrentMeasure) {
-            		return true;
-            	}
+                if (measureObject.index % currentMeasure === trackCurrentMeasure || measureObject.index === trackCurrentMeasure) {
+                    return true;
+                }
             } else {
-            	if (measureObject.index === currentMeasure) {
-            		return true;
-            	}
+                if (measureObject.index === currentMeasure) {
+                    return true;
+                }
             }
         }
 
-        function isBeatActive(beatObject,measureObject) {
+        function isBeatActive(beatObject, measureObject) {
 
             var measureActive = isMeasureActive(measureObject);
             var beatActive = beatObject.index === getCurrentBeat();
             return beatActive && measureActive;
-          
+
         }
 
 
@@ -132,14 +215,12 @@ angular.module("Demo")
             tracks.forEach(function(track, index) {
 
 
-            	var currentBeat = getCurrentBeat(position, config.beatsPerMeasure);
+                var currentBeat = getCurrentBeat(position, config.beatsPerMeasure);
                 var currentTrackMeasure = getCurrentMeasureForTrack(track, index);
 
                 var currentTones = activeTones.filter(function(tone) {
                     return tone.trackIndex === index && tone.measureIndex === currentTrackMeasure && tone.beatIndex === currentBeat;
                 });
-
-                console.log("activetones...",currentTones)
 
                 currentTones.forEach(function(tone) {
                     track.instrument.play(tone.tone.index);
@@ -177,54 +258,27 @@ angular.module("Demo")
                 activeTones: activeTones
             }
 
-            tracks.forEach(function(track){
-            	exportJSON.tracks.push({
-            		instrumentName:track.instrumentName,
-            		index:track.index,
-            		numMeasures:track.numMeasures,
-            	})
+            tracks.forEach(function(track) {
+                exportJSON.tracks.push({
+                    instrumentName: track.instrumentName,
+                    index: track.index,
+                    numMeasures: track.numMeasures,
+                })
             })
 
             console.log("export?", exportJSON);
+
+            $('#export').modal();
+            return exportJSON;
         }
 
         function changeInstrument(track, instrument) {
             track.instrument.stop();
             track.instrument = instrument;
             track.instrumentName = instrument.name;
+            save();
         }
 
-        for (var j = 0; j < maxTracks; j++) {
-            var track = {
-                measures: [],
-                index: j,
-                numMeasures: config.numMeasures,
-                instrumentName: "Duke Straight Up",
-            };
-            // $scope.$watch()
-            tracks.push(track);
-            for (var i = 0; i < maxMeasures; i++) {
-                var measure = {
-                    index: i,
-                    trackIndex: j,
-                    beats: []
-                };
-                track.measures.push(measure);
-
-                for (var k = 0; k < maxBeatsPerMeasure; k++) {
-                    measure.beats.push({
-                        index: k,
-                        measureIndex: k,
-                        trackIndex: j,
-                        tones: []
-                    });
-                };
-            };
-        }
-
-        tracks.forEach(function(track) {
-            track.instrument = Jukebox.getSynth(JBSCHEMA.synthesizers[track.instrumentName]);
-        });
 
         $scope.tracks = tracks;
         $scope.tones = tones;
@@ -237,4 +291,6 @@ angular.module("Demo")
         $scope.exportTracks = exportTracks;
         $scope.isMeasureActive = isMeasureActive;
         $scope.isBeatActive = isBeatActive;
+        $scope.activeTones = activeTones;
+        $scope.save = save;
     })
