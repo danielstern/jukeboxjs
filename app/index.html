@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>jukeboxjs</title>
+    <title>jukebox.js - audio in your browser</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
@@ -19,6 +19,21 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+
+    <meta property="og:locale" content="en_CA" />
+    <!-- <meta property="og:type" content="article" /> -->
+    <meta property="og:title" content="jukebox.js - Custom Audio with the Web Audio API" />
+    <meta property="og:description" content="Jukebox.js makes cool music with your browser. Works on mobile device." />
+    <meta property="og:url" content="http://danielstern.github.io/jukeboxjs/" />
+    <meta property="og:site_name" content="jukebox.js" />
+    <!-- <meta property="article:publisher" content="https://www.facebook.com/range.css" /> -->
+    <!-- <meta property="og:image" content="http://danielstern.ca/img.png" /> -->
+    <meta property="og:image" content="http://danielstern.github.io/jukeboxjs/images/logo notext.svg" />
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@danieljackstern"/>
+    <meta name="twitter:domain" content="danieljackstern"/>
+    <meta name="twitter:creator" content="@danieljackstern"/>
+
 </head>
 
 <body>
@@ -32,6 +47,8 @@
     <div class="container">
        
        <div ng-include="'partials/navbar.html'"></div>
+       <a href="https://twitter.com/danieljackstern" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @danieljackstern</a>
+       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         
         <div ui-view>
         </div>
@@ -57,22 +74,16 @@
     <!-- endbuild -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-    // (function(b, o, i, l, e, r) {
-    //     b.GoogleAnalyticsObject = l;
-    //     b[l] || (b[l] =
-    //         function() {
-    //             (b[l].q = b[l].q || []).push(arguments)
-    //         });
-    //     b[l].l = +new Date;
-    //     e = o.createElement(i);
-    //     r = o.getElementsByTagName(i)[0];
-    //     e.src = '//www.google-analytics.com/analytics.js';
-    //     r.parentNode.insertBefore(e, r)
-    // }(window, document, 'script', 'ga'));
-    // ga('create', 'UA-XXXXX-X');
-    // ga('send', 'pageview');
-    </script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40501021-6', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
     <!-- build:js(.) scripts/plugins.js -->
  

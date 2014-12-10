@@ -308,7 +308,6 @@ angular.module("Demo", ['ui.router','ngTouch','LocalStorageModule'])
         var synthesizers = [];
         for (key in JBSCHEMA.synthesizers) {
             var schema = JBSCHEMA.synthesizers[key];
-            console.log("Schema?",schema);
             if (schema.toneMap.name === "Keyboard" || schema.toneMap.name === "Bass") {
                 synthesizers.push(Jukebox.getSynth(schema));
             }
