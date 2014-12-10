@@ -3,7 +3,7 @@
 	[
 		{
 			"follow_symlinks": true,
-			"folder_exclude_patterns": ["dist","bower_components","node_modules",".tmp"],
+			// "folder_exclude_patterns": ["dist","bower_components","node_modules",".tmp"],
 			"path": "."
 		}
 	]

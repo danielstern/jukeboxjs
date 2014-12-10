@@ -10,9 +10,6 @@
 
 module.exports = function (grunt) {
 
-  // Time how long tasks take. Can help when optimizing build times
-  require('time-grunt')(grunt);
-
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
@@ -28,6 +25,7 @@ module.exports = function (grunt) {
     // Project settings
     config: config,
 
+    // doesnt affect grunt built all
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
@@ -90,20 +88,22 @@ module.exports = function (grunt) {
           }
         }
       },
-      test: {
-        options: {
-          open: false,
-          port: 9001,
-          middleware: function(connect) {
-            return [
-              connect.static('.tmp'),
-              connect.static('test'),
-              connect().use('/bower_components', connect.static('./bower_components')),
-              connect.static(config.app)
-            ];
-          }
-        }
-      },
+      // test: {
+      //   options: {
+      //     open: false,
+      //     port: 9001,
+      //     middleware: function(connect) {
+      //       return [
+      //         connect.static('.tmp'),
+      //         connect.static('test'),
+      //         connect().use('/bower_components', connect.static('./bower_components')),
+      //         connect.static(config.app)
+      //       ];
+      //     }
+      //   }
+      // },
+      // this makes somethign special when i call grunt serve:dist
+      // it makes the base the dist directory. dist is defined here but where is the usual directory, app, defined?
       dist: {
         options: {
           base: '<%= config.dist %>',
@@ -134,22 +134,22 @@ module.exports = function (grunt) {
         reporter: require('jshint-stylish')
       },
       all: [
-        'Gruntfile.js',
-        '<%= config.app %>/scripts/{,*/}*.js',
+        // 'Gruntfile.js',
+        '<%= config.app %>/scripts/Jukebox.js',
         '!<%= config.app %>/scripts/vendor/*',
-        'test/spec/{,*/}*.js'
+        // 'test/spec/{,*/}*.js'
       ]
     },
 
     // Mocha testing framework configuration options
-    mocha: {
-      all: {
-        options: {
-          run: true,
-          urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
-        }
-      }
-    },
+    // mocha: {
+    //   all: {
+    //     options: {
+    //       run: true,
+    //       urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
+    //     }
+    //   }
+    // },
 
     // Add vendor prefixed styles
     autoprefixer: {
@@ -170,7 +170,7 @@ module.exports = function (grunt) {
     less: {
         dev: {
             options: {
-                compress: true,
+                compress: false,
                 sourceMap: true,
                 sourceMapFilename: '.tmp/styles/main.css.map', // where file is generated and located
                 sourceMapURL: '/styles/main.css.map', // the complete url and filename put in the compiled css file
@@ -183,6 +183,7 @@ module.exports = function (grunt) {
         }
     },
 
+    // my fave
     // Automatically inject Bower components into the HTML file
     wiredep: {
       app: {
@@ -191,6 +192,7 @@ module.exports = function (grunt) {
       }
     },
 
+    // i don't really understand what this does
     // Renames files for browser caching purposes
     rev: {
       dist: {
@@ -206,6 +208,7 @@ module.exports = function (grunt) {
       }
     },
 
+    // this function does the useminifying. it seems pretty key.
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
@@ -216,6 +219,7 @@ module.exports = function (grunt) {
       html: '<%= config.app %>/index.html'
     },
 
+    // usemin part2
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
       options: {
@@ -252,28 +256,30 @@ module.exports = function (grunt) {
       }
     },
 
-    htmlmin: {
-      dist: {
-        options: {
-          collapseBooleanAttributes: true,
-          collapseWhitespace: true,
-          conservativeCollapse: true,
-          removeAttributeQuotes: true,
-          removeCommentsFromCDATA: true,
-          removeEmptyAttributes: true,
-          removeOptionalTags: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true
-        },
-        files: [{
-          expand: true,
-          cwd: '<%= config.dist %>',
-          src: '{,*/}*.html',
-          dest: '<%= config.dist %>'
-        }]
-      }
-    },
+    // html min. wwe don't want to minify the html for this project.
+    // htmlmin: {
+    //   dist: {
+    //     options: {
+    //       collapseBooleanAttributes: false,
+    //       collapseWhitespace: false,
+    //       conservativeCollapse: true,
+    //       removeAttributeQuotes: true,
+    //       removeCommentsFromCDATA: true,
+    //       removeEmptyAttributes: false,
+    //       removeOptionalTags: false,
+    //       removeRedundantAttributes: true,
+    //       useShortDoctype: false
+    //     },
+    //     files: [{
+    //       expand: true,
+    //       cwd: '<%= config.dist %>',
+    //       src: '{,*/}*.html',
+    //       dest: '<%= config.dist %>'
+    //     }]
+    //   }
+    // },
 
+    // i don't understand what this does or its relationship with the usemin blocks
     // By default, your `index.html`'s <!-- Usemin block --> will take care
     // of minification. These next options are pre-configured if you do not
     // wish to use the Usemin blocks.
@@ -289,9 +295,16 @@ module.exports = function (grunt) {
     // },
     // uglify: {
     //   dist: {
+    //     options: {
+    //       mangle: false,
+    //       compress: false,
+    //       removeWhiteSpace: false,
+    //       // beautify: true,
+    //       banner: "/*beep boop beep badooz*/"
+    //     },
     //     files: {
-    //       '<%= config.dist %>/scripts/scripts.js': [
-    //         '<%= config.dist %>/scripts/scripts.js'
+    //       '<%= config.dist %>/scripts/jukebox.js': [
+    //         '<%= config.app %>/scripts/jukebox.js'
     //       ]
     //     }
     //   }
@@ -300,6 +313,8 @@ module.exports = function (grunt) {
     //   dist: {}
     // },
 
+    // copies files. it's easy to understand, but its relationship to the other tasks,
+    // their folders, and the order in which they come is confusing and important
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
@@ -328,6 +343,7 @@ module.exports = function (grunt) {
       }
     },
 
+    // dont really understand this. this makes the build process faster but thats not necessary
     // Run some tasks in parallel to speed up build process
     concurrent: {
       server: [
@@ -354,51 +370,79 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      // empty server directory. // clean servr empties tmp
       'clean:server',
+      // inject index-html
       'wiredep',
+      // runs concurrent server? concurrent server copies styles.
       'concurrent:server',
-      'autoprefixer',
+      // takes less files in less folder and turns them into tmp style folder
       'less',
+      // adds prefixes. useless before running less. thats why my prefixes werent working!
+      'autoprefixer',
+      // starts a server in ??? location. opens chrome and live reloads it and 
+      // brings it to that server. a crtical step.
       'connect:livereload',
+      // watches for future changes
       'watch'
     ]);
   });
 
-  grunt.registerTask('server', function (target) {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run([target ? ('serve:' + target) : 'serve']);
-  });
+  // i never use server tasks no ways
+  // grunt.registerTask('server', function (target) {
+  //   grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+  //   grunt.task.run([target ? ('serve:' + target) : 'serve']);
+  // });
 
-  grunt.registerTask('test', function (target) {
-    if (target !== 'watch') {
-      grunt.task.run([
-        'clean:server',
-        'concurrent:test',
-        'autoprefixer'
-      ]);
-    }
+  // this is a convoluted block and i don't understand or like it
+  // tests my app apparently, unfortunately html5 web audio api is hella hard to test
+  // grunt.registerTask('test', function (target) {
+  //   if (target !== 'watch') {
+  //     grunt.task.run([
+  //       'clean:server',
+  //       'concurrent:test',
+  //       'autoprefixer'
+  //     ]);
+  //   }
 
-    grunt.task.run([
-      'connect:test',
-      'mocha'
-    ]);
-  });
+  //   grunt.task.run([
+  //     'connect:test',
+  //     'mocha'
+  //   ]);
+  // });
 
   grunt.registerTask('build', [
+    // delete dist folder
     'clean:dist',
+    // insert dependcines in index.htmk
     'wiredep',
+    // concatenates stuff and moves it to different files based on the stuff in
+    // index.html. i dont fully understand it.
     'useminPrepare',
+    // copies styles and image mins
+    // takes less files in less folder and turns them into tmp style folder
+    'less',
+    // minifies styles and svg
     'concurrent:dist',
+    // adds prefixes, comes after less.
     'autoprefixer',
+    // there's no indication of what this does anywhere.
     'concat',
+    // minifies css. we dont want to be minifying the css for this. may be crucial in build process
     'cssmin',
+    // mangles js files but also copies them. not needed for this project
     'uglify',
+    // copies lots of things. dist is the only copy command. a general place to put your build stuff.
     'copy:dist',
+    // adds confusion revision info to your files to mess with you and others
     'rev',
+    // related to usemin prepare. has some thing to do with use min blocks
     'usemin',
-    'htmlmin'
+    // minifies html. we are not using this because want html to be legible.
+    // 'htmlmin'
   ]);
 
+  // default task. useless.
   grunt.registerTask('default', [
     'newer:jshint',
     'test',
