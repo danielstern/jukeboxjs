@@ -85,15 +85,14 @@ angular.module("Demo")
 
         function isMeasureActive(measureObject) {
 
-            // var currentMeasure = getCurrentMeasureForTrack(track,measure.index);
-            // return currentMeasure % trackCurrentMeasure;
             var track = tracks[measureObject.trackIndex];
             var currentMeasure = getCurrentMeasure();
             var trackCurrentMeasure = getCurrentMeasureForTrack(track);
             var cyclical = tracks[measureObject.trackIndex].repeat;
+
             if (cyclical) {
-            	console.log("measure active?",measureObject.index,currentMeasure,trackCurrentMeasure)
-            	if (measureObject.index % currentMeasure === trackCurrentMeasure) {
+            	if (measureObject.index % currentMeasure === trackCurrentMeasure
+            		|| measureObject.index === trackCurrentMeasure      		) {
             		return true;
             	}
             } else {
@@ -101,7 +100,15 @@ angular.module("Demo")
             		return true;
             	}
             }
-            // debugger;
+        }
+
+        function isBeatActive(beatObject,measureObject) {
+
+            // var track = tracks[beatObject.trackIndex];
+            var measureActive = isMeasureActive(measureObject);
+            var beatActive = beatObject.index === getCurrentBeat();
+            return beatActive && measureActive;
+          
         }
 
 
@@ -149,7 +156,7 @@ angular.module("Demo")
                 var currentTrackMeasure = getCurrentMeasureForTrack(track, index);
 
                 var currentTones = activeTones.filter(function(tone) {
-                    return tone.trackIndex === index && tone.measureIndex === currentTrackMeasure && tone.beatIndex === currentBeat;
+                    return tone.trackIndex === index && tone.measureIndex === currentTrackMeasure && tone.beatIndex === currentBeat + 1;
                 });
 
                 currentTones.forEach(function(tone) {
@@ -245,5 +252,6 @@ angular.module("Demo")
         $scope.changeInstrument = changeInstrument;
         $scope.exportTracks = exportTracks;
         $scope.isMeasureActive = isMeasureActive;
+        $scope.isBeatActive = isBeatActive;
         // $scope.getMeasureRepeat = getMeasureRepeat;
     })

@@ -64,7 +64,7 @@
             <div>
                 {{$index+1}}
             </div>
-            <div class="beat" ng-class="{'playing':beat.playing}" ng-repeat='beat in measure.beats | limitTo:config.beatsPerMeasure'>
+            <div class="beat" ng-class="{'playing':isBeatActive(beat,measure)}" ng-repeat='beat in measure.beats | limitTo:config.beatsPerMeasure'>
                 <div>
                     {{$index+1}}
                 </div>

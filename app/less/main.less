@@ -6,6 +6,7 @@
 
 * {
     transition-timing-function: ease-in-out;
+    transition: 0.2s all;
 }
 .classic-background(@color) {
     background: linear-gradient(to top, @color 0%, lighten(@color, 23%) 100%);
@@ -353,13 +354,13 @@
 
     .measure {
         &.playing {
-            .classic-background(lighten(@color2,18%));
+            .classic-background(lighten(@color2,9%));
 
             .tone { 
-                .classic-background(lighten(@color2,18%));
+                .classic-background(lighten(@color2,9%));
 
                 &.active {
-                    .classic-background(lighten(@color3,18%));
+                    .classic-background(lighten(@color3,9%));
                 }
             }
         }
