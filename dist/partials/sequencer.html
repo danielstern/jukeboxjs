@@ -1,0 +1,82 @@
+<section class=sequencing-studio>
+    <h2>
+        Sequencing Studio
+        <button class="btn-lg btn btn-primary" ng-click=playSequence()>Play</button>
+    </h2>
+    <div class="row">
+        <div class="col-xs-6">
+            <input class='form-control input-lg' type="text" ng-model=config.bpm>
+            <input type="range" ng-model=config.bpm min=20 max=560>
+        </div>
+        <div class="col-xs-3">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                    {{config.beatsPerMeasure}} / 4
+                    <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li ng-repeat="bpm in [1,2,3,4,5,6,7]" role="presentation"><a href ng-click="config.beatsPerMeasure = bpm">{{bpm}} / 4</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- {{getCurrentBeat}} -->
+        </div>
+        <div class="col-xs-3">
+            <button ng-click='config.numTracks = config.numTracks-1' class="btn btn-default">
+                instrument-
+            </button>
+            <button ng-click='config.numTracks = config.numTracks+1' class="btn btn-default">
+                instrument+
+            </button>
+            <!-- <button ng-click='exportTracks()' class="btn btn-default">
+                export song
+            </button> -->
+        </div>
+    </div>
+    <div class="track" ng-repeat='track in tracks | limitTo:config.numTracks'>
+        <div class=row>
+            <div class="col-xs-6">
+
+
+                <button class="btn btn-default" ng-click='track.numMeasures=track.numMeasures+1;save();'>+measure</button>
+                <button class="btn btn-default"  ng-click='track.numMeasures=track.numMeasures-1 || 1;save();'>-measure</button>
+                <button  class="btn btn-default" ng-click='track.repeat = !track.repeat;save();'>{{track.repeat ? 'repeat on' : 'repeat off'}}</button>
+                
+            </div>  
+            <div class="col-xs-3">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                    {{track.instrument.name}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li ng-repeat="synth in synthesizers" role="presentation"><a href ng-click="changeInstrument(track,synth)">{{synth.name}}</a>
+                    </li>
+                </ul>
+            </div>
+                
+            </div>
+            <div class="col-xs-3">
+                <input type="range" ng-model=track.instrument.volume min=0 max=1 step=0.01 class='pull-right'>
+
+            </div>
+        </div>
+        <div class="measure" ng-class="{'playing':isMeasureActive(measure)}" ng-repeat='measure in track.measures | limitTo:track.numMeasures'>
+            <div>
+                {{$index+1}}
+            </div>
+            <div class="beat" ng-class="{'playing':isBeatActive(beat,measure)}" ng-repeat='beat in measure.beats | limitTo:config.beatsPerMeasure'>
+                <div>
+                    {{$index+1}}
+                </div>
+
+                <div class=tone ng-repeat='tone in config.tones' studio-tone ng-click='toggleTone(track.index,measure.index,beat.index,tone)' ng-class="{'active':getTone(track.index,measure.index,beat.index,tone)}">
+                    <div class="tone-name">
+                        {{tone.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
