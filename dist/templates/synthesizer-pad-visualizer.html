@@ -1,7 +1,0 @@
-<div class="synthesizer-pad-visualizer">
-    <h5>{{synth.name}}</h5>
-        <input type="range" min=0 max=1 step=0.01 ng-model='synth.volume'>
-    <div pad class="pad">
-        <button ng-repeat='note in notes' note=note synth=synth key class=key></button>
-    </div>
-</div>
