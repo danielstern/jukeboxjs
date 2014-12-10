@@ -60,6 +60,11 @@ Visit the Web Page for Jukebox.js (with Examples)
 <p>
     Jukebox.js is a Javascript library for playing sounds, generally music, using the Web Audio API. Jukebox.js borrows a lot from the design of actual, real life synthesizers.
 </p>
+<h3>
+<a href="http://danielstern.github.io/jukeboxjs/#/">
+Visit the Web Page for Jukebox.js (with Examples)
+</a>
+</h3>
 <p>
     Using Jukebox.js you can:
     <ul>
@@ -79,3 +84,19 @@ Visit the Web Page for Jukebox.js (with Examples)
 </p>
 
 
+<h3>
+	Jukebox.js Quick Start Guide
+</h3>
+<p>
+	All required dependencies are in the jukebox.js file in the main directory. It is not recommended you link to this file directly.
+</p>
+<h4>
+	Bower
+</h4>
+```
+bower install jukebox;
+```
+
+License
+-------
+MIT License
