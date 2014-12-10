@@ -64,12 +64,10 @@ angular.module("Demo")
         };
 
         function getCurrentBeat() {
-        	// console.log("Get current beat...",position,config.beatsPerMeasure,position % config.beatsPerMeasure)
             return position % config.beatsPerMeasure;
         }
 
         function getCurrentMeasure() {
-        	// console.log("Get current measure...",position / config.beatsPerMeasure)
             return Math.floor(position / config.beatsPerMeasure);
         }
 
@@ -94,7 +92,7 @@ angular.module("Demo")
 
             if (cyclical) {
             	if (measureObject.index % currentMeasure === trackCurrentMeasure
-            		|| measureObject.index === trackCurrentMeasure      		) {
+            		|| measureObject.index === trackCurrentMeasure) {
             		return true;
             	}
             } else {
@@ -113,27 +111,6 @@ angular.module("Demo")
         }
 
 
-
-        // function getElementsAtPosition(position, measureIndex, beatIndex, tone) {
-        //     var currentBeat = position % config.beatsPerMeasure;
-        //     var currentMeasure = Math.floor(position / config.beatsPerMeasure);
-        //     var elements = [];
-        //     tracks.forEach(function(track,index) {
-        //     	var currentTrackMeasure;
-        //      if (track.repeat) {
-        //          currentTrackMeasure = currentMeasure % track.numMeasures;
-        //      } else {
-        //      	currentTrackMeasure = currentMeasure;
-        //      }
-
-        //      track.measures.forEach(function(measure,index){
-        //      	if (index === measureIndex) {
-
-        //      	}
-        //      })
-        //     });
-        // };
-
         function getCurrentMeasureForTrack(track, index) {
             var currentTrackMeasure;
             var currentMeasure = Math.floor(position / config.beatsPerMeasure);
@@ -150,8 +127,6 @@ angular.module("Demo")
 
         function handleEnterBeat(intervalLength) {
 
-
-            // console.log("enterbeat...",position,currentBeat);
             position += 1;
 
             tracks.forEach(function(track, index) {
@@ -203,7 +178,6 @@ angular.module("Demo")
             }
 
             console.log("export?", exportJSON);
-            // $("#modal").modal();
         }
 
         function changeInstrument(track, instrument) {
@@ -255,5 +229,4 @@ angular.module("Demo")
         $scope.exportTracks = exportTracks;
         $scope.isMeasureActive = isMeasureActive;
         $scope.isBeatActive = isBeatActive;
-        // $scope.getMeasureRepeat = getMeasureRepeat;
     })
