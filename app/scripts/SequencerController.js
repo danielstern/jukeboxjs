@@ -2,7 +2,7 @@ angular.module("Demo")
     .controller("SequencerController", function($scope) {
 
         var maxMeasures = 512;
-        var maxTracks = 16;
+        var maxTracks = 8;
         var maxBeatsPerMeasure = 8;
         var timer;
         var letters = ['E', 'F', 'Gb', 'G', 'Ab', "A", "Bb", "B", "C", "Db", 'D', 'Eb'];
@@ -64,10 +64,12 @@ angular.module("Demo")
         };
 
         function getCurrentBeat() {
+        	// console.log("Get current beat...",position,config.beatsPerMeasure,position % config.beatsPerMeasure)
             return position % config.beatsPerMeasure;
         }
 
         function getCurrentMeasure() {
+        	// console.log("Get current measure...",position / config.beatsPerMeasure)
             return Math.floor(position / config.beatsPerMeasure);
         }
 
@@ -104,7 +106,6 @@ angular.module("Demo")
 
         function isBeatActive(beatObject,measureObject) {
 
-            // var track = tracks[beatObject.trackIndex];
             var measureActive = isMeasureActive(measureObject);
             var beatActive = beatObject.index === getCurrentBeat();
             return beatActive && measureActive;
@@ -149,15 +150,21 @@ angular.module("Demo")
 
         function handleEnterBeat(intervalLength) {
 
-            var currentBeat = getCurrentBeat(position, config.beatsPerMeasure);
+
+            // console.log("enterbeat...",position,currentBeat);
+            position += 1;
 
             tracks.forEach(function(track, index) {
 
+
+            	var currentBeat = getCurrentBeat(position, config.beatsPerMeasure);
                 var currentTrackMeasure = getCurrentMeasureForTrack(track, index);
 
                 var currentTones = activeTones.filter(function(tone) {
-                    return tone.trackIndex === index && tone.measureIndex === currentTrackMeasure && tone.beatIndex === currentBeat + 1;
+                    return tone.trackIndex === index && tone.measureIndex === currentTrackMeasure && tone.beatIndex === currentBeat;
                 });
+
+                console.log("activetones...",currentTones)
 
                 currentTones.forEach(function(tone) {
                     track.instrument.play(tone.tone.index);
@@ -168,16 +175,11 @@ angular.module("Demo")
                 })
             });
 
-            // activeTones.forEach(function(tone){
-
-            // })
-
-            position += 1;
         }
 
         function playSequence() {
 
-            position = 0;
+            position = -1;
             if (timer) {
                 clearInterval(timer);
                 timer = undefined;
