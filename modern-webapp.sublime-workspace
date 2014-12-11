@@ -4,16 +4,252 @@
 		"selected_items":
 		[
 			[
+				"play",
+				"playSequence"
+			],
+			[
+				"pop",
+				"populateTracks"
+			],
+			[
+				"expo",
+				"exportJSON"
+			],
+			[
+				"inst",
+				"instrumentName"
+			],
+			[
+				"num",
+				"numMeasures"
+			],
+			[
+				"exort",
+				"exportJSON"
+			],
+			[
+				"exp",
+				"exportJSON"
+			],
+			[
+				"cur",
+				"currentTones"
+			],
+			[
+				"meas",
+				"measureActive"
+			],
+			[
+				"tra",
+				"trackIndex"
+			],
+			[
+				"curr",
+				"currentMeasure"
+			],
+			[
+				"bea",
+				"beatsPerMeasure"
+			],
+			[
+				"currentT",
+				"currentTrackMeasure"
+			],
+			[
+				"inde",
+				"indexOf"
+			],
+			[
+				"get",
+				"getTone"
+			],
+			[
+				"active",
+				"activeTones"
+			],
+			[
+				"acti",
+				"activeTones"
+			],
+			[
+				"mea",
+				"measureIndex"
+			],
+			[
+				"measur",
+				"measures"
+			],
+			[
+				"ex",
+				"exportJSON"
+			],
+			[
+				"in",
+				"instrument"
+			],
+			[
+				"repe",
+				"repeatIndex"
+			],
+			[
+				"current",
+				"currentMeasure"
+			],
+			[
+				"modu",
+				"modulatorSets"
+			],
+			[
+				"cu",
+				"currentBeat"
+			],
+			[
+				"measu",
+				"measureIndex"
+			],
+			[
+				"track",
+				"trackIndex"
+			],
+			[
+				"max",
+				"maxMeasures"
+			],
+			[
+				"hih",
+				"hihatclosed"
+			],
+			[
+				"syh",
+				"synthesizers"
+			],
+			[
+				"new",
+				"newval"
+			],
+			[
+				"bass",
+				"bassBase"
+			],
+			[
+				"mod",
+				"modulator"
+			],
+			[
+				"guitar",
+				"guitarBase"
+			],
+			[
+				"osc",
+				"oscillators"
+			],
+			[
+				"stop",
+				"stopModulatorSet"
+			],
+			[
+				"time",
+				"timePressed"
+			],
+			[
+				"modula",
+				"modulatorSets"
+			],
+			[
+				"filt",
+				"filterTones"
+			],
+			[
+				"tone",
+				"toneBank"
+			],
+			[
+				"wil",
+				"willPlay"
+			],
+			[
+				"eve",
+				"envelope"
+			],
+			[
+				"toens",
+				"tonesPerOctave"
+			],
+			[
+				"syn",
+				"synthesizers"
+			],
+			[
+				"modul",
+				"modulator"
+			],
+			[
+				"sub",
+				"submodulators"
+			],
+			[
+				"osci",
+				"oscillators"
+			],
+			[
+				"modulat",
+				"modulatorSet"
+			],
+			[
+				"chang",
+				"changedTouches"
+			],
+			[
+				"will",
+				"willStop"
+			],
+			[
+				"Juke",
+				"JukeboxConstructor"
+			],
+			[
+				"mode",
+				"modulatorSets"
+			],
+			[
+				"type",
+				"typeof"
+			],
+			[
+				"phase",
+				"phaseShift"
+			],
+			[
+				"pit",
+				"pitchbend"
+			],
+			[
+				"synt",
+				"synthNotes"
+			],
+			[
+				"bit",
+				"bitcrusher"
+			],
+			[
+				"eas",
+				"easeGainNodeLinear"
+			],
+			[
+				"vol",
+				"volumeAtStep"
+			],
+			[
+				"freq",
+				"frequency"
+			],
+			[
 				"juk",
 				"jukeboxAudioContext"
 			],
 			[
 				"fre",
 				"frequency"
-			],
-			[
-				"meas",
-				"measures"
 			],
 			[
 				"c",
@@ -26,26 +262,6 @@
 			[
 				"curren",
 				"currentMeasure"
-			],
-			[
-				"current",
-				"currentBeat"
-			],
-			[
-				"bea",
-				"currentBeat"
-			],
-			[
-				"curr",
-				"currentMeasure"
-			],
-			[
-				"osc",
-				"oscillator"
-			],
-			[
-				"osci",
-				"OscillatorSet"
 			],
 			[
 				"drums",
@@ -108,16 +324,8 @@
 				"areEqual"
 			],
 			[
-				"time",
-				"timeNow"
-			],
-			[
 				"st",
 				"stateParams"
-			],
-			[
-				"get",
-				"getCurrentUser"
 			],
 			[
 				"hex",
@@ -172,43 +380,19 @@
 	"buffers":
 	[
 		{
-			"file": "app/sequencer.html",
+			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 4249,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/scripts/Drums.js",
-			"settings":
-			{
-				"buffer_size": 2767,
+				"buffer_size": 3329,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/scripts/actionTimer.js",
+			"file": "app/partials/about.html",
 			"settings":
 			{
-				"buffer_size": 1671,
+				"buffer_size": 4473,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/scripts/main.js",
-			"settings":
-			{
-				"buffer_size": 1546,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/index.html",
-			"settings":
-			{
-				"buffer_size": 7873,
-				"line_ending": "Unix"
 			}
 		}
 	],
@@ -258,37 +442,119 @@
 	[
 		"/D/Projects/jukeboxjs",
 		"/D/Projects/jukeboxjs/app",
-		"/D/Projects/jukeboxjs/app/scripts"
+		"/D/Projects/jukeboxjs/app/partials",
+		"/D/Projects/jukeboxjs/bower_components/bootstrap/dist"
 	],
 	"file_history":
 	[
-		"/D/Projects/jukeboxjs/app/scripts/jukebox.js",
-		"/D/Projects/jukeboxjs/app/scripts/sequencer.js",
-		"/D/Projects/backbase-test/Gruntfile.js",
-		"/D/Projects/jukeboxjs/app/styles/main.css",
-		"/D/Projects/jukeboxjs/app/scripts/data/mario.js",
-		"/D/Projects/jukeboxjs/app/scripts/web-audio-shim.js",
-		"/D/Projects/jukeboxjs/app/scripts/main.js",
-		"/D/Projects/jukeboxjs/app/scripts/actionTimer.js",
-		"/D/Projects/jukeboxjs/app/index.html",
-		"/D/Projects/modern-webapp/Gruntfile.js",
-		"/D/Projects/jukeboxjs/app/scripts/webAudioFilterPack.js",
-		"/D/Projects/angular-synthesizer/app/scripts/ngSynthesizer.js",
+		"/D/Projects/jukeboxjs/app/partials/about-synthesizers.html",
+		"/D/Projects/jukeboxjs/app/partials/about.html",
+		"/D/Projects/jukeboxjs/app/templates/synthesizer-keyboard-visualizer.html",
+		"/D/Projects/jukeboxjs/diagrams/synthesizer.ai",
+		"/D/Projects/jukeboxjs/app/partials/synthesizer.html",
+		"/D/Projects/jukeboxjs/app/partials/synthesizer-demos.html",
+		"/D/Projects/jukeboxjs/app/scripts/data/schema.js",
+		"/D/Projects/jukeboxjs/dist/commitFile-d8d95e",
+		"/D/Projects/jukeboxjs/app/partials/home.html",
+		"/D/Projects/jukeboxjs/.gitignore",
 		"/D/Projects/jukeboxjs/Gruntfile.js",
+		"/D/Projects/jukeboxjs/modern-webapp.sublime-project",
+		"/D/Projects/jukeboxjs/jukebox.js",
+		"/D/Projects/jukeboxjs/dist/index.html",
+		"/D/Projects/jukeboxjs/app/index.html",
+		"/D/Projects/jukeboxjs/app/scripts/jukebox.js",
+		"/D/Projects/jukeboxjs/bower.json",
+		"/D/Projects/jukeboxjs/dist/styles/vendor.css",
+		"/D/Projects/jukeboxjs/.tmp/concat/scripts/jukebox.js",
+		"/D/Projects/jukeboxjs/dist/scripts/jukebox.js",
+		"/D/Projects/jukeboxjs/.tmp/concat/scripts/main.js",
+		"/D/Projects/jukeboxjs/dist/scripts/4f3cca62.jukebox.js",
+		"/D/Projects/jukeboxjs/.tmp/concat/scripts/vendor.js",
+		"/D/Projects/jukeboxjs/dist/scripts/00a7529f.vendor.js",
+		"/D/Projects/range.css/app/index.html",
+		"/D/Projects/jukeboxjs/app/partials/sequencer.html",
+		"/D/Projects/jukeboxjs/app/scripts/main.js",
+		"/D/Projects/jukeboxjs/app/scripts/SequencerController.js",
+		"/D/Projects/jukeboxjs/app/partials/metronome.html",
+		"/D/Projects/jukeboxjs/app/angular.min.js",
+		"/D/Projects/jukeboxjs/app/less/main.less",
+		"/D/Projects/jukeboxjs/app/partials/demos.html",
+		"/D/Projects/jukeboxjs/app/scripts/Drums.js",
+		"/D/Projects/jukeboxjs/app/sequencer.html",
+		"/D/Projects/jukeboxjs/app/scripts/web-audio-shim.js",
+		"/D/Projects/jukeboxjs/app/partials/synthesizer-examples.html",
+		"/D/Projects/jukeboxjs/app/less/range.less",
+		"/D/Projects/jukeboxjs/app/partials/modulator-examples.html",
+		"/D/Projects/jukeboxjs/app/partials/tuner.html",
+		"/D/Projects/jukeboxjs/app/less/synthesizer.less",
+		"/D/Projects/jukeboxjs/app/scripts/sequencer.js",
+		"/D/Projects/jukeboxjs/app/partials/navbar.html",
+		"/D/Projects/jukeboxjs/app/partials/fullscreen-keys.html",
+		"/D/Projects/jukeboxjs/app/scripts/actionTimer.js",
+		"/D/Projects/jukeboxjs/diagrams/logo.ai",
+		"/D/Projects/jukeboxjs/app/partials/synthesizer-schema.html",
+		"/D/Projects/jukeboxjs/app/styles/main.css",
+		"/D/Projects/jukeboxjs/app/partials/modulator.html",
+		"/D/Projects/jukeboxjs/npm-debug.log",
+		"/D/Projects/jukeboxjs/app/partials/jukebox.html",
+		"/D/Projects/jukeboxjs/diagrams/synthesizer-1.svg",
+		"/D/Projects/jukeboxjs/diagrams/synthesizer-2.svg",
+		"/D/Projects/jukeboxjs/app/images/synthesizer-1.svg",
+		"/D/Projects/jukeboxjs/app/images/synthesizer-2.svg",
+		"/D/Projects/jukeboxjs/app/partials/synthesizer-documentation.html",
+		"/D/Projects/jukeboxjs/app/templates/synthesizer-pad-visualizer.html",
+		"/D/Projects/jukeboxjs/app/images/modulator-1.svg",
+		"/D/Projects/jukeboxjs/app/partials/modulator-demos.html",
+		"/D/Projects/jukeboxjs/app/partials/modulator-schema.html",
+		"/D/Projects/jukeboxjs/app/templates/modulator-visualizer.html",
+		"/D/Projects/jukeboxjs/app/partials/getting-started-example.html",
+		"/D/Projects/jukeboxjs/app/partials/examples.html",
+		"/D/Projects/magic_circles/examples/Interactivity/Interactivity.js",
+		"/D/Projects/magic_circles/examples/Gallery/Gallery.js",
+		"/D/Projects/magic_circles/examples/app.js",
+		"/D/Projects/jukeboxjs/app/templates/modulator-basic-view.html",
+		"/D/Projects/jukeboxjs/package.json",
+		"/D/Projects/jukeboxjs/app/less/vendor.less",
+		"/D/Projects/jukeboxjs/app/jquery.js",
+		"/D/Projects/squaretide/Gruntfile.js",
+		"/D/Projects/jukeboxjs/app/partials/about-modulators.html",
+		"/D/Projects/jukeboxjs/app/partials/oscillators.html",
+		"/D/Projects/jukeboxjs/app/partials/modulator-documentation.html",
+		"/D/Projects/jukeboxjs/app/partials/all.html",
+		"/D/Projects/jukeboxjs/app/styles/custom-bootstrap.css",
+		"/D/Projects/jukeboxjs/app/partials/about-jukebox.html",
+		"/D/Projects/danielstern2014/app/index.html",
+		"/D/Projects/danielstern2014/app/partials/main.html",
+		"/D/Projects/modern-webapp/app/scripts/main.js",
+		"/D/Projects/jukeboxjs/app/partials/synthesizer-example-usage.html",
+		"/D/Projects/jukeboxjs/app/partials/jukebox-documentation.html",
+		"/D/Projects/huh/app/index.html",
+		"/D/Projects/jukeboxjs/app/scripts/transforms.js",
+		"/D/Projects/jukeboxjs/Procfile",
+		"/D/Projects/jukeboxjs/test/index.html",
+		"/D/Projects/angular-synthesizer/Gruntfile.js",
+		"/D/Projects/angular-synthesizer/app/index.html",
+		"/D/Projects/angular-synthesizer/app/styles/main.css",
+		"/D/Projects/angular-synthesizer/webkitAudioContext-MonkeyPatch/webkitAudioContextMonkeyPatch.js",
+		"/D/Projects/jukeboxjs/app/scripts/webAudioFilterPack.js",
+		"/D/Projects/jukeboxjs/app/scripts/schema.js",
+		"/D/backup/st/index.html",
+		"/D/Projects/jukeboxjs/app/scripts/frequencies.js",
+		"/D/Projects/backbase-test/Gruntfile.js",
+		"/D/Projects/jukeboxjs/app/scripts/data/mario.js",
+		"/D/Projects/modern-webapp/Gruntfile.js",
+		"/D/Projects/angular-synthesizer/app/scripts/ngSynthesizer.js",
 		"/D/Projects/angular-synthesizer/app/scripts/mario",
 		"/D/Projects/angular-synthesizer/app/scripts/main.js",
 		"/D/Projects/angular-synthesizer/app/scripts/oscillator.js",
 		"/D/Projects/jukeboxjs/.bowerrc",
-		"/D/Projects/jukeboxjs/modern-webapp.sublime-project",
 		"/D/Projects/jukeboxjs/app/typescript/main.ts",
 		"/D/Projects/angular-synthesizer/app/scripts/webaudioshim.js",
 		"/D/Projects/maple-a-month/app/styles/main.css",
 		"/D/Projects/maple-a-month/app/index.html",
-		"/D/Projects/danielstern2014/app/partials/main.html",
 		"/D/Projects/danielstern2014/app/typescript/main.ts",
 		"/D/Projects/danielstern2014/app/partials/project.html",
 		"/D/Projects/danielstern2014/app/partials/portfolio/magic-circles.html",
-		"/D/Projects/danielstern2014/app/index.html",
 		"/D/Projects/danielstern2014/app/partials/portfolio.html",
 		"/D/Projects/danielstern2014/app/less/main.less",
 		"/D/Projects/danielstern2014/app/partials/portfolio/cyo.html",
@@ -308,88 +574,7 @@
 		"/D/Projects/danielstern2014/package.json",
 		"/D/Projects/flashforum/server/api/post/post.model.js",
 		"/D/Projects/flashforum/server/api/thread/thread.model.js",
-		"/D/Projects/flashforum/client/bower_components/angular-socket-io/socket.spec.js",
-		"/D/Projects/flashforum/client/bower_components/angular-socket-io/socket.js",
-		"/D/Projects/flashforum/server/config/socketio.js",
-		"/D/Projects/flashforum/server/config/seed.js",
-		"/D/Projects/flashforum/client/components/socket/socket.service.js",
-		"/D/Projects/flashforum/server/api/user/user.model.js",
-		"/D/Projects/flashforum/client/bower_components/jquery/src/core/ready.js",
-		"/D/Projects/flashforum/client/robots.txt",
-		"/D/Projects/flashforum/client/bower_components/es5-shim/CHANGES",
-		"/D/Projects/flashforum/client/bower_components/bootstrap/grunt/bs-glyphicons-data-generator.js",
-		"/D/Projects/flashforum/client/bower_components/jquery/src/core/parseHTML.js",
-		"/D/Projects/flashforum/client/bower_components/jquery/src/manipulation/var/rcheckableType.js",
-		"/D/Projects/flashforum/bower.json",
-		"/D/Projects/flashforum/client/app/main/main.jade",
-		"/D/Projects/flashforum/client/app/main/main.controller.js",
-		"/D/Projects/flashforum/client/app/thread/thread.js",
-		"/D/Projects/flashforum/client/app/thread/thread.less",
-		"/D/Projects/flashforum/server/api/thing/thing.model.js",
-		"/D/Projects/flashforum/client/app/main/main.js",
-		"/D/Projects/flashforum/client/bower_components/angular-bootstrap/ui-bootstrap.js",
-		"/D/Projects/flashforum/flashforum.sublime-project",
-		"/D/Projects/flashforum/client/app/account/signup/signup.jade",
-		"/D/Projects/flashforum/client/app/thread/thread.controller.js",
-		"/D/Projects/flashforum/client/app/thread/thread.jade",
-		"/D/Projects/flashforum/server/api/post/post.controller.js",
-		"/D/Projects/flashforum/e2e/main/main.po.js",
-		"/D/Projects/flashforum/server/app.js",
-		"/D/Projects/flashforum/package.json",
-		"/D/Projects/flashforum/server/api/post/index.js",
-		"/D/Projects/flashforum/server/api/thread/index.js",
-		"/D/Projects/flashforum/server/api/thread/thread.controller.js",
-		"/D/Projects/flashforum/server/api/thread/thread.socket.js",
-		"/D/Projects/flashforum/.tmp/app/main/main.html",
-		"/D/Projects/flashforum/client/app/account/account.js",
-		"/D/Projects/flashforum/client/app/app.js",
-		"/D/Projects/flashforum/client/app/account/login/login.controller.js",
-		"/D/Projects/flashforum/server/api/thing/thing.controller.js",
-		"/D/Projects/flashforum/client/bower_components/bootstrap/less/theme.less",
-		"/D/Projects/flashforum/server/config/environment/test.js",
-		"/D/Projects/flashforum/client/components/navbar/navbar.controller.js",
-		"/D/Projects/flashforum/client/components/navbar/navbar.jade",
-		"/D/Projects/flashforum/.tmp/components/navbar/navbar.html",
-		"/D/Projects/flashforum/npm-debug.log",
-		"/D/Projects/flashforum/server/config/environment/production.js",
-		"/D/Projects/flashforum/.gitignore",
-		"/D/Projects/flashforum/x",
-		"/D/Projects/flashforum/Gruntfile.js",
-		"/D/Projects/flashforum/dist/server/config/express.js",
-		"/D/Projects/flashforum/server/config/express.js",
-		"/D/Projects/flashforum/protractor.conf.js",
-		"/D/Projects/flashforum/Procfile",
-		"/D/Projects/flashforum/server/config/environment/index.js",
-		"/D/Projects/flashforum/server/config/environment/development.js",
-		"/D/Projects/flashforum/client/bower_components/jquery/src/css/hiddenVisibleSelectors.js",
-		"/D/Projects/flashforum/server/config/local.env.js",
-		"/D/Projects/flashforum/client/components/mongoose-error/mongoose-error.directive.js",
-		"/D/Projects/flashforum/node_modules/jade/node_modules/monocle/monocle.js",
-		"/D/Projects/flashforum/node_modules/composable-middleware/lib/middleware-common-object.js",
-		"/D/Projects/flashforum/node_modules/express/Makefile",
-		"/D/Projects/range.css/app/scripts/colorPicker.js",
-		"/D/Projects/range.css/styles/main.css.map",
-		"/D/Projects/range.css/app/index.html",
-		"/D/Projects/range.css/app/partials/docs.html",
-		"/D/Projects/range.css/app/less/main.less",
-		"/D/Projects/range.css/app/styles/main.css",
-		"/D/Projects/range.css/app/partials/demo.html",
-		"/D/Projects/range.css/modern-webapp.sublime-project",
-		"/D/Projects/modern-webapp/app/index.html",
-		"/D/Projects/modern-webapp/app/partials/color-picker.html",
-		"/D/Projects/modern-webapp/app/partials/main.html",
-		"/D/Projects/modern-webapp/app/less/range.less",
-		"/D/Projects/modern-webapp/app/less/main.less",
-		"/D/Projects/modern-webapp/app/typescript/main.ts",
-		"/D/Projects/modern-webapp/node_modules/grunt-contrib-clean/docs/clean-options.md",
-		"/D/Projects/modern-webapp/node_modules/grunt-autoprefixer/CHANGELOG",
-		"/D/Projects/modern-webapp/app/typescript/colorPicker.ts",
-		"/D/Projects/modern-webapp/node_modules/grunt-svgmin/node_modules/svgo/plugins/removeEmptyAttrs.js",
-		"/D/Projects/modern-webapp/README.md",
-		"/D/Projects/modern-webapp/app/scripts/colorPicker.js",
-		"/D/Projects/modern-webapp/bower_components/bootstrap/fonts/glyphicons-halflings-regular.svg",
-		"/D/Projects/modern-webapp/.editorconfig",
-		"/D/Projects/modern-webapp/node_modules/grunt-contrib-uglify/node_modules/uglify-js/lib/mozilla-ast.js"
+		"/D/Projects/flashforum/client/bower_components/angular-socket-io/socket.spec.js"
 	],
 	"find":
 	{
@@ -405,9 +590,125 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"concat]",
+			"concat",
+			"templates",
+			"images",
+			"jukebo",
+			"copy",
+			"cssmin",
+			"concat",
+			"concurrent",
+			"concurr",
+			"clean",
+			"uglify",
+			"magem",
+			"img",
+			"$wat",
+			"position =",
+			"position",
+			"measures",
+			"track",
+			"tones",
+			"foreac",
+			"+",
+			".foreac",
+			"logo",
+			"background",
+			"input",
+			"inut",
+			"synthesizers",
+			"num",
+			"numMea",
+			"letters",
+			"baseFre",
+			"playing",
+			".playing",
+			"bpm",
+			"div",
+			"getmod",
+			"lg",
+			"metro",
+			"ng-class",
+			"ng-class\n",
+			"visualiz",
+			"timein",
+			"full",
+			"ulator = new jukebox.getModulator(JBSCHEMA.modula",
+			"`",
+			"'",
+			"keys",
+			"B",
+			"new",
+			"date",
+			"demo",
+			"24px",
+			"frequency.val",
+			"now",
+			"text.currentTime;",
+			"now",
+			") ",
+			"pad",
+			"175px",
+			"jquery",
+			"less",
+			"button",
+			"-->",
+			"context.currentTime",
+			"parseFloat",
+			"sine",
+			"envelope",
+			"synthesizer-example",
+			"volume",
+			"</",
+			"ng-include",
+			"ng-op",
+			"modulator dem",
+			"modulator de",
+			"todo",
+			"table",
+			"conso",
+			"options",
+			"omaha",
+			"pitchbend",
+			"pitch",
+			"frequency",
+			"exports",
+			"modulator =",
+			"modulator",
+			"modulators",
+			"modulators.",
+			"exports",
+			"new modu",
+			"easeGainNodeLinear",
+			"new Modula",
+			"port",
+			".ogg",
+			"setting",
+			"grigs",
+			"=frequency",
+			"angular",
+			"bootstrap",
+			"                ",
+			"\n          <h4>Example</h4>\n          <h5>\n            Create a synthesizer\n          </h5>\n<pre><code>var jukebox = new Jukebox();\nvar moog = new jukebox.getSynth();</pre></code>\n\n          <h5>\n            Play a tone\n            <button class=\"btn btn-primary\" onclick=playNote(440,300)>\n              Try it!\n            </button>\n          </h5>\n<pre><code>moog.tone(440,300);</pre></code>\n\n          <h5>\n            Play a harmony\n            <button class=\"btn btn-primary\" onclick=playNote(392,300);playNote(262,300);>\n              Try it!\n            </button>\n          </h5>\n<pre><code>var moog = new jukebox.Synth();\nvar korg = new jukebox.Synth();\nmoog.tone(392,300);\nkorg.tone(262,300);\n</pre></code>\n\n          <h5>\n            Play a sequence\n            <button class=\"btn btn-primary\" onclick=theme()>\n              Try it!\n            </button>\n          </h5>\n<pre><code>moog.sequence([{\n  frequency:294,\n  duration:500,\n},{\n  frequency:330,\n  duration:500,\n},{\n  frequency:262,\n  duration:500,\n},{\n  frequency:131,\n  duration:500,\n},{\n  frequency:196,\n  duration:500,\n}]);\n</pre></code>\n",
+			"setSeque",
+			"timer",
+			"start",
+			"value",
+			".gain.value",
+			"type",
+			"square",
+			"updateO",
+			"Oscill",
+			"Osci",
+			"_target",
+			"lasttime",
+			"timer.",
+			"setInter",
+			"time",
 			"new Oscillator",
 			"jukebox",
 			"jukebox.oscillator",
@@ -419,118 +720,7 @@
 			"$rootScope",
 			"timeout",
 			".connec",
-			"gainNo",
-			":Sy",
-			"=",
-			";",
-			"duration",
-			"ms",
-			"delay",
-			":",
-			"=",
-			"length",
-			":beep",
-			"HEAD",
-			">>>",
-			"how to use maple",
-			"substitutin",
-			" f",
-			" f ",
-			". f",
-			"sociak",
-			"sm",
-			"maple a mon",
-			"get a bottle",
-			"fb-l",
-			"fb",
-			"social",
-			".png",
-			"portfolioSearch",
-			".move-animation",
-			".animate-repeat",
-			"ng-ap",
-			".5s",
-			"cop",
-			".ts",
-			"schema",
-			"crypto",
-			"'socket'",
-			"\"socket\"",
-			"socket",
-			"syncUpdates",
-			"socket",
-			"thread",
-			"      console.log(\"Got posts...\",posts);\nthread",
-			"$where",
-			"addThread",
-			"new thread",
-			"stateProvi",
-			"state",
-			"ui.rou",
-			"ui-rou",
-			"awesomethin",
-			"favicon",
-			"favico",
-			"app.us",
-			"9000",
-			".port",
-			"config.port",
-			".listen(",
-			".listen",
-			"server/app.",
-			"mongodb://",
-			"mongodb:",
-			"firefox an",
-			"invisi",
-			"thum",
-			"no thum",
-			"thumb-only",
-			"col-",
-			"\n    ",
-			"col-",
-			"thumb-onl",
-			"track-o",
-			">\n",
-			"animate",
-			"	\n",
-			"tricks",
-			"copy",
-			"thumb r",
-			"thumb-ro",
-			"\n		",
-			"thumb-rou",
-			"typesc",
-			"consol",
-			";\n",
-			"\n			",
-			"thumb",
-			"lessVals",
-			"thumb-color",
-			"`",
-			"color2",
-			"color1",
-			"names",
-			"less",
-			"genn",
-			"track-radius",
-			"track",
-			"range-roundness",
-			"margin",
-			"border",
-			"1px",
-			"col",
-			"px",
-			"300",
-			"color4",
-			"width: 16px;",
-			"height: 16px;",
-			"50%",
-			"goldenrod",
-			"#ddd",
-			"goldenrod",
-			"#ccc",
-			"#ddd",
-			"input[type=range]"
+			"gainNo"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -538,6 +728,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"now",
+			"modulator",
+			"schema",
+			"targetAudioNode",
+			"timeAtLastInterval",
 			"jukebox.getModulator",
 			"Oscillator",
 			"state",
@@ -583,29 +778,27 @@
 			[
 				{
 					"buffer": 0,
-					"file": "app/sequencer.html",
+					"file": "README.md",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4249,
+						"buffer_size": 3329,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2310,
-								2310
+								2443,
+								2443
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 180.0,
+						"translation.y": 54.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -613,119 +806,29 @@
 				},
 				{
 					"buffer": 1,
-					"file": "app/scripts/Drums.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2767,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								174,
-								160
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/scripts/actionTimer.js",
+					"file": "app/partials/about.html",
 					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 1671,
+						"buffer_size": 4473,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1671,
+								0,
 								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/scripts/main.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1546,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								117,
-								117
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7873,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7768,
-								7768
-							]
-						],
-						"settings":
-						{
 							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3618.0,
+						"translation.y": 486.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -736,7 +839,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 26.0
+		"height": 34.0
 	},
 	"input":
 	{
@@ -781,32 +884,352 @@
 		"selected_items":
 		[
 			[
-				"main.js",
-				"app\\scripts\\main.js"
+				"abouts",
+				"app\\partials\\about-synthesizers.html"
 			],
 			[
-				"main",
-				"app\\scripts\\main.js"
+				"hom",
+				"app\\partials\\home.html"
 			],
 			[
-				".css",
-				"app\\styles\\main.css"
+				"about",
+				"app\\partials\\about.html"
+			],
+			[
+				"grunt",
+				"Gruntfile.js"
 			],
 			[
 				"inde",
 				"app\\index.html"
 			],
 			[
-				"main.le",
-				"app\\less\\main.less"
+				"gru",
+				"Gruntfile.js"
+			],
+			[
+				"ind",
+				"app\\index.html"
+			],
+			[
+				"ho",
+				"app\\partials\\home.html"
+			],
+			[
+				"main.j",
+				"app\\scripts\\main.js"
+			],
+			[
+				"seq",
+				"app\\partials\\sequencer.html"
+			],
+			[
+				"juke",
+				"app\\scripts\\jukebox.js"
+			],
+			[
+				"range",
+				"app\\less\\range.less"
+			],
+			[
+				"main.js",
+				"app\\scripts\\main.js"
+			],
+			[
+				"synthde",
+				"app\\partials\\synthesizer-demos.html"
+			],
+			[
+				"metr",
+				"app\\partials\\metronome.html"
+			],
+			[
+				"sche",
+				"app\\scripts\\data\\schema.js"
+			],
+			[
+				"met",
+				"app\\partials\\metronome.html"
+			],
+			[
+				"less",
+				"app\\less\\synthesizer.less"
+			],
+			[
+				"na",
+				"app\\partials\\navbar.html"
+			],
+			[
+				"synde",
+				"app\\partials\\synthesizer-demos.html"
+			],
+			[
+				"jukeb",
+				"app\\scripts\\jukebox.js"
+			],
+			[
+				"sc",
+				"app\\scripts\\data\\schema.js"
+			],
+			[
+				"navb",
+				"app\\partials\\navbar.html"
+			],
+			[
+				"tun",
+				"app\\partials\\tuner.html"
+			],
+			[
+				"sch",
+				"app\\scripts\\data\\schema.js"
+			],
+			[
+				"synthed",
+				"app\\partials\\synthesizer-demos.html"
+			],
+			[
+				"nav",
+				"app\\partials\\navbar.html"
+			],
+			[
+				"syntb",
+				"app\\templates\\synthesizer-keyboard-visualizer.html"
 			],
 			[
 				"main.",
-				"app\\partials\\main.html"
+				"app\\scripts\\main.js"
+			],
+			[
+				"ju",
+				"app\\scripts\\jukebox.js"
+			],
+			[
+				"schem",
+				"app\\scripts\\data\\schema.js"
+			],
+			[
+				"main",
+				"app\\scripts\\main.js"
+			],
+			[
+				"action",
+				"app\\scripts\\actionTimer.js"
+			],
+			[
+				"actio",
+				"app\\scripts\\actionTimer.js"
+			],
+			[
+				"jukebox",
+				"app\\scripts\\jukebox.js"
+			],
+			[
+				"synthesizer",
+				"app\\templates\\synthesizer-keyboard-visualizer.html"
+			],
+			[
+				"synthes",
+				"app\\partials\\synthesizer.html"
+			],
+			[
+				"modulator",
+				"app\\partials\\modulator.html"
+			],
+			[
+				"gett",
+				"app\\partials\\getting-started-example.html"
+			],
+			[
+				"exam",
+				"app\\partials\\synthesizer-examples.html"
+			],
+			[
+				"exampl",
+				"app\\partials\\modulator-examples.html"
+			],
+			[
+				"exa",
+				"app\\partials\\modulator-examples.html"
+			],
+			[
+				"synthesizer-de",
+				"app\\partials\\synthesizer-demos.html"
+			],
+			[
+				"modulator-de",
+				"app\\partials\\modulator-demos.html"
+			],
+			[
+				"modulator-b",
+				"app\\templates\\modulator-basic-view.html"
+			],
+			[
+				"pad-v",
+				"app\\templates\\synthesizer-pad-visualizer.html"
+			],
+			[
+				"synthesizerk",
+				"app\\templates\\synthesizer-keyboard-visualizer.html"
+			],
+			[
+				"synth-ke",
+				"app\\templates\\synthesizer-keyboard-visualizer.html"
+			],
+			[
+				"synthe",
+				"app\\partials\\synthesizer-demos.html"
+			],
+			[
+				"synthesizerd",
+				"app\\partials\\synthesizer-demos.html"
+			],
+			[
+				"dem",
+				"app\\partials\\demos.html"
 			],
 			[
 				"rang",
-				"app\\partials\\portfolio\\range-css.html"
+				"app\\less\\range.less"
+			],
+			[
+				"ven",
+				"app\\less\\vendor.less"
+			],
+			[
+				"vend",
+				"app\\less\\vendor.less"
+			],
+			[
+				"synthesizer-ex",
+				"app\\partials\\synthesizer-examples.html"
+			],
+			[
+				"examp",
+				"app\\partials\\examples.html"
+			],
+			[
+				"actionti",
+				"app\\scripts\\actionTimer.js"
+			],
+			[
+				"abou",
+				"app\\partials\\about.html"
+			],
+			[
+				"modulator-d",
+				"app\\partials\\modulator-demos.html"
+			],
+			[
+				"index",
+				"app\\index.html"
+			],
+			[
+				"grun",
+				"Gruntfile.js"
+			],
+			[
+				"gr",
+				"Gruntfile.js"
+			],
+			[
+				"main.cs",
+				"app\\styles\\main.css"
+			],
+			[
+				"visu",
+				"app\\templates\\synthesizer-keyboard-visualizer.html"
+			],
+			[
+				"synthesizer-d",
+				"app\\partials\\synthesizer-demos.html"
+			],
+			[
+				"mod",
+				"app\\partials\\modulator-examples.html"
+			],
+			[
+				"osci",
+				"app\\partials\\oscillators.html"
+			],
+			[
+				"about-m",
+				"app\\partials\\about-modulators.html"
+			],
+			[
+				"absynthes",
+				"app\\partials\\about-synthesizers.html"
+			],
+			[
+				"scha",
+				"app\\scripts\\data\\schema.js"
+			],
+			[
+				"jukebo",
+				"app\\scripts\\jukebox.js"
+			],
+			[
+				"modula",
+				"app\\templates\\modulator-visualizer.html"
+			],
+			[
+				"oscil",
+				"app\\templates\\modulator-basic-view.html"
+			],
+			[
+				"main.css",
+				"app\\styles\\main.css"
+			],
+			[
+				"home",
+				"app\\partials\\home.html"
+			],
+			[
+				"docu",
+				"app\\partials\\documentation.html"
+			],
+			[
+				"modul",
+				"app\\partials\\modulator.html"
+			],
+			[
+				"schema",
+				"app\\scripts\\data\\schema.js"
+			],
+			[
+				"tra",
+				"app\\scripts\\transforms.js"
+			],
+			[
+				"scham",
+				"app\\scripts\\data\\schema.js"
+			],
+			[
+				"gruntf",
+				"Gruntfile.js"
+			],
+			[
+				"timer",
+				"app\\scripts\\actionTimer.js"
+			],
+			[
+				"bo",
+				"bower.json"
+			],
+			[
+				"dr",
+				"app\\scripts\\Drums.js"
+			],
+			[
+				"filter",
+				"app\\scripts\\webAudioFilterPack.js"
+			],
+			[
+				".css",
+				"app\\styles\\main.css"
+			],
+			[
+				"main.le",
+				"app\\less\\main.less"
 			],
 			[
 				"angular-a",
@@ -837,10 +1260,6 @@
 				"app\\partials\\portfolio.html"
 			],
 			[
-				"grunt",
-				"Gruntfile.js"
-			],
-			[
 				"mai",
 				"app\\partials\\main.html"
 			],
@@ -855,10 +1274,6 @@
 			[
 				"proj",
 				"app\\partials\\project-image-feature.html"
-			],
-			[
-				"ind",
-				"app\\index.html"
 			],
 			[
 				"packa",
@@ -905,20 +1320,12 @@
 				"server\\api\\thing\\thing.model.js"
 			],
 			[
-				"nav",
-				"client\\components\\navbar\\navbar.jade"
-			],
-			[
 				"navn",
 				"client\\components\\navbar\\navbar.controller.js"
 			],
 			[
 				"environm",
 				"server\\config\\environment\\production.js"
-			],
-			[
-				"grun",
-				"Gruntfile.js"
 			],
 			[
 				"colo",
