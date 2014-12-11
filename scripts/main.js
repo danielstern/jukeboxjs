@@ -519,10 +519,13 @@ angular.module("Demo")
         // if (localStorageService.get("data")) {
         // var data = localStorageService.get("data")
         console.log("Load:", data);
+        if (data) {
+
         if (data.activeTones) activeTones = data.activeTones;
         if (data.config) config = data.config;
         if (data.tracks) {
             tracks = data.tracks
+            } 
         } else {
 
             for (var j = 0; j < maxTracks; j++) {
