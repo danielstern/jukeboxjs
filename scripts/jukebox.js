@@ -547,7 +547,7 @@ JBSCHEMA.synthesizers = synthesizers;
     "use strict";
 
     var JukeboxConstructor = function() {
-        var audioContext = webkitAudioContext ? new webkitAudioContext() : null;
+        var audioContext = window.webkitAudioContext ? new webkitAudioContext() : null;
         var timer = new MusicTimer(audioContext);
 
         window.addEventListener("touchstart", function twiddle() { // to unlock the audio context on mobile devices
